@@ -39,11 +39,9 @@ class LibraryUser(AbstractUser):
 
 class AdminUser(AbstractUser):
     
-    @abstractmethod
     def logout(self):
         pass
 
-    @abstractmethod
     def login(self):
         pass
 
