@@ -1,7 +1,8 @@
 class Console:
-    def __init__(self):
+    def __init__(self, utility):
         self.states = {}
         self.current_state = None
+        self.utility = utility
 
     def add_state(self, name, state):
         self.states[name] = state
@@ -23,4 +24,4 @@ class Console:
 
     def input(self):
         input_result = self.current_state.input()
-        return self.current_state.handle_input(input_result)
+        return self.current_state.handle_input(input_result, self.utility)
