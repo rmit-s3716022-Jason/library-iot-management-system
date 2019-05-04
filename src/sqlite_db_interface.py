@@ -69,7 +69,12 @@ class SqliteDbInterface():
 
         for row in self.read_values(query_string):
             [user_id, name, username, password_hash, salt, google_id] = row
-            yield User(user_id, name, username, password_hash, salt, google_id)
+            yield User(user_id=user_id,
+                       name=name,
+                       username=username,
+                       password_hash=password_hash,
+                       salt=salt,
+                       google_id=google_id)
 
     def find_user(self, username):
         """
@@ -90,12 +95,11 @@ class SqliteDbInterface():
             cursor = connection.cursor()
             for row in cursor.execute(query_string, (username, )):
                 [user_id, name, username, password_hash, salt, google_id] = row
-                return User(
-                    user_id,
-                    name,
-                    username,
-                    password_hash,
-                    salt,
-                    google_id)
+                return User(user_id=user_id,
+                            name=name,
+                            username=username,
+                            password_hash=password_hash,
+                            salt=salt,
+                            google_id=google_id)
 
         return None
