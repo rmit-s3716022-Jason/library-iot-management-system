@@ -10,15 +10,20 @@ except ImportError:
     flags = None
 
 SCOPES = "https://www.googleapis.com/auth/calendar"
-store = file.Storage('storage.json')
-creds = store.get()
 
-if not creds or creds.invalid:
-    flow = client.flow_from_clientsecrets('client_secret.json', SCOPES)
-    creds = tools.run_flow(flow, store, flags) \
-        if flags else tools.run(flow, store)
 
-CAL = build('calendar', 'v3', http=creds.authorize(Http()))
+class GoogleCalender():
+    
+    def create_event(self):
+        store = file.Storage('storage.json')
+        creds = store.get()
 
-GMT_OFF = '-07:00'
-EVENT = {}
+        if not creds or creds.invalid:
+            flow = client.flow_from_clientsecrets('client_secret.json', SCOPES)
+            creds = tools.run_flow(flow, store, flags) \
+                if flags else tools.run(flow, store)
+
+        CAL = build('calendar', 'v3', http=creds.authorize(Http()))
+        EVENT = {}
+        e = CAL.events().insert(calendarId='primary', sendNotification=True, body=EVENT).execute()
+        
