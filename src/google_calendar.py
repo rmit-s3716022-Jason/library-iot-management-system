@@ -17,7 +17,7 @@ class GoogleCalender():
     def __init__(self):
         pass
     
-    def create_event(self, user, b_title, r_date):
+    def add_event(self, user, b_title, r_date, gc_id):
         store = file.Storage('storage.json')
         creds = store.get()
 
@@ -30,3 +30,5 @@ class GoogleCalender():
         EVENT = {}
         e = CAL.events().insert(calendarId='primary', sendNotification=True, body=EVENT).execute()
         
+    def remove_event(self, user, gc_id):
+        pass

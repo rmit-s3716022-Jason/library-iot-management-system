@@ -9,15 +9,16 @@ class Borrowing():
         self.borrow_id = borrow_id
         self.user_id = user_id
         self.status = Enum('borrowed', 'returned')
-        self.b_title = b_title
-        self.r_date = self.get_ret_date()
+        self.b_date = b_date
+        self.r_date = r_date
         self.gc_id = gc_id
 
     def return_book(self):
-        pass
+        gc = GoogleCalender()
+        gc.remove_event(self.user_id, self.gc_id)
 
     ''' can be placed somewhere else'''
-    def get_ret_date(self):
+    def calc_ret_date(self):
         cur_date = datetime.datetime.strptime(datetime.date(datetime.now()),"%d-%m-%Y")
         bor_limit = datetime.timedelta(weeks=4)
         return cur_date + bor_limit
