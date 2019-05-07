@@ -6,11 +6,16 @@ class User:
         self.user_id = kwargs.get('user_id', 0)
         self.name = kwargs.get('name', '')
         self.username = kwargs.get('username', '')
-        self.password_hash = kwargs.get('password_hash', '')
+        if 'password_hash' in kwargs:
+            self.password_hash = kwargs['password_hash']
+        elif 'password' in kwargs:
+            self.password_hash = self.hash_password(kwargs['password'])
         self.salt = kwargs.get('salt', '')
-        self.google_id = kwargs.get('google_id', '')
+
+    def hash_password(self, password):
+        return hashlib.sha256(
+            (password + self.salt).encode()).hexdigest()
 
     def check_password(self, password):
-        hashed_password = hashlib.sha256(
-            (password + self.salt).encode()).hexdigest()
+        hashed_password = self.hash_password(password)
         return hashed_password == self.password_hash
