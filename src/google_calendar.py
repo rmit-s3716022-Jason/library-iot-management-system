@@ -13,8 +13,11 @@ SCOPES = "https://www.googleapis.com/auth/calendar"
 
 
 class GoogleCalender():
+
+    def __init__(self):
+        pass
     
-    def create_event(self):
+    def create_event(self, user, b_title, r_date):
         store = file.Storage('storage.json')
         creds = store.get()
 
