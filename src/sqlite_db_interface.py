@@ -11,9 +11,27 @@ class SqliteDbInterface():
     The SQLite db interface implementation
     """
 
-    def __init__(self, db='reception.db', data_table='user'):
+    def __init__(self, db='reception.db', data_table='users'):
         self.db_name = db
         self.data_table_name = data_table
+
+        self.create_db()
+
+    def create_db(self):
+        """
+        Creates the database table if it doesn't exist
+        """
+        connection = sqlite3.connect(self.db_name)
+        with connection:
+            cursor = connection.cursor()
+            cursor.execute(
+                """CREATE TABLE if not exists {0}(
+                id INTEGER AUTOINCREMENT PRIMARY KEY,
+                name TEXT NOT NULL,
+                username TEXT NOT NULL UNIQUE,
+                password TEXT NOT NULL,
+                salt TEXT NOT NULL
+                )""".format(self.data_table_name))
 
     def write_values(self, query_string, values):
         """
@@ -31,7 +49,7 @@ class SqliteDbInterface():
         Writes a user to the table
         """
         query_string = "INSERT INTO {0} \
-                        values((?), (?), (?), (?), (?))".format(
+                        values((?), (?), (?), (?))".format(
                             self.data_table_name)
 
         self.write_values(query_string,
@@ -39,8 +57,7 @@ class SqliteDbInterface():
                               user.name,
                               user.username,
                               user.password_hash,
-                              user.salt,
-                              user.google_id
+                              user.salt
                           ))
 
     def read_values(self, query_string):
@@ -62,19 +79,17 @@ class SqliteDbInterface():
                        name,
                        username,
                        password_hash,
-                       salt,
-                       google_id
+                       salt
                        FROM {0}
                        """.format(self.data_table_name)
 
         for row in self.read_values(query_string):
-            [user_id, name, username, password_hash, salt, google_id] = row
+            [user_id, name, username, password_hash, salt] = row
             yield User(user_id=user_id,
                        name=name,
                        username=username,
                        password_hash=password_hash,
-                       salt=salt,
-                       google_id=google_id)
+                       salt=salt)
 
     def find_user(self, username):
         """
@@ -85,8 +100,7 @@ class SqliteDbInterface():
                        name,
                        username,
                        password_hash,
-                       salt,
-                       google_id
+                       salt
                        FROM {0}
                        WHERE username=(?)
                        """.format(self.data_table_name)
@@ -94,12 +108,11 @@ class SqliteDbInterface():
         with sqlite3.connect(self.db_name) as connection:
             cursor = connection.cursor()
             for row in cursor.execute(query_string, (username, )):
-                [user_id, name, username, password_hash, salt, google_id] = row
+                [user_id, name, username, password_hash, salt] = row
                 return User(user_id=user_id,
                             name=name,
                             username=username,
                             password_hash=password_hash,
-                            salt=salt,
-                            google_id=google_id)
+                            salt=salt)
 
         return None
