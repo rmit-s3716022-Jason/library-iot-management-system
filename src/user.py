@@ -1,4 +1,6 @@
 import hashlib
+import random
+import string
 
 
 class User:
@@ -10,7 +12,8 @@ class User:
             self.password_hash = kwargs['password_hash']
         elif 'password' in kwargs:
             self.password_hash = self.hash_password(kwargs['password'])
-        self.salt = kwargs.get('salt', '')
+        self.salt = kwargs.get('salt', ''.join(
+            random.choice(string.ascii_letters) for i in range(3)))
 
     def hash_password(self, password):
         return hashlib.sha256(
