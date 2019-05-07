@@ -17,8 +17,7 @@ class Reception:
                                  "Enter menu option: ")
         main_menu.add_handler("2", lambda x: "register")
 
-        register = RegistrationConsoleState("Registration",
-                                            "Please enter your details")
+        register = RegistrationConsoleState()
         register.add_handler('done', lambda x: 'main')
 
         self.console.add_state('main', main_menu)
