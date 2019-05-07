@@ -1,4 +1,4 @@
-from .google_calendar import GoogleCalender
+from .google_calendar import GoogleCalendar
 from .book import Book
 from datetime import datetime
 from enum import Enum
@@ -14,8 +14,8 @@ class Borrowing():
         self.gc_id = gc_id
 
     def return_book(self):
-        gc = GoogleCalender()
-        gc.remove_event(self.user_id, self.gc_id)
+        gc = GoogleCalendar() 
+        gc.remove_event()
 
     ''' can be placed somewhere else'''
     def calc_ret_date(self):
