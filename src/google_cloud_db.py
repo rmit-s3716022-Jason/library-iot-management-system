@@ -9,9 +9,9 @@ class GoogleCloudDB:
     this is the google database class
     """
 
-    HOST="35.201.13.126",
-    USER="root",
-    PASSWORD="qoqOiGdo6yD2bmJv",
+    HOST="localhost",
+    USER="user",
+    PASSWORD="123",
     DATABASE="dbcloud"
     
 
