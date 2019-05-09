@@ -17,11 +17,13 @@ CLIENT_SECRET_FILE = ""
 APPLICATION_NAME = ""
 BOR_LIMIT = datetime.timedelta(weeks=4)
 
+
 class GoogleCalendar():
 
     # constructor to login to google calendar?
     def __init__(self):
-        self.start_time = datetime.datetime.strptime(datetime.date(datetime.now()),"%d-%m-%Y")
+        self.start_time = datetime.datetime.strptime(
+            datetime.date(datetime.now()), "%d-%m-%Y")
         self.end_time = self.start_time + BOR_LIMIT
 
     """
@@ -49,8 +51,9 @@ class GoogleCalendar():
                 credentials = tools.run_flow(flow, store, flags)
             print('Storing credentials to ' + credential_path)
         return credentials
-        
-    def add_event(self, title, b_title, r_date, hidden = False):
+
+    def add_event(self, id, title, b_title, r_date, hidden=False):
+        id = 
         creds = self.get_credentials()
         http = creds.authorize(Http())
         service = build.build('calendar', 'v3', http=http)
@@ -58,6 +61,7 @@ class GoogleCalendar():
         # Unsure what else to add in
         # https://developers.google.com/calendar/create-events
         body = {
+            'id': id,
             'summary': title,
             'description': b_title,
             'start': {'dateTime': self.start_time, 'timeZone': 'Australia/Melbourne'}, 
