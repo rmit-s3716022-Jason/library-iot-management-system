@@ -38,6 +38,24 @@ class SearchConsoleState(ConsoleState, GoogleCloudDB):
                 print("\nAuthor", i.author)
                 self.complete == True
                 return 'done'
+            elif input_string == i.author:
+                print("An excellent read!\nBookID: ", i.book_id)
+                print("\nTitle", i.title)
+                print("\nAuthor", i.author)
+                self.complete == True
+                return 'done'
+            elif input_string == i.book_id:
+                print("An excellent read!\nBookID: ", i.book_id)
+                print("\nTitle", i.title)
+                print("\nAuthor", i.author)
+                self.complete == True
+                return 'done'
+            elif input_string == i.published_date:
+                print("An excellent read!\nBookID: ", i.book_id)
+                print("\nTitle", i.title)
+                print("\nAuthor", i.author)
+                self.complete == True
+                return 'done'
             else:
                 print("Cannot find the book you're looking, please check your spelling")
                 return 'done'      
