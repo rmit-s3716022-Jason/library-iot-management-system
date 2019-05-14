@@ -26,7 +26,7 @@ class SqliteDbInterface():
             cursor = connection.cursor()
             cursor.execute(
                 """CREATE TABLE if not exists {0}(
-                id INTEGER AUTOINCREMENT PRIMARY KEY,
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL,
                 username TEXT NOT NULL UNIQUE,
                 password TEXT NOT NULL,
@@ -48,7 +48,7 @@ class SqliteDbInterface():
         """
         Writes a user to the table
         """
-        query_string = "INSERT INTO {0} \
+        query_string = "INSERT INTO {0} (name, username, password, salt)\
                         values((?), (?), (?), (?))".format(
                             self.data_table_name)
 
@@ -78,7 +78,7 @@ class SqliteDbInterface():
                        id,
                        name,
                        username,
-                       password_hash,
+                       password,
                        salt
                        FROM {0}
                        """.format(self.data_table_name)
@@ -99,7 +99,7 @@ class SqliteDbInterface():
                        id,
                        name,
                        username,
-                       password_hash,
+                       password,
                        salt
                        FROM {0}
                        WHERE username=(?)

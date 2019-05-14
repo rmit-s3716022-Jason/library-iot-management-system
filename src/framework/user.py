@@ -7,12 +7,12 @@ class User:
         self.user_id = kwargs.get('user_id', 0)
         self.name = kwargs.get('name', '')
         self.username = kwargs.get('username', '')
+        self.salt = kwargs.get('salt', ''.join(
+            random.choice(string.ascii_letters) for i in range(3)))
         if 'password_hash' in kwargs:
             self.password_hash = kwargs['password_hash']
         elif 'password' in kwargs:
             self.password_hash = self.hash_password(kwargs['password'])
-        self.salt = kwargs.get('salt', ''.join(
-            random.choice(string.ascii_letters) for i in range(3)))
 
     def hash_password(self, password):
         return hashlib.sha256(

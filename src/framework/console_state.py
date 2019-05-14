@@ -5,8 +5,10 @@ class ConsoleState:
         self.input_handlers = {}
 
     def handle_input(self, input_string, context):
-        if input in self.input_handlers:
-            return self.input_handlers[input_string](context)
+        if input_string in self.input_handlers:
+            result = self.input_handlers[input_string](context)
+            return result
+        return ''
 
     def add_handler(self, input_string, handler):
         self.input_handlers[input_string] = handler
