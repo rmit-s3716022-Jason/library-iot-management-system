@@ -7,7 +7,7 @@ class Console:
     def add_state(self, name, state):
         self.states[name] = state
 
-    def set_start_state(self, name):
+    def set_current_state(self, name):
         self.current_state = self.states[name]
 
     def run(self):
