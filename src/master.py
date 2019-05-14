@@ -32,7 +32,7 @@ class Master:
 
         self.console.add_state('waiting', waiting_state)
         self.console.add_state('main', main_menu)
-        self.console.set_current_state('main')
+        self.console.set_current_state('waiting')
 
     def run(self):
         self.console.run()

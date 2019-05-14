@@ -29,7 +29,7 @@ class Reception:
         self.console.add_state('main', main_menu)
         self.console.add_state('register', register)
         self.console.add_state('waiting', waiting_state)
-        self.console.set_current_state('waiting')
+        self.console.set_current_state('main')
 
     def run(self):
         self.console.run()
