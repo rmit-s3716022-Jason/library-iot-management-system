@@ -1,9 +1,11 @@
-from .console import Console
-from .console_state import ConsoleState
-from .registration_console_state import RegistrationConsoleState
-from .sqlite_db_interface import SqliteDbInterface
-from .utility import Utility
-from .udp_socket import UdpSocket
+from framework.console import Console
+from framework.console_state import ConsoleState
+from framework.reception.registration_console_state import (
+    RegistrationConsoleState
+)
+from framework.sqlite_db_interface import SqliteDbInterface
+from framework.utility import Utility
+from framework.udp_socket import UdpSocket
 
 
 class Reception:
@@ -22,6 +24,7 @@ class Reception:
 
         self.console.add_state('main', main_menu)
         self.console.add_state('register', register)
+        self.console.set_start_state('main')
 
     def run(self):
         self.console.run()

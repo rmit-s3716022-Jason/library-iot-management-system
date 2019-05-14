@@ -1,5 +1,5 @@
-from .console_state import ConsoleState
-from .user import User
+from ..console_state import ConsoleState
+from ..user import User
 
 
 class RegistrationConsoleState(ConsoleState):
@@ -13,13 +13,13 @@ class RegistrationConsoleState(ConsoleState):
 
     def handle_input(self, input_string, context):
         if self.current == len(self.attributes):
-            user = User(name=self.attributes[0],
-                        username=self.attributes[1],
-                        password=self.attributes[2])
+            user = User(name=self.values[0],
+                        username=self.values[1],
+                        password=self.values[2])
             context.db.write_user(user)
-            return 'done'
+            return 'main'
 
-        self.values[self.current] = input_string
+        self.values.append(input_string)
         if self.attributes[self.current] == 'Username':
             if context.db.find_user(input_string) is not None:
                 print("Username already taken")
@@ -40,5 +40,3 @@ class RegistrationConsoleState(ConsoleState):
             return input('Please enter your ' +
                          self.attributes[self.current] + ':')
         return ''
-
-
