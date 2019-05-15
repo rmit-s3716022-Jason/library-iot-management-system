@@ -29,7 +29,7 @@ class GoogleCloudDB:
 
         try:
             with self.connection as cursor:
-                sql = "SELECT * FROM 'book'"
+                sql = "SELECT * FROM Book"
                 cursor.execute(sql)
                 (book_id, title, author, published_date) = cursor.fetchone()
                 b1 = Book(book_id, title, author, published_date)
