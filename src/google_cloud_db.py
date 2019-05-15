@@ -19,7 +19,6 @@ class GoogleCloudDB:
         self.connection = MySQLdb.connect(GoogleCloudDB.HOST, GoogleCloudDB.USER,
             GoogleCloudDB.PASSWORD, GoogleCloudDB.DATABASE)
         self.books = []
-        self.users = []
         self.borrowings = []
 
     def load_users(self):
@@ -58,27 +57,27 @@ class GoogleCloudDB:
         finally:
             self.connection.close()
 
-    def load_borrowings(self):
+    def searh_books(self, input):
         """
-        loads table book borrowing from google cloud database
-        and places it into a list
         """
 
         try:
             with self.connection as cursor:
-                sql = "SELECT * FROM 'BookBorrowed'"
-                cursor.execute(sql)
-                """
-                #(book_borrowed_id, lms_user_id, book_id, status, borrowed_date, returned_date) = cursor.fetchone()
-                #bo1 = Borrowing(book_borrowed_id, lms_user_id, book_id, status, borrowed_date, returned_date)
-                #self.books.insert(bo1)
-                """
-
-        finally:
-            self.connection.close()
-
-    def save_borrowing(self):
+                if input == 1:
+                    sql = "SELECT * FROM Book WHERE BookID LIKE %s"
+                    cursor.execute(sql, input)
+                elif input == 2:
+                    sql = "SELECT * FROM Book WHERE Title LIKE %s"
+                    cursor.execute(sql, input)
+                elif input == 3: 
+                    sql = "SELECT * FROM Book WHERE Author LIKE %s"
+                    cursor.execute(sql, input)
+                elif input == 4:
+                    sql = "SELECT * FROM Book WHERE DatePublished LIKE %s"
+                    cursor.execute(sql, input)
+    
+    def load_borrowings(self):
         pass
 
-    def save_user(self):
+    def save_borrowing(self):
         pass
