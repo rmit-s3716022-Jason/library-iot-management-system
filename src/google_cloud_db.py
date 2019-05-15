@@ -66,16 +66,23 @@ class GoogleCloudDB:
                 if input == 1:
                     sql = "SELECT * FROM Book WHERE BookID LIKE %s"
                     cursor.execute(sql, input)
+                    (book_id, title, author, published_date) = cursor.fetchall
                 elif input == 2:
                     sql = "SELECT * FROM Book WHERE Title LIKE %s"
                     cursor.execute(sql, input)
+                    (book_id, title, author, published_date) = cursor.fetchall
                 elif input == 3: 
                     sql = "SELECT * FROM Book WHERE Author LIKE %s"
                     cursor.execute(sql, input)
+                    (book_id, title, author, published_date) = cursor.fetchall
                 elif input == 4:
                     sql = "SELECT * FROM Book WHERE DatePublished LIKE %s"
                     cursor.execute(sql, input)
-    
+                    (book_id, title, author, published_date) = cursor.fetchall
+                else:
+                    print("Something has gone terribly wrong")
+                    
+
     def load_borrowings(self):
         pass
 
