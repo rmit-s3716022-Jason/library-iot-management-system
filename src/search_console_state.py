@@ -3,7 +3,7 @@ from .book import Book
 from .google_cloud_db import GoogleCloudDB
 
 
-class SearchConsoleState(ConsoleState, GoogleCloudDB):
+class SearchConsoleState(ConsoleState):
     """
     this class is represents the console state while user is searching for a book 
     """
@@ -21,44 +21,30 @@ class SearchConsoleState(ConsoleState, GoogleCloudDB):
         
         super().__init__('', '')
         
-        self.complete = False
+        self.complete = False 
+
 
     def handle_input(self, input_string, context):
         """
-        instance of GoogleCloudDB class is created and stored in db
-        db is used to access data from the google cloud database
-        a list is then generated from the function and looped through
+        checks if boolean complete has been triggered and sends a message
+        default message is sent regardless
         """
-        db = GoogleCloudDB()
-        db.load_books()
-        for i in GoogleCloudDB.books:
-            if input_string == i.title:
-                print("An excellent read!\nBookID: ", i.book_id)
-                print("\nTitle", i.title)
-                print("\nAuthor", i.author)
-                self.complete == True
-                return 'done'
-            elif input_string == i.author:
-                print("An excellent read!\nBookID: ", i.book_id)
-                print("\nTitle", i.title)
-                print("\nAuthor", i.author)
-                self.complete == True
-                return 'done'
-            elif input_string == i.book_id:
-                print("An excellent read!\nBookID: ", i.book_id)
-                print("\nTitle", i.title)
-                print("\nAuthor", i.author)
-                self.complete == True
-                return 'done'
-            elif input_string == i.published_date:
-                print("An excellent read!\nBookID: ", i.book_id)
-                print("\nTitle", i.title)
-                print("\nAuthor", i.author)
-                self.complete == True
-                return 'done'
-            else:
-                print("Cannot find the book you're looking, please check your spelling")
-                return 'done'      
+        if self.complete == True:
+            print("You've completed a search")
+        
+        if input_string == "1":
+            input_insert = 1
+        elif input_string == "2":
+             input_insert = 2
+        elif input_string == "3":
+             input_insert = 3
+        elif input_string == "4":
+            input_insert = 4
+        else:
+             print("Incorrect input")
+        GoogleCloudDB.search_books(input_insert)
+        return 'done' 
+             
 
     def display(self):
         """
@@ -67,7 +53,9 @@ class SearchConsoleState(ConsoleState, GoogleCloudDB):
         """
         if self.complete == True:
             print("You've completed a search")
-        print("Search our database using either the name of the author or the title of the book!")
+
+        input("Press 1 to search by BookID, press 2 search by Title, Press 3 search by Author, Press 4 search by Date")
+
 
     def input(self):
         """
@@ -75,5 +63,6 @@ class SearchConsoleState(ConsoleState, GoogleCloudDB):
         """
         if self.complete == False:
             return input("Title/Name: ")
+        
         
         
