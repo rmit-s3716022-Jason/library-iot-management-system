@@ -21,25 +21,6 @@ class GoogleCloudDB:
         self.books = []
         self.borrowings = []
 
-    def load_users(self):
-        """
-        loads table books from google cloud database
-        and places it into a list
-        """
-
-        try:
-            with self.connection as cursor:
-                sql = "SELECT * FROM 'LmsUser'"
-                cursor.execute(sql)
-                """
-                (user_id, name, username) = cursor.fetchone()
-                u1 = User(user_id, name, username)
-                self.books.insert(u1)
-                """
-
-        finally:
-            self.connection.close()
-
     def load_books(self):
         """
         loads table books from google cloud database
@@ -82,7 +63,6 @@ class GoogleCloudDB:
                 else:
                     print("Something has gone terribly wrong")
                     
-
     def load_borrowings(self):
         pass
 
