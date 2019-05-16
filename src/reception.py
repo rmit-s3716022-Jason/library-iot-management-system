@@ -3,6 +3,9 @@ from framework.console_state import ConsoleState
 from framework.reception.registration_console_state import (
     RegistrationConsoleState
 )
+from framework.reception.login_console_state import (
+    LoginConsoleState
+)
 from framework.waiting_console_state import WaitingConsoleState
 from framework.sqlite_db_interface import SqliteDbInterface
 from framework.utility import Utility
@@ -19,14 +22,19 @@ class Reception:
 
         main_menu = ConsoleState("\n1. Login\n2. Register\n\n",
                                  "Enter menu option: ")
+        main_menu.add_handler("1", lambda x: "login")
         main_menu.add_handler("2", lambda x: "register")
 
         register = RegistrationConsoleState()
         register.add_handler('done', lambda x: 'main')
 
+        login = LoginConsoleState()
+        login.add_handler('done', lambda x: 'main')
+
         waiting_state = WaitingConsoleState('Waiting for logout')
 
         self.console.add_state('main', main_menu)
+        self.console.add_state('login', login)
         self.console.add_state('register', register)
         self.console.add_state('waiting', waiting_state)
         self.console.set_current_state('main')
