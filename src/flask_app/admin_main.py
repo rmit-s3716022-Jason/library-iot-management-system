@@ -8,7 +8,7 @@ from admin_site import site
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-HOST = "localhosy"
+HOST = "localhost"
 USER = "root"
 PASSWORD = "amended"
 DATABASE = "dbcloud"
