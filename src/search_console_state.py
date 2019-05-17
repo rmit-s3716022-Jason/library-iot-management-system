@@ -14,7 +14,6 @@ class SearchConsoleState(ConsoleState):
          
         :type display_text: string
         :param display_text: message that is display to the user
-
         :type prompt_text: string
         :param prompt_text: message this prompts the user to an action
         """
@@ -42,7 +41,7 @@ class SearchConsoleState(ConsoleState):
             input_insert = 4
         else:
              print("Incorrect input")
-        GoogleCloudDB.search_books(input_insert)
+        TestData.search_(1, "1")
         return 'done' 
              
 
