@@ -1,9 +1,11 @@
+import datetime
+
 class Book:
     """
     This class will be used to contain the parameters of a book
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, book_id, title, author, published_date):
         """
         Creates the variables associated with this class
 
@@ -16,11 +18,11 @@ class Book:
         :type author: string
         :param author: the name of the person who wrote the book
 
-        :type isbn: string
-        :param isbn: international book identifier
+        :type published_date: string
+        :param published_date: date book was published
         """
 
-        self.book_id = kwargs.get('book_id', 0)
-        self.title = kwargs.get('title', '')
-        self.author = kwargs.get('author', '')
-        self.isbn = kwargs.get('isbn', '')
+        self.book_id = book_id
+        self.title = title
+        self.author = author
+        self.published_date = datetime.date()

@@ -23,14 +23,14 @@ class UdpSocket:
 
         self.buffer_size = 2048
 
-    def send_message(self, type, data):
+    def send_message(self, type, data, ip, port):
         """
         Sends a message to the external system
         Encodes as json
         """
         message_dict = {'type': type, 'data': data}
         message = json.dumps(message_dict)
-        self.socket.sendto(message.encode(), self.address)
+        self.socket.sendto(message.encode(), (ip, port))
 
     def wait_for_message(self):
         """
@@ -43,7 +43,7 @@ class UdpSocket:
         if message['type'] in self.handlers:
             self.handlers[message['type']](message['data'])
 
-    def add_handlers(self, message_type, handler):
+    def add_handler(self, message_type, handler):
         self.handlers[message_type] = handler
 
     def close(self):
