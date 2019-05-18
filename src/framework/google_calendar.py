@@ -1,33 +1,18 @@
 from __future__ import print_function
 from googleapiclient.discovery import build
-from oauth2client import client, tools
+from oauth2client import client, file, tools
 from oauth2client.file import Storage
 from httplib2 import Http
 from datetime import datetime
 import os
 
-try: 
-    import argparse
-    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-except ImportError:
-    flags = None
-
-SCOPES = "https://www.googleapis.com/auth/calendar.readonly"
-CLIENT_SECRET_FILE = ""
-APPLICATION_NAME = ""
-BOR_LIMIT = datetime.timedelta(weeks=4)
-
 class GoogleCalendar():
 
-    # constructor to login to google calendar?
     def __init__(self):
-        self.start_time = datetime.datetime.strptime(datetime.date(datetime.now()),"%d-%m-%Y")
-        self.end_time = self.start_time + BOR_LIMIT
         self.creds = self.get_credentials()
         self.http = self.creds.authorize(Http())
         self.service = build.build('calendar', 'v3', http=self.http)
-            
-
+        
     """
     Gets valid user credentials from storage.
     
@@ -38,36 +23,64 @@ class GoogleCalendar():
         Credentials, the obtained credential.
     """ 
     def get_credentials(self):
-        home_dir = os.path.expanduser('~')
-        credential_dir = os.path.join(home_dir, '.credentials')
-        if not os.path.exists(credential_dir):
-            os.makedirs(credential_dir)
-        credential_path = os.path.join(credential_dir, 'calendar-python-quickstart.json')
-    
-        store = Storage(credential_path)
-        credentials = store.get()
-        if not credentials or credentials.invalid:
-            flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
-            flow.user_agent = APPLICATION_NAME
-            if flags:
-                credentials = tools.run_flow(flow, store, flags)
-            print('Storing credentials to ' + credential_path)
-        return credentials
-        
-    def add_event(self, title, b_title, r_date, hidden = False):
-        # Unsure what else to add in
-        # https://developers.google.com/calendar/create-events
-        body = {
-            'summary': title,
-            'description': b_title,
-            'start': {'dateTime': self.start_time, 'timeZone': 'Australia/Melbourne'}, 
-            'end': {'dateTime': self.end_time, 'timeZone': 'Australia/Melbourne'},
+        scopes = "https://www.googleapis.com/auth/calendar"
+        store = file.Storage("token.json")
+        creds = store.get()
+        if(not creds or creds.invalid):
+            flow = client.flow_from_clientsecrets("credentials.json", scopes)
+            creds = tools.run_flow(flow, store)
+
+        return creds
+   
+    '''
+    Calculates start/end time of event, and creates google calendar event with the given data
+    identifying the user and the book being borroweed.
+
+    Returns:
+        The generated event id to be stored in the database
+
+    '''
+    def add_event(self, user_id, username, b_title):
+        start_time = datetime.datetime.strptime(datetime.date(datetime.now()),"%d-%m-%Y")
+        end_time = start_time + datetime.timedelta(weeks=4)
+
+        event = {
+            'summary': "New Borrowing Event",
+            'description': user_id + " borrowing: " + b_title,
+            'start': {'dateTime': start_time, 'timeZone': 'Australia/Melbourne'}, 
+            'end': {'dateTime': end_time, 'timeZone': 'Australia/Melbourne'},
+            "attendees": [{"id": user_id, "username": username}],
         }
-        event = self.service.events().insert(calendarId='primary',body=body).execute()
+        event = self.service.events().insert(calendarId='primary',body=event).execute()
+        print("Event created: {}".format(event.get("htmlLink")))
         return event.get('id')
         
+    '''
+    Removes requested event with given event identifier. 
+    If successfully delete() returns a empty response body.
+    '''
     def remove_event(self, e_id, c_id='primary'):
-        self.service.events().delete(calendarId=c_id, eventId=e_id).execute()
+        event = self.service.events().delete(calendarId=c_id, eventId=e_id).execute()
+        if not event: 
+            print("Event: {}".format(event['description'] + " deleted."))
+        else:
+            print("No such event.")
+
+    '''
+    Prints the start and description of the next 10 (unless specified otherwise) events on the user"s calendar.
+    '''
+    def displayEvents(self, m_results=10):
+        now = datetime.utcnow().isoformat() + "Z" # "Z" indicates UTC time.
+        print("Getting upcoming events.")
+        events_result = self.service.events().list(calendarId = "primary", timeMin = now,
+            maxResults = m_results, singleEvents = True, orderBy = "startTime").execute()
+        events = events_result.get("items", [])
+
+        if(not events):
+            print("No upcoming events found.")
+        for event in events:
+            start = event["start"].get("dateTime", event["start"].get("date"))
+            print(start, event["description"])
         
 
     

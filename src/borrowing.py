@@ -14,7 +14,10 @@ class Borrowing():
         self.gc_id = gc_id
 
     def return_book(self):
-        pass
+        gc = GoogleCalendar() 
+        # will need to determine what the generated event id is to pass
+        # if we set it ourselves it could be easier to
+        gc.remove_event('eventId') 
 
     ''' can be placed somewhere else'''
     def calc_ret_date(self):
