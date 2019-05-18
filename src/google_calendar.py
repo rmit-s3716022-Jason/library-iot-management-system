@@ -23,6 +23,10 @@ class GoogleCalendar():
     def __init__(self):
         self.start_time = datetime.datetime.strptime(datetime.date(datetime.now()),"%d-%m-%Y")
         self.end_time = self.start_time + BOR_LIMIT
+        self.creds = self.get_credentials()
+        self.http = self.creds.authorize(Http())
+        self.service = build.build('calendar', 'v3', http=self.http)
+            
 
     """
     Gets valid user credentials from storage.
@@ -51,10 +55,6 @@ class GoogleCalendar():
         return credentials
         
     def add_event(self, title, b_title, r_date, hidden = False):
-        creds = self.get_credentials()
-        http = creds.authorize(Http())
-        service = build.build('calendar', 'v3', http=http)
-
         # Unsure what else to add in
         # https://developers.google.com/calendar/create-events
         body = {
@@ -63,9 +63,11 @@ class GoogleCalendar():
             'start': {'dateTime': self.start_time, 'timeZone': 'Australia/Melbourne'}, 
             'end': {'dateTime': self.end_time, 'timeZone': 'Australia/Melbourne'},
         }
-        service.events().insert(calendarID='primary',body=body).execute()
-
-    def remove_event(self):
-        pass
+        event = self.service.events().insert(calendarId='primary',body=body).execute()
+        return event.get('id')
+        
+    def remove_event(self, e_id, c_id='primary'):
+        self.service.events().delete(calendarId=c_id, eventId=e_id).execute()
+        
 
     
