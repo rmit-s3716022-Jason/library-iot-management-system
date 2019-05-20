@@ -1,84 +1,48 @@
 from .book import Book
-from .user import User
-#from .borrowing import Borrowing
-import MySQLdb 
+import MySQLdb
 
 
-class GoogleCloudDB:
+class GoogleCloudDb():
     """
-    this is the google database class
     """
-
-    HOST="localhost",
-    USER="user",
-    PASSWORD="123",
-    DATABASE="dbcloud"
-    
+    HOST='35.201.13.126'
+    USER='root'
+    PASSWORD='qoqOiGdo6yD2bmJv'
+    DATABASE='dbcloud'
 
     def __init__(self):
-        self.connection = MySQLdb.connect(GoogleCloudDB.HOST, GoogleCloudDB.USER,
-            GoogleCloudDB.PASSWORD, GoogleCloudDB.DATABASE)
-        self.books = []
-        self.users = []
-        self.borrowings = []
+        self.connection = MySQLdb.connect(GoogleCloudDb.HOST, GoogleCloudDb.USER, GoogleCloudDb.PASSWORD, GoogleCloudDb.DATABASE)
 
-    def load_users(self):
-        """
-        loads table books from google cloud database
-        and places it into a list
-        """
+    #def connect_(self):
+     #   try:
+      #       cursor = self.connection.cursor()
+       # finally:
+        #    self.connection.close()
 
+    def search_(self, input, query):
         try:
-            with self.connection as cursor:
-                sql = "SELECT * FROM 'LmsUser'"
-                cursor.execute(sql)
-                """
-                (user_id, name, username) = cursor.fetchone()
-                u1 = User(user_id, name, username)
-                self.books.insert(u1)
-                """
-
+            cursor = self.connection.cursor()
+            if input == 1:
+                sql = "SELECT * FROM Book WHERE BookID = %s"
+                for row in cursor.execute(sql, (query, )):
+                    row = row.fetchone()
+                    return Book(book_id=row[0],title=row[1],author=row[2],published_date=row[3])
+            elif input == 2:
+                sql = "SELECT * FROM Book WHERE Title LIKE %s"
+                for row in cursor.execute(sql, (query, )):
+                    row = row.fetchone()
+                    return Book(book_id=row[0],title=row[1],author=row[2],published_date=row[3])
+            elif input == 3: 
+                sql = "SELECT * FROM Book WHERE Author LIKE %s"
+                for row in cursor.execute(sql, (query, )):
+                    row = row.fetchone()
+                    return Book(book_id=row[0],title=row[1],author=row[2],published_date=row[3])
+            elif input == 4:
+                sql = "SELECT * FROM Book WHERE DatePublished LIKE %s"
+                for row in cursor.execute(sql, (query, )):
+                    row = row.fetchone()
+                    return Book(book_id=row[0],title=row[1],author=row[2],published_date=row[3])
+            else:
+                print("Something has gone terribly wrong")
         finally:
             self.connection.close()
-
-    def load_books(self):
-        """
-        loads table books from google cloud database
-        and places it into a list
-        """
-
-        try:
-            with self.connection as cursor:
-                sql = "SELECT * FROM 'book'"
-                cursor.execute(sql)
-                (book_id, title, author, published_date) = cursor.fetchone()
-                b1 = Book(book_id, title, author, published_date)
-                self.books.insert(b1)
-
-        finally:
-            self.connection.close()
-
-    def load_borrowings(self):
-        """
-        loads table book borrowing from google cloud database
-        and places it into a list
-        """
-
-        try:
-            with self.connection as cursor:
-                sql = "SELECT * FROM 'BookBorrowed'"
-                cursor.execute(sql)
-                """
-                #(book_borrowed_id, lms_user_id, book_id, status, borrowed_date, returned_date) = cursor.fetchone()
-                #bo1 = Borrowing(book_borrowed_id, lms_user_id, book_id, status, borrowed_date, returned_date)
-                #self.books.insert(bo1)
-                """
-
-        finally:
-            self.connection.close()
-
-    def save_borrowing(self):
-        pass
-
-    def save_user(self):
-        pass
