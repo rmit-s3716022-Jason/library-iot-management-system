@@ -1,7 +1,6 @@
 from .book import Book
 import MySQLdb
 
-
 class GoogleCloudDb():
     """
     """
@@ -23,25 +22,20 @@ class GoogleCloudDb():
         try:
             cursor = self.connection.cursor()
             if input == 1:
-                sql = "SELECT * FROM Book WHERE BookID = %s"
-                for row in cursor.execute(sql, (query, )):
-                    row = row.fetchone()
-                    return Book(book_id=row[0],title=row[1],author=row[2],published_date=row[3])
+                cursor.execute("SELECT * FROM Book WHERE BookID = %(query)s")
+                row = cursor.fetchall()
+                return Book(book_id=row[0],title=row[1],author=row[2],published_date=row[3])
             elif input == 2:
-                sql = "SELECT * FROM Book WHERE Title LIKE %s"
-                for row in cursor.execute(sql, (query, )):
-                    row = row.fetchone()
-                    return Book(book_id=row[0],title=row[1],author=row[2],published_date=row[3])
+                cursor.execute("SELECT * FROM Book WHERE Title LIKE %(query)s")
+                return Book(book_id=row[0],title=row[1],author=row[2],published_date=row[3])
             elif input == 3: 
-                sql = "SELECT * FROM Book WHERE Author LIKE %s"
-                for row in cursor.execute(sql, (query, )):
-                    row = row.fetchone()
-                    return Book(book_id=row[0],title=row[1],author=row[2],published_date=row[3])
+                cursor.execute("SELECT * FROM Book WHERE Author LIKE %(query)s")
+                row = cursor.fetchall()
+                return Book(book_id=row[0],title=row[1],author=row[2],published_date=row[3])
             elif input == 4:
-                sql = "SELECT * FROM Book WHERE DatePublished LIKE %s"
-                for row in cursor.execute(sql, (query, )):
-                    row = row.fetchone()
-                    return Book(book_id=row[0],title=row[1],author=row[2],published_date=row[3])
+                cursor.exceute("SELECT * FROM Book WHERE DatePublished LIKE %(query)s")
+                row = cursor.fetchall()
+                return Book(book_id=row[0],title=row[1],author=row[2],published_date=row[3])
             else:
                 print("Something has gone terribly wrong")
         finally:
