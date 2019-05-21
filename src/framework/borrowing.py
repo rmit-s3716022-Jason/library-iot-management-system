@@ -5,20 +5,17 @@ from enum import Enum
 
 class Borrowing():
 
-    def __init__(self, borrow_id, user_id, status, b_date, r_date, b_title, gc_id):
-        self.borrow_id = borrow_id
+    def __init__(self, book_id, book_title, user_id, bor_id, gc_event_id, status, bor_date, ret_date):
+        self.book_id = book_id
+        self.book_title = book_title
         self.user_id = user_id
+        self.bor_id = bor_id
+        self.gc_event_id = gc_event_id
         self.status = Enum('borrowed', 'returned')
-        self.b_date = b_date
-        self.r_date = r_date
-        self.gc_id = gc_id
-
+        self.bor_date = bor_date
+        self.ret_date = ret_date
+        
     def return_book(self):
-        gc = GoogleCalendar() 
-        gc.remove_event()
-
-    ''' can be placed somewhere else'''
-    def calc_ret_date(self):
-        cur_date = datetime.datetime.strptime(datetime.date(datetime.now()),"%d-%m-%Y")
-        bor_limit = datetime.timedelta(weeks=4)
-        return cur_date + bor_limit
+        self.status = self.status.returned
+        print(self.book_title + " returned.")
+        

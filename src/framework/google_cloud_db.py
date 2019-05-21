@@ -1,84 +1,51 @@
 from .book import Book
-from .user import User
-#from .borrowing import Borrowing
-import MySQLdb 
+import MySQLdb
 
-
-class GoogleCloudDB:
-    """
-    this is the google database class
-    """
-
-    HOST="localhost",
-    USER="user",
-    PASSWORD="123",
-    DATABASE="dbcloud"
-    
+class GoogleCloudDb():
+    HOST='35.201.13.126'
+    USER='root'
+    PASSWORD='qoqOiGdo6yD2bmJv'
+    DATABASE='dbcloud'
 
     def __init__(self):
-        self.connection = MySQLdb.connect(GoogleCloudDB.HOST, GoogleCloudDB.USER,
-            GoogleCloudDB.PASSWORD, GoogleCloudDB.DATABASE)
-        self.books = []
-        self.users = []
-        self.borrowings = []
+        self.connection = MySQLdb.connect(GoogleCloudDb.HOST, GoogleCloudDb.USER, GoogleCloudDb.PASSWORD, GoogleCloudDb.DATABASE)
+    
+    '''
+    params:
+        input<Integer>: Value will determine the type of search requested
+        item<String>: Book item/identifier that the user is querying  
 
-    def load_users(self):
-        """
-        loads table books from google cloud database
-        and places it into a list
-        """
-
+        Method will create a connection the mysqldb and 
+        return a list containing all results of books from the requested query.
+    '''
+    def search_(self, input, item):
+        list=[]
         try:
-            with self.connection as cursor:
-                sql = "SELECT * FROM 'LmsUser'"
-                cursor.execute(sql)
-                """
-                (user_id, name, username) = cursor.fetchone()
-                u1 = User(user_id, name, username)
-                self.books.insert(u1)
-                """
-
+            cursor = self.connection.cursor()
+            if input == 1:
+                cursor.execute("SELECT * FROM Book WHERE BookID = %(item)s")
+                results = cursor.fetchall()
+                for row in results:
+                    list.insert(Book(book_id=row[0],title=row[1],author=row[2],published_date=row[3]))
+            elif input == 2:
+                cursor.execute("SELECT * FROM Book WHERE Title LIKE %(item)s")
+                results = cursor.fetchall()
+                for row in results:
+                    list.insert(Book(book_id=row[0],title=row[1],author=row[2],published_date=row[3]))
+            elif input == 3: 
+                cursor.execute("SELECT * FROM Book WHERE Author LIKE %(item)s")
+                results = cursor.fetchall()
+                for row in results:
+                    list.insert(Book(book_id=row[0],title=row[1],author=row[2],published_date=row[3])) 
+            elif input == 4:
+                cursor.exceute("SELECT * FROM Book WHERE DatePublished LIKE %(item)s")
+                results = cursor.fetchall()
+                for row in results:
+                    list.insert(Book(book_id=row[0],title=row[1],author=row[2],published_date=row[3])) 
+            else:
+                print("Something has gone terribly wrong")
         finally:
             self.connection.close()
+        
+        return list
 
-    def load_books(self):
-        """
-        loads table books from google cloud database
-        and places it into a list
-        """
-
-        try:
-            with self.connection as cursor:
-                sql = "SELECT * FROM 'book'"
-                cursor.execute(sql)
-                (book_id, title, author, published_date) = cursor.fetchone()
-                b1 = Book(book_id, title, author, published_date)
-                self.books.insert(b1)
-
-        finally:
-            self.connection.close()
-
-    def load_borrowings(self):
-        """
-        loads table book borrowing from google cloud database
-        and places it into a list
-        """
-
-        try:
-            with self.connection as cursor:
-                sql = "SELECT * FROM 'BookBorrowed'"
-                cursor.execute(sql)
-                """
-                #(book_borrowed_id, lms_user_id, book_id, status, borrowed_date, returned_date) = cursor.fetchone()
-                #bo1 = Borrowing(book_borrowed_id, lms_user_id, book_id, status, borrowed_date, returned_date)
-                #self.books.insert(bo1)
-                """
-
-        finally:
-            self.connection.close()
-
-    def save_borrowing(self):
-        pass
-
-    def save_user(self):
-        pass
