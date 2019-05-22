@@ -5,14 +5,22 @@ from .google_cloud_db import GoogleCloudDb
 # Class is meant to represent the console state whilst the user is currently searching for a book
 class SearchConsoleState(ConsoleState):
 
-    def __init__(self):
-        super().__init__('', '')
+    def __init__(self, display_text):
+        super().__init__(display_text, '')
         self.complete = False
 
     def handle_input(self, input_string, context):
-        
-        
-        pass
+        if self.complete is True:
+            print("Your search has been completed.")
+            #context...
+            return 'main'
+        elif(1<=int(input_string)<=4):
+           #context...
+           pass
+        else: 
+            print("Incorrect input.")
+
+        return ''
     
     def display(self):
         if self.complete is True:
