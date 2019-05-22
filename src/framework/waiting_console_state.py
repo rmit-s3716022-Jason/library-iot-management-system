@@ -1,7 +1,7 @@
 from .console_state import ConsoleState
 
-
 class WaitingConsoleState(ConsoleState):
+   
     def __init__(self, display_text):
         super().__init__(display_text, '')
 

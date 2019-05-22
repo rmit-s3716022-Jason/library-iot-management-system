@@ -21,7 +21,7 @@ class Master:
         self.console = Console(self.utility)
 
         waiting_state = WaitingConsoleState('Waiting for login')
-
+        
         main_menu = ConsoleState("""
             1. Search for a book
             2. Return a book
