@@ -19,7 +19,7 @@ class GoogleCloudDb():
         return a list containing all results of books from the requested query.
     '''
     def search_(self, input, item):
-        list=[]
+        list=[]V
         try:
             cursor = self.connection.cursor()
             if input == 1:
