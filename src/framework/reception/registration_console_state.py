@@ -1,5 +1,5 @@
 from ..console_state import ConsoleState
-from ..user import User
+from .user import User
 
 
 class RegistrationConsoleState(ConsoleState):

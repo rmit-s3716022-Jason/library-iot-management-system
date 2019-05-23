@@ -1,5 +1,3 @@
-import datetime
-
 class Book:
     """
     This class will be used to contain the parameters of a book
@@ -25,4 +23,4 @@ class Book:
         self.book_id = book_id
         self.title = title
         self.author = author
-        self.published_date = datetime.date()
+        self.published_date = published_date

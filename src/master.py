@@ -1,10 +1,10 @@
 from framework.console import Console
 from framework.console_state import ConsoleState
 from framework.waiting_console_state import WaitingConsoleState
-from framework.search_console_state import SearchConsoleState
-from framework.sqlite_db_interface import SqliteDbInterface
 from framework.utility import Utility
 from framework.udp_socket import UdpSocket
+from framework.master.google_cloud_db import GoogleCloudDb
+from framework.master.search_console_state import SearchConsoleState
 
 
 def logout(context):
@@ -15,7 +15,7 @@ def logout(context):
 
 class Master:
     def __init__(self, ip, port):
-        db_interface = SqliteDbInterface()  # should be gcp database
+        db_interface = GoogleCloudDb()
         socket = UdpSocket(ip, port, True)
         socket.add_handler('login', self.login)
         self.utility = Utility(db_interface, socket)
@@ -23,13 +23,12 @@ class Master:
 
         waiting_state = WaitingConsoleState('Waiting for login')
         searching_state = SearchConsoleState('Searching for book')
-        
+
         main_menu = ConsoleState("""
             1. Search for a book
             2. Return a book
             3. Logout
-            \n""",
-                                 'Enter menu option: ')
+            \n""", 'Enter menu option: ')
         main_menu.add_handler("3", logout)
 
         self.console.add_state('waiting', waiting_state)
@@ -46,6 +45,7 @@ class Master:
         self.utility.user_id = data.user_id
 
         self.console.set_current_state('main')
+
 
 if __name__ == '__main__':
     main = Master('127.0.0.1', 5000)
