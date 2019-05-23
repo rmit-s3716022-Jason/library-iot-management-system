@@ -1,3 +1,4 @@
+import json
 from framework.console import Console
 from framework.console_state import ConsoleState
 from framework.waiting_console_state import WaitingConsoleState
@@ -15,7 +16,8 @@ def logout(context):
 
 class Master:
     def __init__(self, ip, port):
-        db_interface = GoogleCloudDb()
+        #db_interface = GoogleCloudDb()
+        db_interface = None
         socket = UdpSocket(ip, port, True)
         socket.add_handler('login', self.login)
         self.utility = Utility(db_interface, socket)
@@ -40,9 +42,10 @@ class Master:
         self.console.run()
 
     def login(self, data):
-        self.utility.username = data.username
-        self.utility.name = data.name
-        self.utility.user_id = data.user_id
+        login_data = json.loads(data)
+        self.utility.username = login_data['username']
+        self.utility.name = login_data['name']
+        self.utility.user_id = login_data['user_id']
 
         self.console.set_current_state('main')
 

@@ -1,15 +1,16 @@
 from framework.console import Console
 from framework.console_state import ConsoleState
+from framework.waiting_console_state import WaitingConsoleState
+from framework.utility import Utility
+from framework.udp_socket import UdpSocket
+
 from framework.reception.registration_console_state import (
     RegistrationConsoleState
 )
 from framework.reception.login_console_state import (
     LoginConsoleState
 )
-from framework.waiting_console_state import WaitingConsoleState
-from framework.sqlite_db_interface import SqliteDbInterface
-from framework.utility import Utility
-from framework.udp_socket import UdpSocket
+from framework.reception.sqlite_db_interface import SqliteDbInterface
 
 
 class Reception:
