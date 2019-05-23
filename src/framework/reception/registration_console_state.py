@@ -7,6 +7,9 @@ class RegistrationConsoleState(ConsoleState):
         super().__init__('', '')
 
         self.attributes = ['Name', 'Username', 'Password']
+        self.reset()
+
+    def reset(self):
         self.values = []
 
         self.current = 0
@@ -17,6 +20,7 @@ class RegistrationConsoleState(ConsoleState):
                         username=self.values[1],
                         password=self.values[2])
             context.db.write_user(user)
+            self.reset()
             return 'main'
 
         self.values.append(input_string)
