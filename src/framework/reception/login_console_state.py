@@ -17,7 +17,7 @@ class LoginConsoleState(ConsoleState):
     def handle_input(self, input_string, context):
         self.current += 1
 
-        if self.current == 0:
+        if self.current == 1:
             self.user = context.db.find_user(input_string)
             if self.user is None:
                 print("Username not found!")
@@ -25,7 +25,7 @@ class LoginConsoleState(ConsoleState):
                 return "main"
             return ""
 
-        if self.current == 1:
+        if self.current == 2:
             if self.user.check_password(input_string):
                 print("You are logged in!")
                 self.login(context.socket)
@@ -51,7 +51,7 @@ class LoginConsoleState(ConsoleState):
 
     def login(self, socket):
         data = {}
-        data.username = self.user.username
-        data.name = self.user.name
-        data.user_id = self.user.id
-        socket.send_message('login', json.dumps(data), '127.0.0.1', 6000)
+        data['username'] = self.user.username
+        data['name'] = self.user.name
+        data['user_id'] = self.user.user_id
+        socket.send_message('login', json.dumps(data), '127.0.0.1', 5000)

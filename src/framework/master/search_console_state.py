@@ -1,4 +1,4 @@
-from .console_state import ConsoleState
+from ..console_state import ConsoleState
 
 # Class is meant to represent the console state whilst the user is currently
 # searching for a book
