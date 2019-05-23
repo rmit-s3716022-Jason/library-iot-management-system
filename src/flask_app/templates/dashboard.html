@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Welcome Admin</h1>
+<ul class="nav navbar-nav">
+  <li><a href="{{ url_for('site.add') }}">Add</a></li>
+  <l1><a href="{{ url_for('site.edit') }}">Edit</a></l1>
+  <l1><a href="{{ url_for('site.remove') }}">Remove</a></l1>
+  <l1><a href="{{ url_for('site.logout') }}">Logout</a></l1>
+
+</ul>
+{% endblock %}
