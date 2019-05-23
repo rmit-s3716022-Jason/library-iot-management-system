@@ -2,6 +2,7 @@ import hashlib
 import random
 import string
 
+
 class User:
     def __init__(self, **kwargs):
         self.user_id = kwargs.get('user_id', 0)
