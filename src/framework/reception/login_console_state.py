@@ -35,6 +35,7 @@ class LoginConsoleState(ConsoleState):
 
             user = db.find_user(self.values[0])
             if (user.check_password(self.values[1])): 
+                
                 print("You are logged in!")
             else:
                 print("Wrong password")

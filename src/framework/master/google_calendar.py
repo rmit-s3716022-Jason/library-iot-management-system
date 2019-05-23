@@ -39,14 +39,14 @@ class GoogleCalendar():
         The generated event id to be stored in the database
 
     '''
-    def add_event(self, user_id, username, b_title):
+    def add_event(self, user_id, username, b_title, b_id):
         start_time = datetime.datetime.strptime(datetime.date(datetime.now()),
                                                 "%d-%m-%Y")
         end_time = start_time + datetime.timedelta(weeks=1)
 
         event = {
             'summary': "New Borrowing Event",
-            'description': user_id + " borrowing: " + b_title,
+            'description': user_id + " borrowing: " + b_id + "- " + b_title,
             'start': {'dateTime': start_time,
                       'timeZone': 'Australia/Melbourne'},
             'end': {'dateTime': end_time, 'timeZone': 'Australia/Melbourne'},

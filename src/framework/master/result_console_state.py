@@ -24,11 +24,16 @@ class ResultConsoleState(ConsoleState):
         
     def handle_input(self, input_string, context):
         requested_book = context.cur_results[input_string-1]
-
-        # if requested book is available AND 
-
+        # need to know the current user
+        event_id = self.gc.add_event("id","username",requested_book.title, requested_book.book_id) 
         
+        '''if requested book is available
+        event_id = gc.add_event(user_id, username, b_title, book_id)
+        Borrowing(book_id, book_title, user_id, bor_id, event_id,
+                 status, bor_date, ret_date))
+        '''
 
+        print("Book successfully borrowed.")
         context.reset_results()
         return 'main'
         
