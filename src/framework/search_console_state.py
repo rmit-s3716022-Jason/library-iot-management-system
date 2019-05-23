@@ -7,30 +7,48 @@ class SearchConsoleState(ConsoleState):
 
     def __init__(self, display_text):
         super().__init__(display_text, '')
-        self.complete = False
-
-    def handle_input(self, input_string, context):
-        if self.complete is True:
-            print("Your search has been completed.")
-            #context...
-            return 'main'
-        elif(1<=int(input_string)<=4):
-           #context...
-           pass
-        else: 
-            print("Incorrect input.")
-
-        return ''
-    
-    def display(self):
-        if self.complete is True:
-            print("Your search has been completed.")
-        
-        return input("Press 1 to search by BookID, 2 to search by Title, 3 to search by Author, or 4 to search by Date: ")
+        self.options = ['BookID', 'Title', 'Author', 'Date']
+        self.gcdb = GoogleCloudDb()
 
     def input(self):
-        if self.complete is True:
-            return input("Title/Name: ")
+        while True:
+            try:
+                response = int(input("Enter '1' to search by BookID, '2' to search by Title, '3' to search by Author, or '4' to search by Date: "))
+                if 1<=response<=4:
+                    break
+                else:
+                    raise ValueError
+            except ValueError:
+                print("That's not a valid option, please try again.")
+                
+        return response
+
+    def handle_input(self, input_string, context):
+        if(1<=input_string<=4):
+            response = input('Please enter desired %s:' %self.options[input_string-1])
+            results = self.gcdb.search(input_string, response)
+            
+            if results:
+                print("Your search has been completed.")
+                self.print_results(results)
+            else:
+                print('No results returned.')
+            
+            return 'main'
+        else: 
+            print("Incorrect input.")
+            return ''
+
+    def print_results(self, results):
+        for items in results:
+            print(items)
+    
+    def display(self):
+        print('Book search.')
+    
+    
+        
+        
 
     
 
