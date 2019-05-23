@@ -16,7 +16,7 @@ def logout(context):
 
 class Master:
     def __init__(self, ip, port):
-        #db_interface = GoogleCloudDb()
+        db_interface = GoogleCloudDb()
         db_interface = None
         socket = UdpSocket(ip, port, True)
         socket.add_handler('login', self.login)
