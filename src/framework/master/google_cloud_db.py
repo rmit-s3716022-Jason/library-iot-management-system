@@ -1,5 +1,5 @@
 import MySQLdb
-from .book import Book
+from book import Book
 
 
 class GoogleCloudDb():
@@ -9,16 +9,12 @@ class GoogleCloudDb():
     DATABASE = 'dbcloud'
 
     def __init__(self):
-        self.connection = MySQLdb.connect(GoogleCloudDb.HOST,
-                                          GoogleCloudDb.USER,
-                                          GoogleCloudDb.PASSWORD,
-                                          GoogleCloudDb.DATABASE)
+        self.connection = MySQLdb.connect("35.201.13.126", "root", "qoqOiGdo6yD2bmJv", "dbcloud")
 
     '''
     params:
         input<Integer>: Value will determine the type of search requested
         item<String>: Book item/identifier that the user is querying
-
         Method will create a connection the mysqldb and
         return a result_list containing all results of books from the requested
         query.
@@ -66,3 +62,6 @@ class GoogleCloudDb():
             self.connection.close()
 
         return result_list
+
+
+
