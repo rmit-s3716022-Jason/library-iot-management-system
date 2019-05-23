@@ -42,7 +42,7 @@ class GoogleCalendar():
     def add_event(self, user_id, username, b_title):
         start_time = datetime.datetime.strptime(datetime.date(datetime.now()),
                                                 "%d-%m-%Y")
-        end_time = start_time + datetime.timedelta(weeks=4)
+        end_time = start_time + datetime.timedelta(weeks=1)
 
         event = {
             'summary': "New Borrowing Event",

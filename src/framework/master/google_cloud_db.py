@@ -1,7 +1,6 @@
 import MySQLdb
 from .book import Book
 
-
 class GoogleCloudDb():
     HOST = '35.201.13.126'
     USER = 'root'
@@ -9,10 +8,10 @@ class GoogleCloudDb():
     DATABASE = 'dbcloud'
 
     def __init__(self):
-        self.connection = MySQLdb.connect(GoogleCloudDb.HOST,
-                                          GoogleCloudDb.USER,
-                                          GoogleCloudDb.PASSWORD,
-                                          GoogleCloudDb.DATABASE)
+        self.connection = MySQLdb.connect(self.HOST,
+                                          self.USER,
+                                          self.PASSWORD,
+                                          self.DATABASE)
 
     '''
     params:

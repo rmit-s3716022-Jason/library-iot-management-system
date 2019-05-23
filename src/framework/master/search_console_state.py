@@ -22,7 +22,7 @@ class SearchConsoleState(ConsoleState):
                     raise ValueError
             except ValueError:
                 print("That's not a valid option, please try again.")
-
+        
         return response
 
     def handle_input(self, input_string, context):
@@ -32,15 +32,11 @@ class SearchConsoleState(ConsoleState):
 
         if results:
             print("Your search has been completed.")
-            self.print_results(results)
+            context.db.add_cur_results(results)
+            return 'result'
         else:
             print('No results returned.')
-
-        return 'main'
-
-    def print_results(self, results):
-        for items in results:
-            print(items)
+            return 'main'
 
     def display(self):
         print('Book search.')

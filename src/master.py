@@ -4,7 +4,9 @@ from framework.waiting_console_state import WaitingConsoleState
 from framework.utility import Utility
 from framework.udp_socket import UdpSocket
 from framework.master.google_cloud_db import GoogleCloudDb
+from framework.master.google_calendar impot GoogleCalendar
 from framework.master.search_console_state import SearchConsoleState
+from framework.master.result_console_state import ResultConsoleState
 
 
 def logout(context):
@@ -16,6 +18,8 @@ def logout(context):
 class Master:
     def __init__(self, ip, port):
         db_interface = GoogleCloudDb()
+        #self.gc?
+        gc = GoogleCalendar()
         socket = UdpSocket(ip, port, True)
         socket.add_handler('login', self.login)
         self.utility = Utility(db_interface, socket)
@@ -23,17 +27,20 @@ class Master:
 
         waiting_state = WaitingConsoleState('Waiting for login')
         searching_state = SearchConsoleState('Searching for book')
+        result_state = ResultConsoleState('Displaying search results', self.utility, gc)
 
         main_menu = ConsoleState("""
             1. Search for a book
-            2. Return a book
-            3. Logout
+            2. Borrow a book
+            3. Return a book
+            4. Logout
             \n""", 'Enter menu option: ')
-        main_menu.add_handler("3", logout)
+        main_menu.add_handler("4", logout)
 
         self.console.add_state('waiting', waiting_state)
         self.console.add_state('main', main_menu)
         self.console.add_state('searching', searching_state)
+        self.console.add_state('result', result_state)
         self.console.set_current_state('waiting')
 
     def run(self):
