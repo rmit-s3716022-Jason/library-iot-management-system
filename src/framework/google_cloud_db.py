@@ -18,7 +18,7 @@ class GoogleCloudDb():
         Method will create a connection the mysqldb and 
         return a list containing all results of books from the requested query.
     '''
-    def search_(self, input, item):
+    def search(self, input, item):
         list=[]
         try:
             cursor = self.connection.cursor()

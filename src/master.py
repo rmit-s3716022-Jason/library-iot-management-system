@@ -1,6 +1,7 @@
 from framework.console import Console
 from framework.console_state import ConsoleState
 from framework.waiting_console_state import WaitingConsoleState
+from framework.search_console_state import SearchConsoleState
 from framework.sqlite_db_interface import SqliteDbInterface
 from framework.utility import Utility
 from framework.udp_socket import UdpSocket
@@ -21,6 +22,7 @@ class Master:
         self.console = Console(self.utility)
 
         waiting_state = WaitingConsoleState('Waiting for login')
+        searching_state = SearchConsoleState('Searching for book')
         
         main_menu = ConsoleState("""
             1. Search for a book
@@ -32,6 +34,7 @@ class Master:
 
         self.console.add_state('waiting', waiting_state)
         self.console.add_state('main', main_menu)
+        self.console.add_state('searching', searching_state)
         self.console.set_current_state('waiting')
 
     def run(self):
