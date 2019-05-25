@@ -64,24 +64,3 @@ class GoogleCalendar():
             print("Event: {}".format(event['description'] + " deleted."))
         else:
             print("No such event.")
-
-    '''
-    Prints the start and description of the next 10 (unless specified
-    otherwise) events on the user"s calendar.
-    '''
-    def display_events(self, m_results=10):
-        now = datetime.datetime.utcnow().isoformat() + "Z"  # "Z" indicates UTC time.
-        print("Getting upcoming events.")
-        events_result = self.service.events().list(
-            calendarId="primary",
-            timeMin=now,
-            maxResults=m_results,
-            singleEvents=True,
-            orderBy="startTime").execute()
-        events = events_result.get("items", [])
-
-        if not events:
-            print("No upcoming events found.")
-        for event in events:
-            start = event["start"].get("dateTime", event["start"].get("date"))
-            print(start, event["description"])
