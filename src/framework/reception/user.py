@@ -6,8 +6,10 @@ import string
 class User:
     def __init__(self, **kwargs):
         self.user_id = kwargs.get('user_id', 0)
-        self.name = kwargs.get('name', '')
         self.username = kwargs.get('username', '')
+        self.firstname = kwargs.get('firstname', '')
+        self.lastname = kwargs.get('lastname', '')
+        self.email = kwargs.get('email', '')
         self.salt = kwargs.get('salt', ''.join(
             random.choice(string.ascii_letters) for i in range(3)))
         if 'password_hash' in kwargs:

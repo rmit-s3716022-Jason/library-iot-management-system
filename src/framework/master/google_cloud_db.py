@@ -3,6 +3,11 @@ from .book import Book
 
 
 class GoogleCloudDb():
+    
+    '''
+    This is a class that provides GCP capabilities in the form of a search function that allows users to search a book by whatever attribute they input
+    '''
+    
     HOST = '35.201.13.126'
     USER = 'root'
     PASSWORD = 'qoqOiGdo6yD2bmJv'
@@ -18,6 +23,7 @@ class GoogleCloudDb():
     params:
         input<Integer>: Value will determine the type of search requested
         item<String>: Book item/identifier that the user is querying
+        
         Method will create a connection the mysqldb and
         return a result_list containing all results of books from the requested
         query.

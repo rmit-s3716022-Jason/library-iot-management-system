@@ -52,7 +52,8 @@ class LoginConsoleState(ConsoleState):
     def login(self, context):
         data = {}
         data['username'] = self.user.username
-        data['name'] = self.user.name
+        data['firstname'] = self.user.firstname
+        data['lastname'] = self.user.lastname
         data['user_id'] = self.user.user_id
         context.state.login()
         context.socket.send_message(

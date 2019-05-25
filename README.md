@@ -1,6 +1,6 @@
 # IoTAssignment2
 Library IoT management system
--   A version 3.7.2. python based application created using the python micro web-framework flask 
+-   A version Python based cli application and a web admin portal created using the python micro web-framework flask 
 
 ![Credit to pixabay](https://cdn.pixabay.com/photo/2015/05/25/05/27/network-782707_960_720.png)
 
