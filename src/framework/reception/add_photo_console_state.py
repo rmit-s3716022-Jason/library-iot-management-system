@@ -20,6 +20,7 @@ class AddPhotoConsoleState(ConsoleState):
                 print('Username not found!')
                 self.reset()
                 return 'main'
+            return ''
 
         if not self.user.check_password(input_string):
             print('Password incorrect')
