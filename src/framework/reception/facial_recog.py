@@ -19,7 +19,7 @@ import face_recognition
 class FacialRecog():
     def __init__(self):
         self.face_detector = cv2.CascadeClassifier(
-            'haarcascade_frontalface_default.xml')
+            './framework/reception/haarcascade_frontalface_default.xml')
 
     def capture_photo(self, username):
         folder = './dataset/{}'.format(username)
