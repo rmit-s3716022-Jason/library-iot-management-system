@@ -1,12 +1,12 @@
 class State():
-    __init__(self):
+    def __init__(self):
         self.state = 'logged_out'
 
-    def login():
+    def login(self):
         self.state = 'logged_in'
 
-    def logout():
+    def logout(self):
         self.state = 'logged_out'
 
-    def is_logged_in():
+    def is_logged_in(self):
         return self.state == 'logged_in'
