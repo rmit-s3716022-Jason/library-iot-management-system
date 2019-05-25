@@ -1,3 +1,4 @@
+import json
 from framework.console import Console
 from framework.console_state import ConsoleState
 from framework.waiting_console_state import WaitingConsoleState
@@ -6,7 +7,11 @@ from framework.udp_socket import UdpSocket
 from framework.master.google_cloud_db import GoogleCloudDb
 from framework.master.google_calendar impot GoogleCalendar
 from framework.master.search_console_state import SearchConsoleState
+<<<<<<< HEAD
 from framework.master.result_console_state import ResultConsoleState
+=======
+from framework.master.master_user import MasterUser
+>>>>>>> 13ef88fbf73bf0909914b695a3bc6a31bb4b2375
 
 
 def logout(context):
@@ -47,10 +52,12 @@ class Master:
         self.console.run()
 
     def login(self, data):
-        self.utility.username = data.username
-        self.utility.name = data.name
-        self.utility.user_id = data.user_id
-
+        login_data = json.loads(data)
+        self.utility.user = MasterUser(login_data['username'],
+                                       login_data['firstname'],
+                                       login_data['lastname'],
+                                       login_data['user_id'])
+        
         self.console.set_current_state('main')
 
 

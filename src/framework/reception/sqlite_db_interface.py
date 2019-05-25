@@ -27,8 +27,10 @@ class SqliteDbInterface():
             cursor.execute(
                 """CREATE TABLE if not exists {0}(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                name TEXT NOT NULL,
                 username TEXT NOT NULL UNIQUE,
+                firstname TEXT NOT NULL,
+                lastname TEXT NOT NULL,
+                email TEXT NOT NULL,
                 password TEXT NOT NULL,
                 salt TEXT NOT NULL
                 )""".format(self.data_table_name))
@@ -48,14 +50,17 @@ class SqliteDbInterface():
         """
         Writes a user to the table
         """
-        query_string = "INSERT INTO {0} (name, username, password, salt)\
-                        values((?), (?), (?), (?))".format(
-                            self.data_table_name)
+        query_string = """INSERT INTO {0}
+            (username, firstname, lastname, email, password, salt)
+            values((?), (?), (?), (?), (?), (?))""".format(
+                self.data_table_name)
 
         self.write_values(query_string,
                           (
-                              user.name,
                               user.username,
+                              user.firstname,
+                              user.lastname,
+                              user.email,
                               user.password_hash,
                               user.salt
                           ))
@@ -76,18 +81,29 @@ class SqliteDbInterface():
 
         query_string = """SELECT
                        id,
-                       name,
                        username,
+                       firstname,
+                       lastname,
+                       email,
                        password,
                        salt
                        FROM {0}
                        """.format(self.data_table_name)
 
         for row in self.read_values(query_string):
-            [user_id, name, username, password_hash, salt] = row
+            [user_id,
+             username,
+             firstname,
+             lastname,
+             email,
+             password_hash,
+             salt] = row
+
             yield User(user_id=user_id,
-                       name=name,
                        username=username,
+                       firstname=firstname,
+                       lastname=lastname,
+                       email=email,
                        password_hash=password_hash,
                        salt=salt)
 
@@ -97,8 +113,10 @@ class SqliteDbInterface():
         """
         query_string = """SELECT
                        id,
-                       name,
                        username,
+                       firstname,
+                       lastname,
+                       email,
                        password,
                        salt
                        FROM {0}
@@ -108,10 +126,18 @@ class SqliteDbInterface():
         with sqlite3.connect(self.db_name) as connection:
             cursor = connection.cursor()
             for row in cursor.execute(query_string, (username, )):
-                [user_id, name, username, password_hash, salt] = row
+                [user_id,
+                 username,
+                 firstname,
+                 lastname,
+                 email,
+                 password_hash,
+                 salt] = row
                 return User(user_id=user_id,
-                            name=name,
                             username=username,
+                            lastname=lastname,
+                            firstname=firstname,
+                            email=email,
                             password_hash=password_hash,
                             salt=salt)
 

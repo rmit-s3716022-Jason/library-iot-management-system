@@ -1,3 +1,4 @@
+import re
 from ..console_state import ConsoleState
 from .user import User
 
@@ -6,7 +7,11 @@ class RegistrationConsoleState(ConsoleState):
     def __init__(self):
         super().__init__('', '')
 
-        self.attributes = ['Name', 'Username', 'Password']
+        self.attributes = ['Username',
+                           'First name',
+                           'Last name',
+                           'Email',
+                           'Password']
         self.reset()
 
     def reset(self):
@@ -16,20 +21,19 @@ class RegistrationConsoleState(ConsoleState):
 
     def handle_input(self, input_string, context):
         if self.current == len(self.attributes):
-            user = User(name=self.values[0],
-                        username=self.values[1],
-                        password=self.values[2])
-            context.db.write_user(user)
+            self.write_user(context.db)
             self.reset()
             return 'main'
 
+        attribute = self.attributes[self.current]
+
+        if not self.validate(input_string, attribute, context.db):
+            return ''
+
         self.values.append(input_string)
-        if self.attributes[self.current] == 'Username':
-            if context.db.find_user(input_string) is not None:
-                print("Username already taken")
-                return ""
+
         self.current += 1
-        return ""
+        return ''
 
     def display(self):
         if self.current == len(self.attributes):
@@ -44,3 +48,26 @@ class RegistrationConsoleState(ConsoleState):
             return input('Please enter your ' +
                          self.attributes[self.current] + ':')
         return ''
+
+    def write_user(self, db):
+        user = User(username=self.values[0],
+                    firstname=self.values[1],
+                    lastname=self.values[2],
+                    email=self.values[3],
+                    password=self.values[4])
+        db.write_user(user)
+
+    def validate(self, input_string, attribute, db):
+        if attribute == 'Username':
+            if db.find_user(input_string) is not None:
+                print('Username already used')
+                return False
+        elif attribute == 'Email':
+            if not re.fullmatch(r'.+@.+', input_string):
+                print('Not a valid email address')
+                return False
+        elif not input_string:
+            print('Input is not valid')
+            return False
+
+        return True
