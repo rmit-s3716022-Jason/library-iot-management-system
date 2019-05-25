@@ -44,7 +44,7 @@ class FacialRecog():
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             faces = self.face_detector.detectMultiScale(gray, 1.3, 5)
 
-            if not faces:
+            if len(faces) == 0:
                 print('No face detected, please try again')
                 continue
 
