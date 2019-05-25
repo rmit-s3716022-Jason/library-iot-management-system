@@ -52,6 +52,7 @@ class LoginConsoleState(ConsoleState):
     def login(self, socket):
         data = {}
         data['username'] = self.user.username
-        data['name'] = self.user.name
+        data['firstname'] = self.user.firstname
+        data['lastname'] = self.user.lastname
         data['user_id'] = self.user.user_id
         socket.send_message('login', json.dumps(data), '127.0.0.1', 5000)
