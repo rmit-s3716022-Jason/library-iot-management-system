@@ -101,9 +101,14 @@ class FacialRecog():
     def facial_recog_login(self, state, login):
         # load the known faces and embeddings
         print('[INFO] loading encodings...')
+
+        while not os.path.isfile('encodings.pickle'):
+            time.sleep(3.0)
+
         data = pickle.loads(open('encodings.pickle', 'rb').read())
 
-        # initialize the video stream and then allow the camera sensor to warm up
+        # initialize the video stream and then allow the
+        # camera sensor to warm up
         print('[INFO] starting video stream...')
         video_stream = VideoStream(src=0).start()
         time.sleep(2.0)
