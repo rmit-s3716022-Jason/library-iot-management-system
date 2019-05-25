@@ -7,7 +7,7 @@ from framework.utility import Utility
 from framework.udp_socket import UdpSocket
 
 from framework.reception.facial_recog import FacialRecog
-from framework.reception.add_photo import AddPhoto
+from framework.reception.add_photo_console_state import AddPhotoConsoleState
 from framework.reception.state import State
 from framework.reception.registration_console_state import (
     RegistrationConsoleState
