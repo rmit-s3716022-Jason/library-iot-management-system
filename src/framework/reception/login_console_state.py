@@ -28,7 +28,7 @@ class LoginConsoleState(ConsoleState):
         if self.current == 2:
             if self.user.check_password(input_string):
                 print("You are logged in!")
-                self.login(context.socket)
+                self.login(context)
                 self.reset()
                 return "waiting"
 
@@ -49,9 +49,11 @@ class LoginConsoleState(ConsoleState):
                          self.attributes[self.current] + ':')
         return ''
 
-    def login(self, socket):
+    def login(self, context):
         data = {}
         data['username'] = self.user.username
         data['name'] = self.user.name
         data['user_id'] = self.user.user_id
-        socket.send_message('login', json.dumps(data), '127.0.0.1', 5000)
+        context.state.login()
+        context.socket.send_message(
+            'login', json.dumps(data), '127.0.0.1', 5000)
