@@ -11,3 +11,6 @@ class WaitingConsoleState(ConsoleState):
 
     def input(self):
         return ''
+    
+    def display(self):
+        return ''

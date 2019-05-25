@@ -1,19 +1,19 @@
 from datetime import datetime
-from .book import Book
-
 
 class Borrowing():
-    def __init__(self, book_id, book_title, user_id, bor_id, gc_event_id,
-                 status, bor_date, ret_date):
-        self.book_id = book_id
-        self.book_title = book_title
-        self.user_id = user_id
-        self.bor_id = bor_id
+    
+    def __init__(self, user, book, gc_event_id, bor_date, ret_date):
+        self.user = user
+        self.book = book
         self.gc_event_id = gc_event_id
-        self.status = status
         self.bor_date = bor_date
         self.ret_date = ret_date
+        self.borrowed = True
 
     def return_book(self):
-        self.status = self.status.returned
-        print(self.book_title + " returned.")
+        if self.borrowed is True:
+            self.borrowed = False
+            print("Thank you " + self.user.firstname + ", " + self.book.title + " has been returned.")
+        else:
+            print("Unable to return unborrowed book.")
+        

@@ -1,8 +1,8 @@
 from __future__ import print_function
-from datetime import datetime
 from googleapiclient.discovery import build
 from oauth2client import client, file, tools
 from httplib2 import Http
+import datetime
 
 
 class GoogleCalendar():
@@ -39,14 +39,10 @@ class GoogleCalendar():
         The generated event id to be stored in the database
 
     '''
-    def add_event(self, user_id, username, b_title):
-        start_time = datetime.datetime.strptime(datetime.date(datetime.now()),
-                                                "%d-%m-%Y")
-        end_time = start_time + datetime.timedelta(weeks=4)
-
+    def add_event(self, user_id, username, b_title, b_id, start_time, end_time):
         event = {
             'summary': "New Borrowing Event",
-            'description': user_id + " borrowing: " + b_title,
+            'description': user_id + " borrowing: " + b_id + "- " + b_title,
             'start': {'dateTime': start_time,
                       'timeZone': 'Australia/Melbourne'},
             'end': {'dateTime': end_time, 'timeZone': 'Australia/Melbourne'},
@@ -74,7 +70,7 @@ class GoogleCalendar():
     otherwise) events on the user"s calendar.
     '''
     def display_events(self, m_results=10):
-        now = datetime.utcnow().isoformat() + "Z"  # "Z" indicates UTC time.
+        now = datetime.datetime.utcnow().isoformat() + "Z"  # "Z" indicates UTC time.
         print("Getting upcoming events.")
         events_result = self.service.events().list(
             calendarId="primary",

@@ -1,6 +1,7 @@
 import json
 
 from ..console_state import ConsoleState
+from .sqlite_db_interface import SqliteDbInterface
 
 
 class LoginConsoleState(ConsoleState):
@@ -8,6 +9,7 @@ class LoginConsoleState(ConsoleState):
         super().__init__('', '')
 
         self.attributes = ['Username', 'Password']
+        self.values = []
         self.reset()
 
     def reset(self):
@@ -25,8 +27,15 @@ class LoginConsoleState(ConsoleState):
                 return "main"
             return ""
 
-        if self.current == 2:
-            if self.user.check_password(input_string):
+        if(self.current == 1):
+            self.values.append(input_string)
+            self.current += 1
+
+            db = SqliteDbInterface()
+
+            user = db.find_user(self.values[0])
+            if (user.check_password(self.values[1])): 
+                
                 print("You are logged in!")
                 self.login(context)
                 self.reset()

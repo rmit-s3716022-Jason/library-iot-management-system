@@ -1,6 +1,5 @@
 import MySQLdb
-from .book import Book
-
+from book import Book
 
 class GoogleCloudDb():
     
@@ -34,41 +33,30 @@ class GoogleCloudDb():
             cursor = self.connection.cursor()
             if input_option == 1:
                 cursor.execute("SELECT * FROM Book WHERE BookID = %(item)s")
-                results = cursor.fetchall()
-                for row in results:
-                    result_list.insert(Book(book_id=row[0],
-                                            title=row[1],
-                                            author=row[2],
-                                            published_date=row[3]))
+                result_list = self.return_results(cursor.fetchall()) 
             elif input_option == 2:
                 cursor.execute("SELECT * FROM Book WHERE Title LIKE %(item)s")
-                results = cursor.fetchall()
-                for row in results:
-                    result_list.insert(Book(book_id=row[0],
-                                            title=row[1],
-                                            author=row[2],
-                                            published_date=row[3]))
+                result_list = self.return_results(cursor.fetchall())   
             elif input_option == 3:
                 cursor.execute("SELECT * FROM Book WHERE Author LIKE %(item)s")
-                results = cursor.fetchall()
-                for row in results:
-                    result_list.insert(Book(book_id=row[0],
-                                            title=row[1],
-                                            author=row[2],
-                                            published_date=row[3]))
+                result_list = self.return_results(cursor.fetchall())  
             elif input_option == 4:
-                cursor.exceute(
-                    "SELECT * FROM Book WHERE DatePublished LIKE %(item)s")
-                results = cursor.fetchall()
-                for row in results:
-                    result_list.insert(Book(book_id=row[0],
-                                            title=row[1],
-                                            author=row[2],
-                                            published_date=row[3]))
+                cursor.exceute("SELECT * FROM Book WHERE DatePublished LIKE %(item)s")
+                result_list = self.return_results(cursor.fetchall())  
             else:
-                print("Something has gone terribly wrong")
+                print("Something has gone terribly wrong.")
         finally:
             self.connection.close()
+
+        return result_list
+    
+    def return_results(self, results):
+        result_list = []
+        for row in results:
+            result_list.insert(Book(book_id=row[0],
+                                    title=row[1],
+                                    author=row[2],
+                                    published_date=row[3]))
 
         return result_list
 
