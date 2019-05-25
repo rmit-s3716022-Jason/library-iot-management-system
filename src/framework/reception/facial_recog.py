@@ -23,6 +23,8 @@ class FacialRecog():
 
     def capture_photo(self, username):
         folder = './dataset/{}'.format(username)
+        if not os.path.exists(folder):
+            os.makedirs(folder)
         # Start the camera
         cam = cv2.VideoCapture(0)
         # Set video width
