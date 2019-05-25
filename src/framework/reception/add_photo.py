@@ -1,5 +1,5 @@
 from ..console_state import ConsoleState
-from facial_recog import FacialRecog
+from .facial_recog import FacialRecog
 
 
 class AddPhotoConsoleState(ConsoleState):
