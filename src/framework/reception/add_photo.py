@@ -1,10 +1,12 @@
 from ..console_state import ConsoleState
-import facial_recog
+from facial_recog import FacialRecog
 
 
 class AddPhotoConsoleState(ConsoleState):
     def __init__(self):
         super().__init__('', '')
+
+        self.facial_recog = FacialRecog()
 
         self.reset()
 
@@ -23,8 +25,8 @@ class AddPhotoConsoleState(ConsoleState):
             print('Password incorrect')
             return 'main'
 
-        facial_recog.capture_photo(self.user.username)
-        facial_recog.encode()
+        self.facial_recog.capture_photo(self.user.username)
+        self.facial_recog.encode()
 
         self.reset()
 

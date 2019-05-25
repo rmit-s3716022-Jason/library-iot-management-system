@@ -1,10 +1,12 @@
 import json
+import threading
 from framework.console import Console
 from framework.console_state import ConsoleState
 from framework.waiting_console_state import WaitingConsoleState
 from framework.utility import Utility
 from framework.udp_socket import UdpSocket
 
+from framework.reception.facial_recog import FacialRecog
 from framework.reception.add_photo import AddPhoto
 from framework.reception.state import State
 from framework.reception.registration_console_state import (
@@ -52,6 +54,13 @@ class Reception:
         self.console.add_state('waiting', waiting_state)
         self.console.add_state('add_photo', add_photo)
         self.console.set_current_state('main')
+
+        self.facial_recog = FacialRecog()
+
+        self.facial_recog_thread = threading.Thread(
+            target=self.facial_recog.facial_recog_login,
+            args=(self.utility.state, self.login))
+        self.facial_recog_thread.start()
 
     def run(self):
         self.console.run()
