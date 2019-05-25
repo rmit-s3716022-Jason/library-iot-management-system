@@ -77,6 +77,8 @@ class Reception:
 
         self.utility.state.login()
 
+        print(user.username + " has logged in")
+
         data = {}
         data['username'] = user.username
         data['name'] = user.name

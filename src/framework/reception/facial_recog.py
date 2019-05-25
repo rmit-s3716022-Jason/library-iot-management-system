@@ -167,7 +167,9 @@ class FacialRecog():
             # loop over the recognized faces
             for name in names:
                 # print to console, identified person
-                print('Person found: {}'.format(name))
+                if name == 'Unknown':
+                    continue
+
                 login(name)
                 # Set a flag to sleep the cam for fixed time
                 time.sleep(3.0)
