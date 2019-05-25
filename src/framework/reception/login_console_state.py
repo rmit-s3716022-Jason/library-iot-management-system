@@ -1,6 +1,7 @@
 import json
 
 from ..console_state import ConsoleState
+from .sqlite_db_interface import SqliteDbInterface
 
 
 class LoginConsoleState(ConsoleState):
@@ -8,6 +9,7 @@ class LoginConsoleState(ConsoleState):
         super().__init__('', '')
 
         self.attributes = ['Username', 'Password']
+        self.values = []
         self.reset()
 
     def reset(self):

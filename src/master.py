@@ -1,17 +1,14 @@
 import json
-from framework.console import Console
-from framework.console_state import ConsoleState
-from framework.waiting_console_state import WaitingConsoleState
-from framework.utility import Utility
-from framework.udp_socket import UdpSocket
-from framework.master.google_cloud_db import GoogleCloudDb
-from framework.master.google_calendar impot GoogleCalendar
-from framework.master.search_console_state import SearchConsoleState
-<<<<<<< HEAD
-from framework.master.result_console_state import ResultConsoleState
-=======
-from framework.master.master_user import MasterUser
->>>>>>> 13ef88fbf73bf0909914b695a3bc6a31bb4b2375
+from IoTAssignment2.src.framework.console import Console
+from IoTAssignment2.src.framework.console_state import ConsoleState
+from IoTAssignment2.src.framework.waiting_console_state import WaitingConsoleState
+from IoTAssignment2.src.framework.utility import Utility
+from IoTAssignment2.src.framework.udp_socket import UdpSocket
+from IoTAssignment2.src.framework.master.google_cloud_db import GoogleCloudDb
+from IoTAssignment2.src.framework.master.google_calendar import GoogleCalendar
+from IoTAssignment2.src.framework.master.search_console_state import SearchConsoleState
+from IoTAssignment2.src.framework.master.borrow_console_state import BorrowConsoleState
+from IoTAssignment2.src.framework.master.master_user import MasterUser
 
 
 def logout(context):
@@ -32,7 +29,7 @@ class Master:
 
         waiting_state = WaitingConsoleState('Waiting for login')
         searching_state = SearchConsoleState('Searching for book')
-        result_state = ResultConsoleState('Displaying search results', self.utility, gc)
+        borrowing_state = BorrowConsoleState('Borrowing a book', self.utility, gc)
 
         main_menu = ConsoleState("""
             1. Search for a book
@@ -45,7 +42,7 @@ class Master:
         self.console.add_state('waiting', waiting_state)
         self.console.add_state('main', main_menu)
         self.console.add_state('searching', searching_state)
-        self.console.add_state('result', result_state)
+        self.console.add_state('result', borrowing_state)
         self.console.set_current_state('waiting')
 
     def run(self):

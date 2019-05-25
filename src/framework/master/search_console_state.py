@@ -1,4 +1,4 @@
-from ..console_state import ConsoleState
+from IoTAssignment2.src.framework.console_state import ConsoleState
 
 # Class is meant to represent the console state whilst the user is currently
 # searching for a book
@@ -33,10 +33,15 @@ class SearchConsoleState(ConsoleState):
         if results:
             print("Your search has been completed.")
             context.db.add_cur_results(results)
-            return 'result'
+            self.print_results(results)
         else:
             print('No results returned.')
-            return 'main'
+            
+        return 'main'
 
     def display(self):
         print('Book search.')
+
+    def print_results(self, results):
+        for count,items in enumerate(results,1):
+            print(count,items)
