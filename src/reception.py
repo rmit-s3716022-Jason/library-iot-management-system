@@ -44,7 +44,7 @@ class Reception:
         login = LoginConsoleState()
         login.add_handler('done', lambda x: 'main')
 
-        add_photo = AddPhoto()
+        add_photo = AddPhotoConsoleState()
 
         waiting_state = WaitingConsoleState('Waiting for logout')
 
