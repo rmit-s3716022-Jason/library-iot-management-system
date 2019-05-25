@@ -81,7 +81,8 @@ class Reception:
 
         data = {}
         data['username'] = user.username
-        data['name'] = user.name
+        data['firstname'] = user.firstname
+        data['lastname'] = user.lastname
         data['user_id'] = user.user_id
         self.utility.socket.send_message(
             'login', json.dumps(data), '127.0.0.1', 5000)
