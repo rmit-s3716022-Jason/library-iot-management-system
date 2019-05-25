@@ -6,6 +6,7 @@ from framework.utility import Utility
 from framework.udp_socket import UdpSocket
 from framework.master.google_cloud_db import GoogleCloudDb
 from framework.master.search_console_state import SearchConsoleState
+from framework.master.master_user import MasterUser
 
 
 def logout(context):
@@ -43,10 +44,11 @@ class Master:
 
     def login(self, data):
         login_data = json.loads(data)
-        self.utility.username = login_data['username']
-        self.utility.name = login_data['name']
-        self.utility.user_id = login_data['user_id']
-
+        self.utility.user = MasterUser(login_data['username'],
+                                       login_data['firstname'],
+                                       login_data['lastname'],
+                                       login_data['user_id'])
+        
         self.console.set_current_state('main')
 
 
