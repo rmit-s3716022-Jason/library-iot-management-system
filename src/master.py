@@ -1,14 +1,14 @@
 import json
-from IoTAssignment2.src.framework.console import Console
-from IoTAssignment2.src.framework.console_state import ConsoleState
-from IoTAssignment2.src.framework.waiting_console_state import WaitingConsoleState
-from IoTAssignment2.src.framework.utility import Utility
-from IoTAssignment2.src.framework.udp_socket import UdpSocket
-from IoTAssignment2.src.framework.master.google_cloud_db import GoogleCloudDb
-from IoTAssignment2.src.framework.master.google_calendar import GoogleCalendar
-from IoTAssignment2.src.framework.master.search_console_state import SearchConsoleState
-from IoTAssignment2.src.framework.master.borrow_console_state import BorrowConsoleState
-from IoTAssignment2.src.framework.master.master_user import MasterUser
+from .framework.console import Console
+from .framework.console_state import ConsoleState
+from .framework.waiting_console_state import WaitingConsoleState
+from .framework.utility import Utility
+from .framework.udp_socket import UdpSocket
+from .framework.master.google_cloud_db import GoogleCloudDb
+from .framework.master.google_calendar import GoogleCalendar
+from .framework.master.search_console_state import SearchConsoleState
+from .framework.master.borrow_console_state import BorrowConsoleState
+from .framework.master.master_user import MasterUser
 
 
 def logout(context):
@@ -29,7 +29,8 @@ class Master:
 
         waiting_state = WaitingConsoleState('Waiting for login')
         searching_state = SearchConsoleState('Searching for book')
-        borrowing_state = BorrowConsoleState('Borrowing a book', self.utility, gc)
+        borrowing_state = BorrowConsoleState(
+            'Borrowing a book', self.utility, gc)
 
         main_menu = ConsoleState("""
             1. Search for a book
