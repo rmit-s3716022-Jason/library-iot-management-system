@@ -1,5 +1,5 @@
 """
-Reception.py
+reception.py
 ============
 
 The reception main program

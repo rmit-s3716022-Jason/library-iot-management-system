@@ -1,3 +1,2 @@
-
 .. automodule:: master
    :members:
