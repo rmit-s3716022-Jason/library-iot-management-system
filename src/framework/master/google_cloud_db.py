@@ -1,9 +1,12 @@
+"""
+google_cloud_db.py
+==================
+"""
 import MySQLdb
 from .book import Book
 
 
 class GoogleCloudDb():
-    
     '''
     This is a class that provides GCP capabilities in the form of a search function that allows users to search a book by whatever attribute they input
     '''

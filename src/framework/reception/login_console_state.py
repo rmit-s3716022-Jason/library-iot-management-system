@@ -1,3 +1,7 @@
+"""
+login_console_state.py
+======================
+"""
 import json
 
 from ..console_state import ConsoleState
@@ -5,6 +9,9 @@ from .sqlite_db_interface import SqliteDbInterface
 
 
 class LoginConsoleState(ConsoleState):
+    """
+    Allows a user to login
+    """
     def __init__(self):
         super().__init__('', '')
 

@@ -1,8 +1,15 @@
+"""
+return_console_state.py
+=======================
+"""
 from ..console_state import ConsoleState
 from .google_calendar import GoogleCalendar
 
-class ReturnConsoleState(ConsoleState):
 
+class ReturnConsoleState(ConsoleState):
+    """
+    Allows a user to return a borrowed book
+    """
     def __init__(self, display_text, utility, gc):
         super().__init__(display_text, '')
         self.utility = utility

@@ -1,7 +1,14 @@
+"""
+borrowing.py
+============
+"""
 from datetime import datetime
 
+
 class Borrowing():
-    
+    """
+    Represents a book being borrowed
+    """
     def __init__(self, user, book, gc_event_id, bor_date, ret_date):
         self.user = user
         self.book = book
@@ -11,6 +18,7 @@ class Borrowing():
         self.borrowed = True
 
     def return_book(self):
+    """Returns a borrowed book"""
         if self.borrowed is True:
             self.borrowed = False
             print("Thank you " + self.user.firstname + ", " + self.book.title + " has been returned.")

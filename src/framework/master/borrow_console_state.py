@@ -1,9 +1,16 @@
+"""
+borrow_console_state.py
+=======================
+"""
+
 from ..console_state import ConsoleState
 from .borrowing import Borrowing
 from datetime import datetime
 
 class BorrowConsoleState(ConsoleState):
-
+    """
+    Allows a user to borrow a book from the results of a book search
+    """
     def __init__(self, display_text, utility, gc):
         super().__init__(display_text, '')
         self.utility = utility

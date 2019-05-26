@@ -1,9 +1,14 @@
+"""
+search_console_state.py
+=======================
+"""
 from ..console_state import ConsoleState
 
-# Class is meant to represent the console state whilst the user is currently
-# searching for a book
-
 class SearchConsoleState(ConsoleState):
+    """
+    Class is meant to represent the console state whilst the user is currently
+    searching for a book
+    """
 
     def __init__(self, display_text):
         super().__init__(display_text, '')
