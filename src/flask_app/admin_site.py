@@ -19,7 +19,10 @@ def login():
     if form.validate_on_submit():
         flash('Login requested for user {}, remember_me={}'.format(
             form.username.data, form.remember.data))
-        return redirect('/dashboard')
+        if form.username.data == 'jaqen' and form.remember.data == 'hghar':
+            return redirect('/dashboard')
+        else:
+            return redirect('/login')
     return render_template('login.html', title='Sign In', form=form)
 
 @site.route("/dashboard")

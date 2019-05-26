@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, DateField
 from wtforms.validators import DataRequired
 
 class LoginForm(FlaskForm):
@@ -11,5 +11,5 @@ class LoginForm(FlaskForm):
 class AddForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     author = StringField('Author', validators=[DataRequired()])
-    published_date = DateTimeField('PublishedDate', format='%m/%d/%y' validators=[DataRequired()])
+    published_date = DateField('PublishedDate', format='%m/%d/%y', validators=[DataRequired()])
     submit = SubmitField('Sign In')
