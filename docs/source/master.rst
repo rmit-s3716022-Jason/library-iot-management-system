@@ -1,7 +1,3 @@
 
-
-Code:
-
-
 .. automodule:: master
    :members:
