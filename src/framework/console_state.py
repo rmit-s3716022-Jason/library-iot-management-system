@@ -10,10 +10,9 @@ class ConsoleState:
     """
     Params
         :display_text: the text to display on the display part of the Console
-        cycle
-
+                       cycle
         :prompt_text: the text to prompt user input on the input part of the
-        Console cycle
+                      Console cycle
     """
     def __init__(self, display_text, prompt_text):
         self.display_text = display_text
