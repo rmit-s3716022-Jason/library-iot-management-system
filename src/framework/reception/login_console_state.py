@@ -12,8 +12,11 @@ class LoginConsoleState(ConsoleState):
     """
     Allows a user to login
     """
-    def __init__(self):
+    def __init__(self, master_ip, master_port):
         super().__init__('', '')
+
+        self.master_ip = master_ip
+        self.master_port = master_port
 
         self.attributes = ['Username', 'Password']
         self.values = []
@@ -73,4 +76,4 @@ class LoginConsoleState(ConsoleState):
         data['user_id'] = self.user.user_id
         context.state.login()
         context.socket.send_message(
-            'login', json.dumps(data), '127.0.0.1', 5000)
+            'login', json.dumps(data), master_ip, master_port)

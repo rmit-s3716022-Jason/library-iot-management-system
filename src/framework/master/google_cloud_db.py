@@ -25,8 +25,8 @@ class GoogleCloudDb():
     def search(self, input_option, item):
         """
         params:
-            input<Integer>: Value will determine the type of search requested
-            item<String>: Book item/identifier that the user is querying
+            :input_option: Value will determine the type of search requested
+            :item: Book item/identifier that the user is querying
             
             Method will create a connection the mysqldb and
             return a result_list containing all results of books from the requested

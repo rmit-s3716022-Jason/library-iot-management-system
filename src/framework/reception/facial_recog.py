@@ -111,6 +111,10 @@ class FacialRecog():
     def facial_recog_login(self, state, login):
         """
         Constantly searches for a known face
+        Params
+            :state: the state object that stores whether
+            there is a user logged in
+            :login: the callback to log a user in if detected
         """
         # load the known faces and embeddings
         # print('[INFO] loading encodings...')

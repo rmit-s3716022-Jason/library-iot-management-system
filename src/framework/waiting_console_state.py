@@ -7,7 +7,10 @@ from .console_state import ConsoleState
 
 
 class WaitingConsoleState(ConsoleState):
-    """ **display_text:** not used"""
+    """
+    Params
+        :display_text: not used
+    """
     def __init__(self, display_text):
         super().__init__(display_text, '')
 

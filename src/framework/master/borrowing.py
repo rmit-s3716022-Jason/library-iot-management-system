@@ -7,6 +7,12 @@ borrowing.py
 class Borrowing():
     """
     Represents a book being borrowed
+
+    Constructor
+        :user: user id who is doing the borrowing
+        :book: book id that is being borrowed
+        :bor_date: the date the borrowing happened
+        :ret_date: the date the book was returned
     """
     def __init__(self, user, book, gc_event_id, bor_date, ret_date):
         self.user = user
@@ -23,4 +29,4 @@ class Borrowing():
             print("Thank you " + self.user.firstname + ", " + self.book.title + " has been returned.")
         else:
             print("Unable to return unborrowed book.")
-        
+

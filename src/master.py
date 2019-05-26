@@ -6,9 +6,13 @@ The master library pi CLI program.
 
 Allows the user to search for books, borrow books and return them.
 The book and borrowing data is stored in the cloud.
+
+Usage python3 master.py <reception_ip> <reception_port>
+
 """
 
 import json
+import sys
 from framework.console import Console
 from framework.console_state import ConsoleState
 from framework.waiting_console_state import WaitingConsoleState
@@ -33,17 +37,13 @@ class Master:
 
     Constructor
 
-    params
-
-    **ip:** IP address to listen on
-
-    **port:** port to listen on
-
-    **reception_ip:** reception pi IP address
-
-    **reception_port:** the port that the reception pi is listening on
+    Params
+        :ip: IP address to listen on
+        :port: port to listen on
+        :reception_ip: reception pi IP address
+        :reception_port: the port that the reception pi is listening on
     """
-    def __init__(self, ip, port):
+    def __init__(self, ip, port, reception_ip, reception_port):
         db_interface = GoogleCloudDb()
         #self.gc?
         gc = GoogleCalendar()
@@ -86,5 +86,9 @@ class Master:
 
 
 if __name__ == '__main__':
-    main = Master('127.0.0.1', 5000)
-    main.run()
+    if len(sys.argv) == 3:
+        main = Master('127.0.0.1', 5000, sys.argv[1], sys.argv[2])
+        main.run()
+
+    else:
+        print('Usage python3 master.py <reception_ip> <reception_port>')

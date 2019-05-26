@@ -9,9 +9,9 @@ states
 
 class Utility:
     """
-    **db:** the db that this program is using
-
-    **socket:** the socket instance to use
+    Params
+        :db: the db that this program is using
+        :socket: the socket instance to use
     """
     def __init__(self, db, socket):
         self.db = db

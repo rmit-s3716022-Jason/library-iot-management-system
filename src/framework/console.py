@@ -11,9 +11,8 @@ states that have been added to it
 
 class Console:
     """
-    params
-
-    **utility:** shared resources and state
+    Params
+        :utility: shared resources and state
     """
     def __init__(self, utility):
         self.states = {}
