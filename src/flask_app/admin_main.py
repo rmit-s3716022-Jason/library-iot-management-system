@@ -4,8 +4,12 @@ from flask_marshmallow import Marshmallow
 import os, requests, json
 from admin_api import api, db
 from admin_site import site
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
+
+bootstrap = Bootstrap(app)
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 HOST = "localhost"

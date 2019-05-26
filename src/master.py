@@ -13,16 +13,17 @@ Usage python3 master.py <reception_ip> <reception_port>
 
 import json
 import sys
-from framework.console import Console
-from framework.console_state import ConsoleState
-from framework.waiting_console_state import WaitingConsoleState
-from framework.utility import Utility
-from framework.udp_socket import UdpSocket
-from framework.master.google_cloud_db import GoogleCloudDb
-from framework.master.google_calendar import GoogleCalendar
-from framework.master.search_console_state import SearchConsoleState
-from framework.master.borrow_console_state import BorrowConsoleState
-from framework.master.master_user import MasterUser
+from .framework.console import Console
+from .framework.console_state import ConsoleState
+from .framework.waiting_console_state import WaitingConsoleState
+from .framework.utility import Utility
+from .framework.udp_socket import UdpSocket
+from .framework.master.google_cloud_db import GoogleCloudDb
+from .framework.master.google_calendar import GoogleCalendar
+from .framework.master.search_console_state import SearchConsoleState
+from .framework.master.borrow_console_state import BorrowConsoleState
+from .framework.master.return_console_state import ReturnConsoleState
+from .framework.master.master_user import MasterUser
 
 
 def logout(context):
@@ -54,8 +55,9 @@ class Master:
 
         waiting_state = WaitingConsoleState('Waiting for login')
         searching_state = SearchConsoleState('Searching for book')
-        borrowing_state = BorrowConsoleState(
-            'Borrowing a book', self.utility, gc)
+        borrowing_state = BorrowConsoleState('Borrowing a book', self.utility, gc)
+        returning_state = ReturnConsoleState('Returning a book', self.utility, gc)
+        borrowing_state = BorrowConsoleState('Borrowing a book', self.utility, gc)
 
         main_menu = ConsoleState("""
             1. Search for a book
@@ -68,7 +70,8 @@ class Master:
         self.console.add_state('waiting', waiting_state)
         self.console.add_state('main', main_menu)
         self.console.add_state('searching', searching_state)
-        self.console.add_state('result', borrowing_state)
+        self.console.add_state('borrow', borrowing_state)
+        self.console.add_state('return', returning_state)
         self.console.set_current_state('waiting')
 
     def run(self):
