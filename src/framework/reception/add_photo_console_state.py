@@ -1,8 +1,16 @@
+"""
+add_photo_console_state.py
+==========================
+"""
 from ..console_state import ConsoleState
 from .facial_recog import FacialRecog
 
 
 class AddPhotoConsoleState(ConsoleState):
+    """
+    Allows a user to enable face recognition by taking photos of themselves
+    which are then incorporated into the face data set
+    """
     def __init__(self):
         super().__init__('', '')
 

@@ -1,0 +1,757 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Framework &#8212; IoT-Assignment2 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="IoT-Assignment2 1.0.0 documentation" href="index.html" />
+    <link rel="prev" title="Admin website" href="admin.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="framework">
+<h1>Framework<a class="headerlink" href="#framework" title="Permalink to this headline">¶</a></h1>
+<p>This framework is the CLI framework that powers both the reception and master program. The Console is the powerhouse
+which runs the output input loop. It has a number of console_states that it can switch between. Shared resources and
+state are stored in the utility class.</p>
+<span class="target" id="module-framework.console"></span><div class="section" id="console-py">
+<h2>console.py<a class="headerlink" href="#console-py" title="Permalink to this headline">¶</a></h2>
+<p>This class provides the engine for the CLI programs</p>
+<p>It runs the display-&gt;input loop and switches states when told to by the console
+states that have been added to it</p>
+<dl class="class">
+<dt id="framework.console.Console">
+<em class="property">class </em><code class="descclassname">framework.console.</code><code class="descname">Console</code><span class="sig-paren">(</span><em>utility</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.console.Console" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Params</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">utility:</th><td class="field-body">shared resources and state</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="method">
+<dt id="framework.console.Console.add_state">
+<code class="descname">add_state</code><span class="sig-paren">(</span><em>name</em>, <em>state</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.console.Console.add_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a state and associates it with a name</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="framework.console.Console.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#framework.console.Console.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the display-&gt;input loop</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="framework.console.Console.set_current_state">
+<code class="descname">set_current_state</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.console.Console.set_current_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the state to a previously registered state</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-framework.console_state"></span><div class="section" id="console-state-py">
+<h2>console_state.py<a class="headerlink" href="#console-state-py" title="Permalink to this headline">¶</a></h2>
+<p>Represents an activity within the CLI program</p>
+<dl class="class">
+<dt id="framework.console_state.ConsoleState">
+<em class="property">class </em><code class="descclassname">framework.console_state.</code><code class="descname">ConsoleState</code><span class="sig-paren">(</span><em>display_text</em>, <em>prompt_text</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.console_state.ConsoleState" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Params</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">display_text:</th><td class="field-body">the text to display on the display part of the Console cycle</td>
+</tr>
+<tr class="field-even field"><th class="field-name">prompt_text:</th><td class="field-body">the text to prompt user input on the input part of the Console cycle</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="method">
+<dt id="framework.console_state.ConsoleState.add_handler">
+<code class="descname">add_handler</code><span class="sig-paren">(</span><em>input_string</em>, <em>handler</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.console_state.ConsoleState.add_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a handler for a particluar input string</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="framework.console_state.ConsoleState.display">
+<code class="descname">display</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#framework.console_state.ConsoleState.display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Displays the display text</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="framework.console_state.ConsoleState.handle_input">
+<code class="descname">handle_input</code><span class="sig-paren">(</span><em>input_string</em>, <em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.console_state.ConsoleState.handle_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles the input collected</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="framework.console_state.ConsoleState.input">
+<code class="descname">input</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#framework.console_state.ConsoleState.input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Collects input after displaying the prompt text</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-framework.udp_socket"></span><div class="section" id="upd-socket-py">
+<h2>upd_socket.py<a class="headerlink" href="#upd-socket-py" title="Permalink to this headline">¶</a></h2>
+<p>UDP client server class</p>
+<dl class="class">
+<dt id="framework.udp_socket.UdpSocket">
+<em class="property">class </em><code class="descclassname">framework.udp_socket.</code><code class="descname">UdpSocket</code><span class="sig-paren">(</span><em>ip</em>, <em>port</em>, <em>is_server</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.udp_socket.UdpSocket" title="Permalink to this definition">¶</a></dt>
+<dd><p>The UDP socket client/server class
+This manages the UDP socket and provides helper methods and message
+handling.</p>
+<dl class="docutils">
+<dt>Params</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">ip:</th><td class="field-body">the IP address to use</td>
+</tr>
+<tr class="field-even field"><th class="field-name">port:</th><td class="field-body">the port to use</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">is_server:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="method">
+<dt id="framework.udp_socket.UdpSocket.add_handler">
+<code class="descname">add_handler</code><span class="sig-paren">(</span><em>message_type</em>, <em>handler</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.udp_socket.UdpSocket.add_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a handler for a message type</p>
+<dl class="docutils">
+<dt>Params</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">message_type:</th><td class="field-body">the type of message this handler handles</td>
+</tr>
+<tr class="field-even field"><th class="field-name">handler:</th><td class="field-body">the handler to handle the message</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="framework.udp_socket.UdpSocket.close">
+<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#framework.udp_socket.UdpSocket.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closes the connection</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="framework.udp_socket.UdpSocket.send_message">
+<code class="descname">send_message</code><span class="sig-paren">(</span><em>message_type</em>, <em>data</em>, <em>ip_address</em>, <em>port</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.udp_socket.UdpSocket.send_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sends a message to the external system
+Encodes as json</p>
+<dl class="docutils">
+<dt>Params</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">message_type:</th><td class="field-body">the type of message being sent</td>
+</tr>
+<tr class="field-even field"><th class="field-name">data:</th><td class="field-body">the message data</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">ip_address:</th><td class="field-body">the ip_address to send to</td>
+</tr>
+<tr class="field-even field"><th class="field-name">port:</th><td class="field-body">the port to send to</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="framework.udp_socket.UdpSocket.wait_for_message">
+<code class="descname">wait_for_message</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#framework.udp_socket.UdpSocket.wait_for_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Waits for a message from the external system and tries
+to handle it when it is received</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-framework.utility"></span><div class="section" id="utility-py">
+<h2>utility.py<a class="headerlink" href="#utility-py" title="Permalink to this headline">¶</a></h2>
+<p>Provides a collection of resources and data that is shared between console
+states</p>
+<dl class="class">
+<dt id="framework.utility.Utility">
+<em class="property">class </em><code class="descclassname">framework.utility.</code><code class="descname">Utility</code><span class="sig-paren">(</span><em>db</em>, <em>socket</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.utility.Utility" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Params</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">db:</th><td class="field-body">the db that this program is using</td>
+</tr>
+<tr class="field-even field"><th class="field-name">socket:</th><td class="field-body">the socket instance to use</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<span class="target" id="module-framework.waiting_console_state"></span><div class="section" id="waiting-console-state-py">
+<h2>waiting_console_state.py<a class="headerlink" href="#waiting-console-state-py" title="Permalink to this headline">¶</a></h2>
+<p>A state that waits for a message on the socket</p>
+<dl class="class">
+<dt id="framework.waiting_console_state.WaitingConsoleState">
+<em class="property">class </em><code class="descclassname">framework.waiting_console_state.</code><code class="descname">WaitingConsoleState</code><span class="sig-paren">(</span><em>display_text</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.waiting_console_state.WaitingConsoleState" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Params</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">display_text:</th><td class="field-body">not used</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="method">
+<dt id="framework.waiting_console_state.WaitingConsoleState.display">
+<code class="descname">display</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#framework.waiting_console_state.WaitingConsoleState.display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does nothing</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="framework.waiting_console_state.WaitingConsoleState.handle_input">
+<code class="descname">handle_input</code><span class="sig-paren">(</span><em>input_string</em>, <em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.waiting_console_state.WaitingConsoleState.handle_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Waits for message on the socket</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="framework.waiting_console_state.WaitingConsoleState.input">
+<code class="descname">input</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#framework.waiting_console_state.WaitingConsoleState.input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does nothing</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-framework.reception.login_console_state">
+<span id="the-components-used-only-by-the-reception-program"></span><h2>The components used only by the reception program<a class="headerlink" href="#module-framework.reception.login_console_state" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="login-console-state-py">
+<h3>login_console_state.py<a class="headerlink" href="#login-console-state-py" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="framework.reception.login_console_state.LoginConsoleState">
+<em class="property">class </em><code class="descclassname">framework.reception.login_console_state.</code><code class="descname">LoginConsoleState</code><span class="sig-paren">(</span><em>master_ip</em>, <em>master_port</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.reception.login_console_state.LoginConsoleState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows a user to login</p>
+</dd></dl>
+
+</div>
+<span class="target" id="module-framework.reception.registration_console_state"></span><div class="section" id="registration-console-state-py">
+<h3>registration_console_state.py<a class="headerlink" href="#registration-console-state-py" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="framework.reception.registration_console_state.RegistrationConsoleState">
+<em class="property">class </em><code class="descclassname">framework.reception.registration_console_state.</code><code class="descname">RegistrationConsoleState</code><a class="headerlink" href="#framework.reception.registration_console_state.RegistrationConsoleState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows a user to register themselves</p>
+<dl class="method">
+<dt id="framework.reception.registration_console_state.RegistrationConsoleState.validate">
+<code class="descname">validate</code><span class="sig-paren">(</span><em>input_string</em>, <em>attribute</em>, <em>database</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.reception.registration_console_state.RegistrationConsoleState.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates user input</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="framework.reception.registration_console_state.RegistrationConsoleState.write_user">
+<code class="descname">write_user</code><span class="sig-paren">(</span><em>database</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.reception.registration_console_state.RegistrationConsoleState.write_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a new user to the DB</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-framework.reception.add_photo_console_state"></span><div class="section" id="add-photo-console-state-py">
+<h3>add_photo_console_state.py<a class="headerlink" href="#add-photo-console-state-py" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="framework.reception.add_photo_console_state.AddPhotoConsoleState">
+<em class="property">class </em><code class="descclassname">framework.reception.add_photo_console_state.</code><code class="descname">AddPhotoConsoleState</code><a class="headerlink" href="#framework.reception.add_photo_console_state.AddPhotoConsoleState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows a user to enable face recognition by taking photos of themselves
+which are then incorporated into the face data set</p>
+</dd></dl>
+
+</div>
+<span class="target" id="module-framework.reception.sqlite_db_interface"></span><div class="section" id="sqlite-db-interface-py">
+<h3>sqlite_db_interface.py<a class="headerlink" href="#sqlite-db-interface-py" title="Permalink to this headline">¶</a></h3>
+<p>Contains the SQLite implementation of the db interface
+Some code also used in group 65 IoT assignment 1</p>
+<dl class="class">
+<dt id="framework.reception.sqlite_db_interface.SqliteDbInterface">
+<em class="property">class </em><code class="descclassname">framework.reception.sqlite_db_interface.</code><code class="descname">SqliteDbInterface</code><span class="sig-paren">(</span><em>db='reception.db'</em>, <em>data_table='users'</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.reception.sqlite_db_interface.SqliteDbInterface" title="Permalink to this definition">¶</a></dt>
+<dd><p>The SQLite db interface implementation</p>
+<dl class="method">
+<dt id="framework.reception.sqlite_db_interface.SqliteDbInterface.create_db">
+<code class="descname">create_db</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#framework.reception.sqlite_db_interface.SqliteDbInterface.create_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the database table if it doesn&#8217;t exist</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="framework.reception.sqlite_db_interface.SqliteDbInterface.find_user">
+<code class="descname">find_user</code><span class="sig-paren">(</span><em>username</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.reception.sqlite_db_interface.SqliteDbInterface.find_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches for a user that matches the username</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="framework.reception.sqlite_db_interface.SqliteDbInterface.read_all_users">
+<code class="descname">read_all_users</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#framework.reception.sqlite_db_interface.SqliteDbInterface.read_all_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enumerates all of the users in the database</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="framework.reception.sqlite_db_interface.SqliteDbInterface.read_values">
+<code class="descname">read_values</code><span class="sig-paren">(</span><em>query_string</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.reception.sqlite_db_interface.SqliteDbInterface.read_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads values from the DB returned by the given query</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="framework.reception.sqlite_db_interface.SqliteDbInterface.write_user">
+<code class="descname">write_user</code><span class="sig-paren">(</span><em>user</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.reception.sqlite_db_interface.SqliteDbInterface.write_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a user to the table</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="framework.reception.sqlite_db_interface.SqliteDbInterface.write_values">
+<code class="descname">write_values</code><span class="sig-paren">(</span><em>query_string</em>, <em>values</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.reception.sqlite_db_interface.SqliteDbInterface.write_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Worker function to insert data into a table</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-framework.reception.state"></span><div class="section" id="state-py">
+<h3>state.py<a class="headerlink" href="#state-py" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="framework.reception.state.State">
+<em class="property">class </em><code class="descclassname">framework.reception.state.</code><code class="descname">State</code><a class="headerlink" href="#framework.reception.state.State" title="Permalink to this definition">¶</a></dt>
+<dd><p>The login state of the reception pi</p>
+<dl class="method">
+<dt id="framework.reception.state.State.is_logged_in">
+<code class="descname">is_logged_in</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#framework.reception.state.State.is_logged_in" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check whether the reception pi is logged in</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="framework.reception.state.State.login">
+<code class="descname">login</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#framework.reception.state.State.login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change state to logged in</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="framework.reception.state.State.logout">
+<code class="descname">logout</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#framework.reception.state.State.logout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change state to logged_out</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-framework.reception.user"></span><div class="section" id="user-py">
+<h3>user.py<a class="headerlink" href="#user-py" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="framework.reception.user.User">
+<em class="property">class </em><code class="descclassname">framework.reception.user.</code><code class="descname">User</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.reception.user.User" title="Permalink to this definition">¶</a></dt>
+<dd><p>The user data class</p>
+<p>If given a non hashed password, hashes the password before storing</p>
+<dl class="method">
+<dt id="framework.reception.user.User.check_password">
+<code class="descname">check_password</code><span class="sig-paren">(</span><em>password</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.reception.user.User.check_password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks a password against the stored hash</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="framework.reception.user.User.hash_password">
+<code class="descname">hash_password</code><span class="sig-paren">(</span><em>password</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.reception.user.User.hash_password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hashes a password</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-framework.reception.facial_recog"></span><div class="section" id="facial-recog-py">
+<h3>facial_recog.py<a class="headerlink" href="#facial-recog-py" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>Acknowledgement</dt>
+<dd>Code was adapted from TutLab 9 01_capture.py, 02_encode.py, and 03_recognise.py
+which in turn was adapted from
+<a class="reference external" href="https://www.hackster.io/mjrobot/real-time-face-recognition-an-end-to-end-project-a10826">https://www.hackster.io/mjrobot/real-time-face-recognition-an-end-to-end-project-a10826</a>
+and
+<a class="reference external" href="https://www.pyimagesearch.com/2018/06/18/face-recognition-with-opencv-python-and-deep-learning/">https://www.pyimagesearch.com/2018/06/18/face-recognition-with-opencv-python-and-deep-learning/</a></dd>
+</dl>
+<dl class="class">
+<dt id="framework.reception.facial_recog.FacialRecog">
+<em class="property">class </em><code class="descclassname">framework.reception.facial_recog.</code><code class="descname">FacialRecog</code><a class="headerlink" href="#framework.reception.facial_recog.FacialRecog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles taking pictures, encoding them and recognising known people</p>
+<dl class="method">
+<dt id="framework.reception.facial_recog.FacialRecog.capture_photo">
+<code class="descname">capture_photo</code><span class="sig-paren">(</span><em>username</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.reception.facial_recog.FacialRecog.capture_photo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Captures a photo</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="framework.reception.facial_recog.FacialRecog.encode">
+<code class="descname">encode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#framework.reception.facial_recog.FacialRecog.encode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encodes the dataset into a pickled dataset</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="framework.reception.facial_recog.FacialRecog.facial_recog_login">
+<code class="descname">facial_recog_login</code><span class="sig-paren">(</span><em>state</em>, <em>login</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.reception.facial_recog.FacialRecog.facial_recog_login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constantly searches for a known face</p>
+<dl class="docutils">
+<dt>Params</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">state:</th><td class="field-body">the state object that stores whether there is a user logged in</td>
+</tr>
+<tr class="field-even field"><th class="field-name">login:</th><td class="field-body">the callback to log a user in if detected</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-framework.master.borrow_console_state">
+<span id="the-components-used-only-by-the-master-program"></span><h2>The components used only by the master program<a class="headerlink" href="#module-framework.master.borrow_console_state" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="borrow-console-state-py">
+<h3>borrow_console_state.py<a class="headerlink" href="#borrow-console-state-py" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="framework.master.borrow_console_state.BorrowConsoleState">
+<em class="property">class </em><code class="descclassname">framework.master.borrow_console_state.</code><code class="descname">BorrowConsoleState</code><span class="sig-paren">(</span><em>display_text</em>, <em>utility</em>, <em>google_calendar</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.master.borrow_console_state.BorrowConsoleState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows a user to borrow a book from the results of a book search</p>
+<dl class="docutils">
+<dt>Constructor</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">display_text:</th><td class="field-body">the text to display</td>
+</tr>
+<tr class="field-even field"><th class="field-name">utility:</th><td class="field-body">the shared utility class</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">google_calendar:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">a google calendar adapter</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<span class="target" id="module-framework.master.search_console_state"></span><div class="section" id="search-console-state-py">
+<h3>search_console_state.py<a class="headerlink" href="#search-console-state-py" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="framework.master.search_console_state.SearchConsoleState">
+<em class="property">class </em><code class="descclassname">framework.master.search_console_state.</code><code class="descname">SearchConsoleState</code><span class="sig-paren">(</span><em>display_text</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.master.search_console_state.SearchConsoleState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class is meant to represent the console state whilst the user is currently
+searching for a book</p>
+</dd></dl>
+
+</div>
+<span class="target" id="module-framework.master.return_console_state"></span><div class="section" id="return-console-state-py">
+<h3>return_console_state.py<a class="headerlink" href="#return-console-state-py" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="framework.master.return_console_state.ReturnConsoleState">
+<em class="property">class </em><code class="descclassname">framework.master.return_console_state.</code><code class="descname">ReturnConsoleState</code><span class="sig-paren">(</span><em>display_text</em>, <em>utility</em>, <em>gc</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.master.return_console_state.ReturnConsoleState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows a user to return a borrowed book</p>
+</dd></dl>
+
+</div>
+<span class="target" id="module-framework.master.google_calendar"></span><div class="section" id="google-calendar-py">
+<h3>google_calendar.py<a class="headerlink" href="#google-calendar-py" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="framework.master.google_calendar.GoogleCalendar">
+<em class="property">class </em><code class="descclassname">framework.master.google_calendar.</code><code class="descname">GoogleCalendar</code><a class="headerlink" href="#framework.master.google_calendar.GoogleCalendar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wraps all of the interactions with google calendar</p>
+<dl class="method">
+<dt id="framework.master.google_calendar.GoogleCalendar.add_event">
+<code class="descname">add_event</code><span class="sig-paren">(</span><em>user_id</em>, <em>username</em>, <em>b_title</em>, <em>b_id</em>, <em>start_time</em>, <em>end_time</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.master.google_calendar.GoogleCalendar.add_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates start/end time of event, and creates google calendar event with
+the given data identifying the user and the book being borrowed.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>The generated event id to be stored in the database</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="framework.master.google_calendar.GoogleCalendar.get_credentials">
+<code class="descname">get_credentials</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#framework.master.google_calendar.GoogleCalendar.get_credentials" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets valid user credentials from storage.</p>
+<p>If nothing has been stored, or if the stored credentials are invalid,
+the OAuth2 flow is completed to obtain the new credentials.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>Credentials, the obtained credential.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="framework.master.google_calendar.GoogleCalendar.remove_event">
+<code class="descname">remove_event</code><span class="sig-paren">(</span><em>e_id</em>, <em>c_id='primary'</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.master.google_calendar.GoogleCalendar.remove_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes requested event with given event identifier.
+If successfully delete() returns a empty response body.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-framework.master.google_cloud_db"></span><div class="section" id="google-cloud-db-py">
+<h3>google_cloud_db.py<a class="headerlink" href="#google-cloud-db-py" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="framework.master.google_cloud_db.GoogleCloudDb">
+<em class="property">class </em><code class="descclassname">framework.master.google_cloud_db.</code><code class="descname">GoogleCloudDb</code><a class="headerlink" href="#framework.master.google_cloud_db.GoogleCloudDb" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a class that provides GCP capabilities in the form of a search function that allows users to search a book by whatever attribute they input</p>
+<dl class="method">
+<dt id="framework.master.google_cloud_db.GoogleCloudDb.search">
+<code class="descname">search</code><span class="sig-paren">(</span><em>input_option</em>, <em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.master.google_cloud_db.GoogleCloudDb.search" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>params:</dt>
+<dd><table class="first docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">input_option:</th><td class="field-body">Value will determine the type of search requested</td>
+</tr>
+<tr class="field-even field"><th class="field-name">item:</th><td class="field-body">Book item/identifier that the user is querying</td>
+</tr>
+</tbody>
+</table>
+<p class="last">Method will create a connection the mysqldb and
+return a result_list containing all results of books from the requested
+query.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-framework.master.master_user"></span><div class="section" id="master-user-py">
+<h3>master_user.py<a class="headerlink" href="#master-user-py" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="framework.master.master_user.MasterUser">
+<em class="property">class </em><code class="descclassname">framework.master.master_user.</code><code class="descname">MasterUser</code><span class="sig-paren">(</span><em>username</em>, <em>firstname</em>, <em>lastname</em>, <em>user_id</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.master.master_user.MasterUser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Caches user data from the reception pi</p>
+</dd></dl>
+
+</div>
+<span class="target" id="module-framework.master.book"></span><div class="section" id="book-py">
+<h3>book.py<a class="headerlink" href="#book-py" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="framework.master.book.Book">
+<em class="property">class </em><code class="descclassname">framework.master.book.</code><code class="descname">Book</code><span class="sig-paren">(</span><em>book_id</em>, <em>title</em>, <em>author</em>, <em>published_date</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.master.book.Book" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class will be used to contain the parameters of a book</p>
+<dl class="docutils">
+<dt>Constructor</dt>
+<dd><p class="first">Creates the variables associated with this class</p>
+<table class="last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">type book_id:</th><td class="field-body">int</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param book_id:</th><td class="field-body">the unique identifier given to the book</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">type title:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param title:</th><td class="field-body">the name of the book</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">type author:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param author:</th><td class="field-body">the name of the person who wrote the book</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">type published_date:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">param published_date:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">date book was published</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<span class="target" id="module-framework.master.borrowing"></span><div class="section" id="borrowing-py">
+<h3>borrowing.py<a class="headerlink" href="#borrowing-py" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="framework.master.borrowing.Borrowing">
+<em class="property">class </em><code class="descclassname">framework.master.borrowing.</code><code class="descname">Borrowing</code><span class="sig-paren">(</span><em>user</em>, <em>book</em>, <em>gc_event_id</em>, <em>bor_date</em>, <em>ret_date</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.master.borrowing.Borrowing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a book being borrowed</p>
+<dl class="docutils">
+<dt>Constructor</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">user:</th><td class="field-body">user id who is doing the borrowing</td>
+</tr>
+<tr class="field-even field"><th class="field-name">book:</th><td class="field-body">book id that is being borrowed</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">bor_date:</th><td class="field-body">the date the borrowing happened</td>
+</tr>
+<tr class="field-even field"><th class="field-name">ret_date:</th><td class="field-body">the date the book was returned</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="method">
+<dt id="framework.master.borrowing.Borrowing.return_book">
+<code class="descname">return_book</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#framework.master.borrowing.Borrowing.return_book" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a borrowed book</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Framework</a><ul>
+<li><a class="reference internal" href="#console-py">console.py</a></li>
+<li><a class="reference internal" href="#console-state-py">console_state.py</a></li>
+<li><a class="reference internal" href="#upd-socket-py">upd_socket.py</a></li>
+<li><a class="reference internal" href="#utility-py">utility.py</a></li>
+<li><a class="reference internal" href="#waiting-console-state-py">waiting_console_state.py</a></li>
+<li><a class="reference internal" href="#module-framework.reception.login_console_state">The components used only by the reception program</a><ul>
+<li><a class="reference internal" href="#login-console-state-py">login_console_state.py</a></li>
+<li><a class="reference internal" href="#registration-console-state-py">registration_console_state.py</a></li>
+<li><a class="reference internal" href="#add-photo-console-state-py">add_photo_console_state.py</a></li>
+<li><a class="reference internal" href="#sqlite-db-interface-py">sqlite_db_interface.py</a></li>
+<li><a class="reference internal" href="#state-py">state.py</a></li>
+<li><a class="reference internal" href="#user-py">user.py</a></li>
+<li><a class="reference internal" href="#facial-recog-py">facial_recog.py</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-framework.master.borrow_console_state">The components used only by the master program</a><ul>
+<li><a class="reference internal" href="#borrow-console-state-py">borrow_console_state.py</a></li>
+<li><a class="reference internal" href="#search-console-state-py">search_console_state.py</a></li>
+<li><a class="reference internal" href="#return-console-state-py">return_console_state.py</a></li>
+<li><a class="reference internal" href="#google-calendar-py">google_calendar.py</a></li>
+<li><a class="reference internal" href="#google-cloud-db-py">google_cloud_db.py</a></li>
+<li><a class="reference internal" href="#master-user-py">master_user.py</a></li>
+<li><a class="reference internal" href="#book-py">book.py</a></li>
+<li><a class="reference internal" href="#borrowing-py">borrowing.py</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="admin.html" title="previous chapter">Admin website</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/framework.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Dominique McDonnell, Christina Wallace, Joshua Wallace, Liam Jeynes.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.9</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/framework.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

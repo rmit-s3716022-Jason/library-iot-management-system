@@ -1,0 +1,2 @@
+.. automodule:: master
+   :members:
