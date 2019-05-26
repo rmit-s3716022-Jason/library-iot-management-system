@@ -19,16 +19,16 @@ class GoogleCalendar():
         self.http = self.creds.authorize(Http())
         self.service = build.build('calendar', 'v3', http=self.http)
 
-    """
-    Gets valid user credentials from storage.
-
-    If nothing has been stored, or if the stored credentials are invalid,
-    the OAuth2 flow is completed to obtain the new credentials.
-
-    Returns:
-        Credentials, the obtained credential.
-    """
     def get_credentials(self):
+        """
+        Gets valid user credentials from storage.
+
+        If nothing has been stored, or if the stored credentials are invalid,
+        the OAuth2 flow is completed to obtain the new credentials.
+
+        Returns:
+            Credentials, the obtained credential.
+        """
         scopes = "https://www.googleapis.com/auth/calendar"
         store = file.Storage("token.json")
         creds = store.get()
@@ -38,15 +38,15 @@ class GoogleCalendar():
 
         return creds
 
-    '''
-    Calculates start/end time of event, and creates google calendar event with
-    the given data identifying the user and the book being borrowed.
-
-    Returns:
-        The generated event id to be stored in the database
-
-    '''
     def add_event(self, user_id, username, b_title, b_id, start_time, end_time):
+        """
+        Calculates start/end time of event, and creates google calendar event with
+        the given data identifying the user and the book being borrowed.
+
+        Returns:
+            The generated event id to be stored in the database
+
+        """
         event = {
             'summary': "New Borrowing Event",
             'description': user_id + " borrowing: " + b_id + "- " + b_title,
@@ -60,11 +60,11 @@ class GoogleCalendar():
         print("Event created: {}".format(event.get("htmlLink")))
         return event.get('id')
 
-    '''
-    Removes requested event with given event identifier.
-    If successfully delete() returns a empty response body.
-    '''
     def remove_event(self, e_id, c_id='primary'):
+        """
+        Removes requested event with given event identifier.
+        If successfully delete() returns a empty response body.
+        """
         event = self.service.events().delete(calendarId=c_id,
                                              eventId=e_id).execute()
         if not event:

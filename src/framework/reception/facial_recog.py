@@ -1,5 +1,6 @@
 """
 facial_recog.py
+===============
 
 Acknowledgement
 Code was adapted from TutLab 9 01_capture.py, 02_encode.py, and 03_recognise.py
