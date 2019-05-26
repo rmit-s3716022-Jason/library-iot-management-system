@@ -36,8 +36,13 @@ class Reception:
 
     Constructor
 
-    Takes the ip and port to listen on and the ip and port of the master
-    component.
+    **ip:** the IP address to listen on
+
+    **port:** the port to listen on
+
+    **master_ip:** the master IP address to connect to
+    
+    **master_port:** the master port to connect to
 
     """
     def __init__(self, ip, port):

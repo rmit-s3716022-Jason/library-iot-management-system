@@ -32,14 +32,16 @@ class Master:
     The class that runs the master pi library code
 
     Constructor
-    -----------
 
     params
 
-    ip: IP address to listen on
-    port: port to listen on
-    reception ip: reception pi IP address
-    reception port: the port that the reception pi is listening on
+    **ip:** IP address to listen on
+
+    **port:** port to listen on
+
+    **reception_ip:** reception pi IP address
+
+    **reception_port:** the port that the reception pi is listening on
     """
     def __init__(self, ip, port):
         db_interface = GoogleCloudDb()
