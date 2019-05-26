@@ -47,16 +47,30 @@
 <p>The master library pi CLI program.</p>
 <p>Allows the user to search for books, borrow books and return them.
 The book and borrowing data is stored in the cloud.</p>
+<p>Usage python3 master.py &lt;reception_ip&gt; &lt;reception_port&gt;</p>
 <dl class="class">
 <dt id="master.Master">
-<em class="property">class </em><code class="descclassname">master.</code><code class="descname">Master</code><span class="sig-paren">(</span><em>ip</em>, <em>port</em><span class="sig-paren">)</span><a class="headerlink" href="#master.Master" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">master.</code><code class="descname">Master</code><span class="sig-paren">(</span><em>ip</em>, <em>port</em>, <em>reception_ip</em>, <em>reception_port</em><span class="sig-paren">)</span><a class="headerlink" href="#master.Master" title="Permalink to this definition">¶</a></dt>
 <dd><p>The class that runs the master pi library code</p>
 <p>Constructor</p>
-<p>params</p>
-<p><strong>ip:</strong> IP address to listen on</p>
-<p><strong>port:</strong> port to listen on</p>
-<p><strong>reception_ip:</strong> reception pi IP address</p>
-<p><strong>reception_port:</strong> the port that the reception pi is listening on</p>
+<dl class="docutils">
+<dt>Params</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">ip:</th><td class="field-body">IP address to listen on</td>
+</tr>
+<tr class="field-even field"><th class="field-name">port:</th><td class="field-body">port to listen on</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">reception_ip:</th><td class="field-body">reception pi IP address</td>
+</tr>
+<tr class="field-even field"><th class="field-name">reception_port:</th><td class="field-body">the port that the reception pi is listening on</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
 <dl class="method">
 <dt id="master.Master.run">
 <code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#master.Master.run" title="Permalink to this definition">¶</a></dt>

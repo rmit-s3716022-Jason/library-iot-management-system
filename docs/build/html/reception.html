@@ -50,14 +50,27 @@ facial recognition for login.</p>
 <p>Usage: python3 reception.py master_ip master_port</p>
 <dl class="class">
 <dt id="reception.Reception">
-<em class="property">class </em><code class="descclassname">reception.</code><code class="descname">Reception</code><span class="sig-paren">(</span><em>ip</em>, <em>port</em><span class="sig-paren">)</span><a class="headerlink" href="#reception.Reception" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">reception.</code><code class="descname">Reception</code><span class="sig-paren">(</span><em>ip</em>, <em>port</em>, <em>master_ip</em>, <em>master_port</em><span class="sig-paren">)</span><a class="headerlink" href="#reception.Reception" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is the class that sets up and runs the cli program that
 handles library login.</p>
-<p>Constructor</p>
-<p><strong>ip:</strong> the IP address to listen on</p>
-<p><strong>port:</strong> the port to listen on</p>
-<p><strong>master_ip:</strong> the master IP address to connect to</p>
-<p><strong>master_port:</strong> the master port to connect to</p>
+<dl class="docutils">
+<dt>Params</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">ip:</th><td class="field-body">the IP address to listen on</td>
+</tr>
+<tr class="field-even field"><th class="field-name">port:</th><td class="field-body">the port to listen on</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">master_ip:</th><td class="field-body">the master IP address to connect to</td>
+</tr>
+<tr class="field-even field"><th class="field-name">master_port:</th><td class="field-body">the master port to connect to</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
 <dl class="method">
 <dt id="reception.Reception.run">
 <code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#reception.Reception.run" title="Permalink to this definition">¶</a></dt>

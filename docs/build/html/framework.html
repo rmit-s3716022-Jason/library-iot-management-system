@@ -54,8 +54,18 @@ states that have been added to it</p>
 <dl class="class">
 <dt id="framework.console.Console">
 <em class="property">class </em><code class="descclassname">framework.console.</code><code class="descname">Console</code><span class="sig-paren">(</span><em>utility</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.console.Console" title="Permalink to this definition">¶</a></dt>
-<dd><p>params</p>
-<p><strong>utility:</strong> shared resources and state</p>
+<dd><dl class="docutils">
+<dt>Params</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">utility:</th><td class="field-body">shared resources and state</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
 <dl class="method">
 <dt id="framework.console.Console.add_state">
 <code class="descname">add_state</code><span class="sig-paren">(</span><em>name</em>, <em>state</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.console.Console.add_state" title="Permalink to this definition">¶</a></dt>
@@ -83,10 +93,28 @@ states that have been added to it</p>
 <dl class="class">
 <dt id="framework.console_state.ConsoleState">
 <em class="property">class </em><code class="descclassname">framework.console_state.</code><code class="descname">ConsoleState</code><span class="sig-paren">(</span><em>display_text</em>, <em>prompt_text</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.console_state.ConsoleState" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>display_text:</strong> the text to display on the display part of the Console
-cycle</p>
-<p><strong>prompt_text:</strong> the text to prompt user input on the input part of the
-Console cycle</p>
+<dd><dl class="docutils">
+<dt>Params</dt>
+<dd><table class="first docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">display_text:</th><td class="field-body">the text to display on the display part of the Console</td>
+</tr>
+</tbody>
+</table>
+<p>cycle</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">prompt_text:</th><td class="field-body">the text to prompt user input on the input part of the</td>
+</tr>
+</tbody>
+</table>
+<p class="last">Console cycle</p>
+</dd>
+</dl>
 <dl class="method">
 <dt id="framework.console_state.ConsoleState.add_handler">
 <code class="descname">add_handler</code><span class="sig-paren">(</span><em>input_string</em>, <em>handler</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.console_state.ConsoleState.add_handler" title="Permalink to this definition">¶</a></dt>
@@ -123,10 +151,40 @@ Console cycle</p>
 <dd><p>The UDP socket client/server class
 This manages the UDP socket and provides helper methods and message
 handling.</p>
+<dl class="docutils">
+<dt>Params</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">ip:</th><td class="field-body">the IP address to use</td>
+</tr>
+<tr class="field-even field"><th class="field-name">port:</th><td class="field-body">the port to use</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">is_server:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
 <dl class="method">
 <dt id="framework.udp_socket.UdpSocket.add_handler">
 <code class="descname">add_handler</code><span class="sig-paren">(</span><em>message_type</em>, <em>handler</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.udp_socket.UdpSocket.add_handler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a handler for a message type</p>
+<dl class="docutils">
+<dt>Params</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">message_type:</th><td class="field-body">the type of message this handler handles</td>
+</tr>
+<tr class="field-even field"><th class="field-name">handler:</th><td class="field-body">the handler to handle the message</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -140,6 +198,24 @@ handling.</p>
 <code class="descname">send_message</code><span class="sig-paren">(</span><em>message_type</em>, <em>data</em>, <em>ip_address</em>, <em>port</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.udp_socket.UdpSocket.send_message" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sends a message to the external system
 Encodes as json</p>
+<dl class="docutils">
+<dt>Params</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">message_type:</th><td class="field-body">the type of message being sent</td>
+</tr>
+<tr class="field-even field"><th class="field-name">data:</th><td class="field-body">the message data</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">ip_address:</th><td class="field-body">the ip_address to send to</td>
+</tr>
+<tr class="field-even field"><th class="field-name">port:</th><td class="field-body">the port to send to</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -159,8 +235,20 @@ states</p>
 <dl class="class">
 <dt id="framework.utility.Utility">
 <em class="property">class </em><code class="descclassname">framework.utility.</code><code class="descname">Utility</code><span class="sig-paren">(</span><em>db</em>, <em>socket</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.utility.Utility" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>db:</strong> the db that this program is using</p>
-<p><strong>socket:</strong> the socket instance to use</p>
+<dd><dl class="docutils">
+<dt>Params</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">db:</th><td class="field-body">the db that this program is using</td>
+</tr>
+<tr class="field-even field"><th class="field-name">socket:</th><td class="field-body">the socket instance to use</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -170,7 +258,18 @@ states</p>
 <dl class="class">
 <dt id="framework.waiting_console_state.WaitingConsoleState">
 <em class="property">class </em><code class="descclassname">framework.waiting_console_state.</code><code class="descname">WaitingConsoleState</code><span class="sig-paren">(</span><em>display_text</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.waiting_console_state.WaitingConsoleState" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>display_text:</strong> not used</p>
+<dd><dl class="docutils">
+<dt>Params</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">display_text:</th><td class="field-body">not used</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
 <dl class="method">
 <dt id="framework.waiting_console_state.WaitingConsoleState.display">
 <code class="descname">display</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#framework.waiting_console_state.WaitingConsoleState.display" title="Permalink to this definition">¶</a></dt>
@@ -198,7 +297,7 @@ states</p>
 <h3>login_console_state.py<a class="headerlink" href="#login-console-state-py" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="framework.reception.login_console_state.LoginConsoleState">
-<em class="property">class </em><code class="descclassname">framework.reception.login_console_state.</code><code class="descname">LoginConsoleState</code><a class="headerlink" href="#framework.reception.login_console_state.LoginConsoleState" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">framework.reception.login_console_state.</code><code class="descname">LoginConsoleState</code><span class="sig-paren">(</span><em>master_ip</em>, <em>master_port</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.reception.login_console_state.LoginConsoleState" title="Permalink to this definition">¶</a></dt>
 <dd><p>Allows a user to login</p>
 </dd></dl>
 
@@ -357,7 +456,20 @@ and
 <dl class="method">
 <dt id="framework.reception.facial_recog.FacialRecog.facial_recog_login">
 <code class="descname">facial_recog_login</code><span class="sig-paren">(</span><em>state</em>, <em>login</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.reception.facial_recog.FacialRecog.facial_recog_login" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constantly searches for a known face</p>
+<dd><p>Constantly searches for a known face
+Params</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">state:</th><td class="field-body">the state object that stores whether</td>
+</tr>
+</tbody>
+</table>
+<p>there is a user logged in
+:login: the callback to log a user in if detected</p>
+</div></blockquote>
 </dd></dl>
 
 </dd></dl>
@@ -370,8 +482,25 @@ and
 <h3>borrow_console_state.py<a class="headerlink" href="#borrow-console-state-py" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="framework.master.borrow_console_state.BorrowConsoleState">
-<em class="property">class </em><code class="descclassname">framework.master.borrow_console_state.</code><code class="descname">BorrowConsoleState</code><span class="sig-paren">(</span><em>display_text</em>, <em>utility</em>, <em>gc</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.master.borrow_console_state.BorrowConsoleState" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">framework.master.borrow_console_state.</code><code class="descname">BorrowConsoleState</code><span class="sig-paren">(</span><em>display_text</em>, <em>utility</em>, <em>google_calendar</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.master.borrow_console_state.BorrowConsoleState" title="Permalink to this definition">¶</a></dt>
 <dd><p>Allows a user to borrow a book from the results of a book search</p>
+<dl class="docutils">
+<dt>Constructor</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">display_text:</th><td class="field-body">the text to display</td>
+</tr>
+<tr class="field-even field"><th class="field-name">utility:</th><td class="field-body">the shared utility class</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">google_calendar:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">a google calendar adapter</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -444,8 +573,16 @@ If successfully delete() returns a empty response body.</p>
 <code class="descname">search</code><span class="sig-paren">(</span><em>input_option</em>, <em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.master.google_cloud_db.GoogleCloudDb.search" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>params:</dt>
-<dd><p class="first">input&lt;Integer&gt;: Value will determine the type of search requested
-item&lt;String&gt;: Book item/identifier that the user is querying</p>
+<dd><table class="first docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">input_option:</th><td class="field-body">Value will determine the type of search requested</td>
+</tr>
+<tr class="field-even field"><th class="field-name">item:</th><td class="field-body">Book item/identifier that the user is querying</td>
+</tr>
+</tbody>
+</table>
 <p class="last">Method will create a connection the mysqldb and
 return a result_list containing all results of books from the requested
 query.</p>
@@ -509,6 +646,24 @@ query.</p>
 <dt id="framework.master.borrowing.Borrowing">
 <em class="property">class </em><code class="descclassname">framework.master.borrowing.</code><code class="descname">Borrowing</code><span class="sig-paren">(</span><em>user</em>, <em>book</em>, <em>gc_event_id</em>, <em>bor_date</em>, <em>ret_date</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.master.borrowing.Borrowing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a book being borrowed</p>
+<dl class="docutils">
+<dt>Constructor</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">user:</th><td class="field-body">user id who is doing the borrowing</td>
+</tr>
+<tr class="field-even field"><th class="field-name">book:</th><td class="field-body">book id that is being borrowed</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">bor_date:</th><td class="field-body">the date the borrowing happened</td>
+</tr>
+<tr class="field-even field"><th class="field-name">ret_date:</th><td class="field-body">the date the book was returned</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
 <dl class="method">
 <dt id="framework.master.borrowing.Borrowing.return_book">
 <code class="descname">return_book</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#framework.master.borrowing.Borrowing.return_book" title="Permalink to this definition">¶</a></dt>
