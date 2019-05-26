@@ -33,15 +33,10 @@ class SearchConsoleState(ConsoleState):
         if results:
             print("Your search has been completed.")
             context.db.add_cur_results(results)
-            self.print_results(results)
+            return 'borrow'
         else:
             print('No results returned.')
-            
-        return 'main'
+            return 'main'
 
     def display(self):
         print('Book search.')
-
-    def print_results(self, results):
-        for count,items in enumerate(results,1):
-            print(count,items)

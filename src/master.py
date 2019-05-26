@@ -8,6 +8,7 @@ from IoTAssignment2.src.framework.master.google_cloud_db import GoogleCloudDb
 from IoTAssignment2.src.framework.master.google_calendar import GoogleCalendar
 from IoTAssignment2.src.framework.master.search_console_state import SearchConsoleState
 from IoTAssignment2.src.framework.master.borrow_console_state import BorrowConsoleState
+from IoTAssignment2.src.framework.master.return_console_state import ReturnConsoleState
 from IoTAssignment2.src.framework.master.master_user import MasterUser
 
 
@@ -30,6 +31,7 @@ class Master:
         waiting_state = WaitingConsoleState('Waiting for login')
         searching_state = SearchConsoleState('Searching for book')
         borrowing_state = BorrowConsoleState('Borrowing a book', self.utility, gc)
+        returning_state = ReturnConsoleState('Returning a book', self.utility, gc)
 
         main_menu = ConsoleState("""
             1. Search for a book
@@ -42,7 +44,8 @@ class Master:
         self.console.add_state('waiting', waiting_state)
         self.console.add_state('main', main_menu)
         self.console.add_state('searching', searching_state)
-        self.console.add_state('result', borrowing_state)
+        self.console.add_state('borrow', borrowing_state)
+        self.console.add_state('return', returning_state)
         self.console.set_current_state('waiting')
 
     def run(self):

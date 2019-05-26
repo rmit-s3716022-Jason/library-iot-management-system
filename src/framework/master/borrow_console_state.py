@@ -15,12 +15,18 @@ class BorrowConsoleState(ConsoleState):
                 response = int(input(
                     """Please enter ID of  
                     book that you wish to borrow: """))
+                # Checks input against items returned in the search, returns the book the ID matches 
+                # otherwise returns None
                 result = next((x for x in self.utility.cur_results if x.book_id == response), None)
                 if result is not None:
-                    break
+                    # Returns None if the book is not already borrowed
+                    if next((x for x in self.utility.active_borrows if x.book.book_id == response), None) is None:
+                        break
+                    else:
+                        print("The book is unavailable, please select another book to borrow.")
                 else:
-                    raise ValueError
-            except ValueError:
+                    raise Exception
+            except Exception:
                 print("That's not a valid option, please try again.")
         
         return result
@@ -39,23 +45,26 @@ class BorrowConsoleState(ConsoleState):
         
         print(requested_book.title + " successfully borrowed.")
         
+        # If user wants to borrow another book
         if self.borrow_again():
             return ''
         else:
             # Resets the most recent search results list and returns to the main menu
             context.reset_results()
             return 'main'
-        
     
+    # Displays the results of the search
     def display(self):
-        print('Book borrowing.')
+        for count,items in enumerate(self.utility.cur_results,1):
+            print(count,items.book_id + ": " + items.title)
 
+    # Calculates the start/end dates of the borrow
     def calc_dates(self):
         bor_date = datetime.date.today()
         ret_date = bor_date + datetime.timedelta(days=7)
         return bor_date, ret_date
 
-    def borrow_again(self):
+    def borrow_again(self): 
         while True:
             try:
                 response = input("Do you want to borrow another booK? (Y/N): ") 
