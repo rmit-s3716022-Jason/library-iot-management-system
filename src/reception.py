@@ -11,16 +11,16 @@ Usage: python3 reception.py master_ip master_port
 """
 import json
 import threading
-from .framework.console import Console
-from .framework.console_state import ConsoleState
-from .framework.waiting_console_state import WaitingConsoleState
-from .framework.utility import Utility
-from .framework.udp_socket import UdpSocket
+from framework.console import Console
+from framework.console_state import ConsoleState
+from framework.waiting_console_state import WaitingConsoleState
+from framework.utility import Utility
+from framework.udp_socket import UdpSocket
 
-from .framework.reception.facial_recog import FacialRecog
-from .framework.reception.add_photo_console_state import AddPhotoConsoleState
-from .framework.reception.state import State
-from .framework.reception.registration_console_state import (
+from framework.reception.facial_recog import FacialRecog
+from framework.reception.add_photo_console_state import AddPhotoConsoleState
+from framework.reception.state import State
+from framework.reception.registration_console_state import (
     RegistrationConsoleState
 )
 from .framework.reception.login_console_state import (
