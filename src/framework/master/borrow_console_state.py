@@ -1,4 +1,4 @@
-from IoTAssignment2.src.framework.console_state import ConsoleState
+from ..console_state import ConsoleState
 from borrowing import Borrowing
 from datetime import datetime
 

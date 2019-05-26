@@ -1,14 +1,17 @@
 Welcome to IoT-Assignment2's documentation!
 ===========================================
 
+Contents:
+
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
 
-.. automodule:: src.master
-   :members:
+Code:
 
 .. automodule:: src.reception
+    :members:
+
+.. automodule:: src.master
    :members:
 
 .. automodule:: src.framework
@@ -19,7 +22,6 @@ Welcome to IoT-Assignment2's documentation!
 
 .. automodule:: src.framework.master
    :members:
-
 
 .. automodule:: src.flask_app
    :members:
@@ -34,3 +36,4 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
