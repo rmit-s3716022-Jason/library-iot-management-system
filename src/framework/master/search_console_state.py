@@ -12,10 +12,7 @@ class SearchConsoleState(ConsoleState):
     def input(self):
         while True:
             try:
-                response = int(input(
-                    """Enter '1' to search by BookID, '2' to search by Title,
-                    '3' to search by Author,
-                    or '4' to search by Date: """))
+                response = int(input("Enter option here: "))
                 if 1 <= response <= 4:
                     break
                 else:
@@ -26,17 +23,19 @@ class SearchConsoleState(ConsoleState):
         return response
 
     def handle_input(self, input_string, context):
-        response = input('Please enter desired %s:' %
+        response = input('Please enter desired %s: ' %
                             self.options[input_string-1])
         results = context.db.search(input_string, response)
 
         if results:
             print("Your search has been completed.")
-            context.db.add_cur_results(results)
+            context.add_cur_results(results)
             return 'borrow'
         else:
             print('No results returned.')
             return 'main'
 
     def display(self):
-        print('Book search.')
+        print('\nSearch book.')
+        print("Select one of the following: ")
+        print("""1. to search by BookID\n2. to search by Title\n3. to search by Author\n4. to search by Date.""")

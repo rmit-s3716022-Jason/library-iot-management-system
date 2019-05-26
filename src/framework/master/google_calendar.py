@@ -4,13 +4,12 @@ from oauth2client import client, file, tools
 from httplib2 import Http
 import datetime
 
-
 class GoogleCalendar():
 
     def __init__(self):
         self.creds = self.get_credentials()
         self.http = self.creds.authorize(Http())
-        self.service = build.build('calendar', 'v3', http=self.http)
+        self.service = build('calendar', 'v3', http=self.http)
 
     """
     Gets valid user credentials from storage.
@@ -23,10 +22,10 @@ class GoogleCalendar():
     """
     def get_credentials(self):
         scopes = "https://www.googleapis.com/auth/calendar"
-        store = file.Storage("token.json")
+        store = file.Storage('./framework/master/token.json')
         creds = store.get()
         if(not creds or creds.invalid):
-            flow = client.flow_from_clientsecrets("credentials.json", scopes)
+            flow = client.flow_from_clientsecrets('./framework/master/credentials.json', scopes)
             creds = tools.run_flow(flow, store)
 
         return creds
@@ -42,14 +41,12 @@ class GoogleCalendar():
     def add_event(self, user_id, username, b_title, b_id, start_time, end_time):
         event = {
             'summary': "New Borrowing Event",
-            'description': user_id + " borrowing: " + b_id + "- " + b_title,
-            'start': {'dateTime': start_time,
+            'description': str(user_id) + " borrowing: " + str(b_id) + "- " + str(b_title),
+            'start': {'dateTime': str(start_time),
                       'timeZone': 'Australia/Melbourne'},
-            'end': {'dateTime': end_time, 'timeZone': 'Australia/Melbourne'},
-            "attendees": [{"id": user_id, "username": username}],
+            'end': {'dateTime': str(end_time), 'timeZone': 'Australia/Melbourne'},
         }
-        event = self.service.events().insert(calendarId='primary',
-                                             body=event).execute()
+        event = self.service.events().insert(calendarId='primary',body=event).execute()
         print("Event created: {}".format(event.get("htmlLink")))
         return event.get('id')
 
@@ -58,9 +55,8 @@ class GoogleCalendar():
     If successfully delete() returns a empty response body.
     '''
     def remove_event(self, e_id, c_id='primary'):
-        event = self.service.events().delete(calendarId=c_id,
-                                             eventId=e_id).execute()
+        event = self.service.events().delete(calendarId=c_id,eventId=e_id).execute()
         if not event:
-            print("Event: {}".format(event['description'] + " deleted."))
+            print("Event deleted.")
         else:
             print("No such event.")

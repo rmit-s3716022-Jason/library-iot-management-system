@@ -1,15 +1,15 @@
 import json
-from .framework.console import Console
-from .framework.console_state import ConsoleState
-from .framework.waiting_console_state import WaitingConsoleState
-from .framework.utility import Utility
-from .framework.udp_socket import UdpSocket
-from .framework.master.google_cloud_db import GoogleCloudDb
-from .framework.master.google_calendar import GoogleCalendar
-from .framework.master.search_console_state import SearchConsoleState
-from .framework.master.borrow_console_state import BorrowConsoleState
-from .framework.master.return_console_state import ReturnConsoleState
-from .framework.master.master_user import MasterUser
+from framework.console import Console
+from framework.console_state import ConsoleState
+from framework.waiting_console_state import WaitingConsoleState
+from framework.utility import Utility
+from framework.udp_socket import UdpSocket
+from framework.master.google_cloud_db import GoogleCloudDb
+from framework.master.google_calendar import GoogleCalendar
+from framework.master.search_console_state import SearchConsoleState
+from framework.master.borrow_console_state import BorrowConsoleState
+from framework.master.return_console_state import ReturnConsoleState
+from framework.master.master_user import MasterUser
 
 
 def logout(context):
@@ -17,11 +17,9 @@ def logout(context):
     context.socket.send_message('logout', '{}', '127.0.0.1', 6000)
     return 'waiting'
 
-
 class Master:
     def __init__(self, ip, port):
         db_interface = GoogleCloudDb()
-        #self.gc?
         gc = GoogleCalendar()
         socket = UdpSocket(ip, port, True)
         socket.add_handler('login', self.login)
@@ -34,12 +32,10 @@ class Master:
         returning_state = ReturnConsoleState('Returning a book', self.utility, gc)
         borrowing_state = BorrowConsoleState('Borrowing a book', self.utility, gc)
 
-        main_menu = ConsoleState("""
-            1. Search for a book
-            2. Borrow a book
-            3. Return a book
-            4. Logout
-            \n""", 'Enter menu option: ')
+        main_menu = ConsoleState("""1. Search for a book\n2. Borrow a book\n3. Return a book\n4. Logout""", 'Enter menu option: ')
+        main_menu.add_handler("1", lambda x: 'searching')
+        main_menu.add_handler("2", lambda x: 'borrow')
+        main_menu.add_handler("3", lambda x: 'return')
         main_menu.add_handler("4", logout)
 
         self.console.add_state('waiting', waiting_state)
@@ -50,7 +46,9 @@ class Master:
         self.console.set_current_state('waiting')
 
     def run(self):
+        print("Master pi now running.")
         self.console.run()
+		
 
     def login(self, data):
         login_data = json.loads(data)
