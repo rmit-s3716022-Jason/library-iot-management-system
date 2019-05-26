@@ -9,6 +9,9 @@ class Utility:
 
     def reset_results(self):
         self.cur_results.clear()
+    
+    def remove_result(self, item):
+        self.cur_results.remove(item)
 
 
 

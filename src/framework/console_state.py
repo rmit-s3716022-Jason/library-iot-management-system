@@ -14,6 +14,7 @@ class ConsoleState:
         self.input_handlers[input_string] = handler
 
     def display(self):
+        print("\nMain Menu")
         print(self.display_text)
 
     def input(self):
