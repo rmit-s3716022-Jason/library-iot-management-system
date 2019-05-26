@@ -1,6 +1,2 @@
-
-
-Code:
-
 .. automodule:: reception
     :members:
