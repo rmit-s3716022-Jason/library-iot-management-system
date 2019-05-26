@@ -1,5 +1,5 @@
-from IoTAssignment2.src.framework.console_state import ConsoleState
-from google_calendar import GoogleCalendar
+from ..console_state import ConsoleState
+from .google_calendar import GoogleCalendar
 
 class ReturnConsoleState(ConsoleState):
 

@@ -1,5 +1,5 @@
 from ..console_state import ConsoleState
-from borrowing import Borrowing
+from .borrowing import Borrowing
 from datetime import datetime
 
 class BorrowConsoleState(ConsoleState):
