@@ -1,6 +1,9 @@
 Intro
 =====
 
+This assignment was to create a two applications that would run a reception and master library IoT pair,
+as well as the admin website to add and remove books.
+
 Getting Started
 ---------------
 
