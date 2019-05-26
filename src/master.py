@@ -8,6 +8,7 @@ from .framework.master.google_cloud_db import GoogleCloudDb
 from .framework.master.google_calendar import GoogleCalendar
 from .framework.master.search_console_state import SearchConsoleState
 from .framework.master.borrow_console_state import BorrowConsoleState
+from .framework.master.return_console_state import ReturnConsoleState
 from .framework.master.master_user import MasterUser
 
 
