@@ -330,7 +330,8 @@ Some code also used in group 65 IoT assignment 1</p>
 </dd></dl>
 
 </div>
-<span class="target" id="module-framework.reception.facial_recog"></span><p>facial_recog.py</p>
+<span class="target" id="module-framework.reception.facial_recog"></span><div class="section" id="facial-recog-py">
+<h3>facial_recog.py<a class="headerlink" href="#facial-recog-py" title="Permalink to this headline">¶</a></h3>
 <p>Acknowledgement
 Code was adapted from TutLab 9 01_capture.py, 02_encode.py, and 03_recognise.py
 which in turn was adapted from
@@ -361,6 +362,7 @@ and
 
 </dd></dl>
 
+</div>
 </div>
 <div class="section" id="module-framework.master.borrow_console_state">
 <span id="the-components-used-only-by-the-master-program"></span><h2>The components used only by the master program<a class="headerlink" href="#module-framework.master.borrow_console_state" title="Permalink to this headline">¶</a></h2>
@@ -398,6 +400,36 @@ searching for a book</p>
 <dt id="framework.master.google_calendar.GoogleCalendar">
 <em class="property">class </em><code class="descclassname">framework.master.google_calendar.</code><code class="descname">GoogleCalendar</code><a class="headerlink" href="#framework.master.google_calendar.GoogleCalendar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wraps all of the interactions with google calendar</p>
+<dl class="method">
+<dt id="framework.master.google_calendar.GoogleCalendar.add_event">
+<code class="descname">add_event</code><span class="sig-paren">(</span><em>user_id</em>, <em>username</em>, <em>b_title</em>, <em>b_id</em>, <em>start_time</em>, <em>end_time</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.master.google_calendar.GoogleCalendar.add_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates start/end time of event, and creates google calendar event with
+the given data identifying the user and the book being borrowed.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>The generated event id to be stored in the database</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="framework.master.google_calendar.GoogleCalendar.get_credentials">
+<code class="descname">get_credentials</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#framework.master.google_calendar.GoogleCalendar.get_credentials" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets valid user credentials from storage.</p>
+<p>If nothing has been stored, or if the stored credentials are invalid,
+the OAuth2 flow is completed to obtain the new credentials.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>Credentials, the obtained credential.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="framework.master.google_calendar.GoogleCalendar.remove_event">
+<code class="descname">remove_event</code><span class="sig-paren">(</span><em>e_id</em>, <em>c_id='primary'</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.master.google_calendar.GoogleCalendar.remove_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes requested event with given event identifier.
+If successfully delete() returns a empty response body.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -407,22 +439,67 @@ searching for a book</p>
 <dt id="framework.master.google_cloud_db.GoogleCloudDb">
 <em class="property">class </em><code class="descclassname">framework.master.google_cloud_db.</code><code class="descname">GoogleCloudDb</code><a class="headerlink" href="#framework.master.google_cloud_db.GoogleCloudDb" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is a class that provides GCP capabilities in the form of a search function that allows users to search a book by whatever attribute they input</p>
+<dl class="method">
+<dt id="framework.master.google_cloud_db.GoogleCloudDb.search">
+<code class="descname">search</code><span class="sig-paren">(</span><em>input_option</em>, <em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.master.google_cloud_db.GoogleCloudDb.search" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>params:</dt>
+<dd><p class="first">input&lt;Integer&gt;: Value will determine the type of search requested
+item&lt;String&gt;: Book item/identifier that the user is querying</p>
+<p class="last">Method will create a connection the mysqldb and
+return a result_list containing all results of books from the requested
+query.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </div>
-<span class="target" id="module-framework.master.master_user"></span><p>master_user.py</p>
+<span class="target" id="module-framework.master.master_user"></span><div class="section" id="master-user-py">
+<h3>master_user.py<a class="headerlink" href="#master-user-py" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="framework.master.master_user.MasterUser">
 <em class="property">class </em><code class="descclassname">framework.master.master_user.</code><code class="descname">MasterUser</code><span class="sig-paren">(</span><em>username</em>, <em>firstname</em>, <em>lastname</em>, <em>user_id</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.master.master_user.MasterUser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Caches user data from the reception pi</p>
 </dd></dl>
 
+</div>
 <span class="target" id="module-framework.master.book"></span><div class="section" id="book-py">
 <h3>book.py<a class="headerlink" href="#book-py" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="framework.master.book.Book">
 <em class="property">class </em><code class="descclassname">framework.master.book.</code><code class="descname">Book</code><span class="sig-paren">(</span><em>book_id</em>, <em>title</em>, <em>author</em>, <em>published_date</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.master.book.Book" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class will be used to contain the parameters of a book</p>
+<dl class="docutils">
+<dt>Constructor</dt>
+<dd><p class="first">Creates the variables associated with this class</p>
+<table class="last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">type book_id:</th><td class="field-body">int</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param book_id:</th><td class="field-body">the unique identifier given to the book</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">type title:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param title:</th><td class="field-body">the name of the book</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">type author:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param author:</th><td class="field-body">the name of the person who wrote the book</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">type published_date:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">string</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">param published_date:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">date book was published</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -465,6 +542,7 @@ searching for a book</p>
 <li><a class="reference internal" href="#sqlite-db-interface-py">sqlite_db_interface.py</a></li>
 <li><a class="reference internal" href="#state-py">state.py</a></li>
 <li><a class="reference internal" href="#user-py">user.py</a></li>
+<li><a class="reference internal" href="#facial-recog-py">facial_recog.py</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-framework.master.borrow_console_state">The components used only by the master program</a><ul>
@@ -473,6 +551,7 @@ searching for a book</p>
 <li><a class="reference internal" href="#return-console-state-py">return_console_state.py</a></li>
 <li><a class="reference internal" href="#google-calendar-py">google_calendar.py</a></li>
 <li><a class="reference internal" href="#google-cloud-db-py">google_cloud_db.py</a></li>
+<li><a class="reference internal" href="#master-user-py">master_user.py</a></li>
 <li><a class="reference internal" href="#book-py">book.py</a></li>
 <li><a class="reference internal" href="#borrowing-py">borrowing.py</a></li>
 </ul>
