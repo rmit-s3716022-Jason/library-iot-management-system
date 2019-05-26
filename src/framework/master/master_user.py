@@ -12,4 +12,4 @@ class MasterUser():
         self.username = username
         self.firstname = firstname
         self.lastname = lastname
-        self.userid = user_id
+        self.user_id = user_id
