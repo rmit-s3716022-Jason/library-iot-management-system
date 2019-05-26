@@ -7,51 +7,60 @@ class ReturnConsoleState(ConsoleState):
         super().__init__(display_text, '')
         self.utility = utility
         self.gc = gc
+        self.no_borrows = False
+        self.borrowed_books = {}
 
     def input(self):
-        while True:
-            try:
-                response = int(input(
-                    """Please enter ID of  
-                    book that you wish to return: """))
+         # If the user has books to return
+        if not self.no_borrows:
+            while True:
+                try:
+                    response = int(input(
+                        """Please enter ID of  
+                        book that you wish to return: """))
 
-                # Returns the first item in the list with a matching book_id that you have borrrowed
-                # otherwise returns None
-                result = next((x for x in self.utility.active_borrows if x.book.book_id == response 
-                            and x.user.user_id == self.utility.user.user_id), None)
-                if result is not None:
-                    break
-                else:
-                    raise Exception
-            except Exception:
-                print("That's not a valid option, please try again.")
+                    # Checks if the input book_id exists as a key in the dictionary
+                    if response in self.borrowed_books:
+                        break
+                    else:
+                        raise Exception
+                except Exception:
+                    print("That's not a valid option, please try again.")
+            
+            return response
         
-        return result
+        return ''
         
     def handle_input(self, input_string, context):
-        borrowing = input_string
-        event_id = borrowing.gc_event_id
-        # Removes google calendar event and borrowing from active borrowings list
-        self.gc.remove(event_id)
-        context.remove_borrowing(borrowing)
-        
-        print(borrowing.book.title + " has been successfully returned.")
-        
-        # Checks with user if they want to return any more books.
-        if self.return_again():
-            return ''
-        else: 
-            return 'main'
+        # If the user has books to return
+        if not self.no_borrows:
+            event_id = self.borrowed_books.get(input_string)
+            # Removes google calendar event and updates status of book in database
+            self.gc.remove(event_id)
+            context.db.return_book(input_string, self.utility.user.user_id)
+           
+            # Checks with user if they want to return any more books.
+            if self.return_again():
+                self.borrowed_books.clear()
+                return ''
+        # Reset no borrows state
+        else:
+            self.no_borrows = False
+
+        return 'main'
 
     
     def display(self):
-        if any(x.user.user_id == self.utility.user.user_id for x in self.utility.active_borrows):
+        # Returns dictionary containing the book_id and event_id of all books currently borrowed by the user
+        self.borrowed_books = self.utility.db.get_borrowed_books(self.utility.user.user_id)
+        # Check if the dictionay is empty i.e. no borrowed books
+        if any(self.borrowed_books.values()):
             print("Displaying list of books you currently have on loan.")
-            for count,items in enumerate(self.utility.active_borrows,1):
-                print(count,items.book.id + ": " + items.book.title)
+            for count,key in enumerate(self.borrowed_books,1):
+                print(count,key)
         else:
             print("You currently don't have any borrowed books.")
-            # need to change here to skip running input/handle_input
+            self.no_borrows = True
 
     def return_again(self):
         while True:
