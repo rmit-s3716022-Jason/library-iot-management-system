@@ -95,24 +95,18 @@ states that have been added to it</p>
 <em class="property">class </em><code class="descclassname">framework.console_state.</code><code class="descname">ConsoleState</code><span class="sig-paren">(</span><em>display_text</em>, <em>prompt_text</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.console_state.ConsoleState" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>Params</dt>
-<dd><table class="first docutils field-list" frame="void" rules="none">
+<dd><table class="first last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">display_text:</th><td class="field-body">the text to display on the display part of the Console</td>
+<tr class="field-odd field"><th class="field-name">display_text:</th><td class="field-body">the text to display on the display part of the Console
+cycle</td>
+</tr>
+<tr class="field-even field"><th class="field-name">prompt_text:</th><td class="field-body">the text to prompt user input on the input part of the
+Console cycle</td>
 </tr>
 </tbody>
 </table>
-<p>cycle</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">prompt_text:</th><td class="field-body">the text to prompt user input on the input part of the</td>
-</tr>
-</tbody>
-</table>
-<p class="last">Console cycle</p>
 </dd>
 </dl>
 <dl class="method">
@@ -456,20 +450,22 @@ and
 <dl class="method">
 <dt id="framework.reception.facial_recog.FacialRecog.facial_recog_login">
 <code class="descname">facial_recog_login</code><span class="sig-paren">(</span><em>state</em>, <em>login</em><span class="sig-paren">)</span><a class="headerlink" href="#framework.reception.facial_recog.FacialRecog.facial_recog_login" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constantly searches for a known face
-Params</p>
-<blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<dd><p>Constantly searches for a known face</p>
+<dl class="docutils">
+<dt>Params</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">state:</th><td class="field-body">the state object that stores whether</td>
+<tr class="field-odd field"><th class="field-name">state:</th><td class="field-body">the state object that stores whether
+there is a user logged in</td>
+</tr>
+<tr class="field-even field"><th class="field-name">login:</th><td class="field-body">the callback to log a user in if detected</td>
 </tr>
 </tbody>
 </table>
-<p>there is a user logged in
-:login: the callback to log a user in if detected</p>
-</div></blockquote>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
