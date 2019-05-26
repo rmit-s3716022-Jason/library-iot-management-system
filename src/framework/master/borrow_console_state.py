@@ -19,8 +19,8 @@ class BorrowConsoleState(ConsoleState):
                 # otherwise returns None
                 result = next((x for x in self.utility.cur_results if x.book_id == response), None)
                 if result is not None:
-                    # Returns None if the book is not already borrowed
-                    if next((x for x in self.utility.active_borrows if x.book.book_id == response), None) is None:
+                    # Returns false if the requested book_id is available
+                    if not self.utility.db.is_borrowed():
                         break
                     else:
                         print("The book is unavailable, please select another book to borrow.")
@@ -40,17 +40,16 @@ class BorrowConsoleState(ConsoleState):
         event_id = self.gc.add_event(context.user.user_id, context.user.username, requested_book.title, requested_book.book_id) 
         
         # Creates a instance of borrowing and stores it with list of other currently loaned books
-        bor = Borrowing(context.user, requested_book, event_id, bor_date, ret_date)
-        context.add_borrowing(bor)
+        bor_id = context.user.user_id + requested_book.book_id + ret_date
+        bor = Borrowing(bor_id, requested_book, context.user, event_id, 'borrowed', bor_date, ret_date)
+        context.db.add_borrow(bor)
         
-        print(requested_book.title + " successfully borrowed.")
+        print(requested_book.id + ": " + requested_book.title + " successfully borrowed.")
         
         # If user wants to borrow another book
         if self.borrow_again():
             return ''
         else:
-            # Resets the most recent search results list and returns to the main menu
-            context.reset_results()
             return 'main'
     
     # Displays the results of the search
