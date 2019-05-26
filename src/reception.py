@@ -23,10 +23,10 @@ from framework.reception.state import State
 from framework.reception.registration_console_state import (
     RegistrationConsoleState
 )
-from .framework.reception.login_console_state import (
+from framework.reception.login_console_state import (
     LoginConsoleState
 )
-from .framework.reception.sqlite_db_interface import SqliteDbInterface
+from framework.reception.sqlite_db_interface import SqliteDbInterface
 
 
 class Reception:
