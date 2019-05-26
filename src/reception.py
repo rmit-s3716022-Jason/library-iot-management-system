@@ -30,8 +30,6 @@ from .framework.reception.sqlite_db_interface import SqliteDbInterface
 
 class Reception:
     """
-    Reception
-    =========
     This is the class that sets up and runs the cli program that
     handles library login.
 
@@ -86,8 +84,6 @@ class Reception:
 
     def run(self):
         """
-        run
-        ===
         Starts the main loop of the cli program
 
         """
