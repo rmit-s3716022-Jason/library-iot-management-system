@@ -9,6 +9,7 @@ Library IoT management system
 To get started you must have installed or satisfy the various dependencies:
 -   mysqlclient-1.4.2-cp37-cp37m-win32.whl
 -   flask (e.g. pip3 install flask)
+-   flask WTForms (pip3 install Flask-WTF)
 -   sqlalchemy & marshmallow (pip3 install flask flask_sqlalchemy flask_marshmallow marshmallow-sqlalchemy) 
 -   oauth2client (pip3 install google-api-python-client oauth2client)
 -   httplib2 (pip3 install httplib2)
