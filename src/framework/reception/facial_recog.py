@@ -3,11 +3,11 @@ facial_recog.py
 ===============
 
 Acknowledgement
-Code was adapted from TutLab 9 01_capture.py, 02_encode.py, and 03_recognise.py
-which in turn was adapted from
-https://www.hackster.io/mjrobot/real-time-face-recognition-an-end-to-end-project-a10826
-and
-https://www.pyimagesearch.com/2018/06/18/face-recognition-with-opencv-python-and-deep-learning/
+    Code was adapted from TutLab 9 01_capture.py, 02_encode.py, and 03_recognise.py
+    which in turn was adapted from
+    https://www.hackster.io/mjrobot/real-time-face-recognition-an-end-to-end-project-a10826
+    and
+    https://www.pyimagesearch.com/2018/06/18/face-recognition-with-opencv-python-and-deep-learning/
 """
 import time
 import os
@@ -113,8 +113,7 @@ class FacialRecog():
         Constantly searches for a known face
 
         Params
-            :state: the state object that stores whether
-                    there is a user logged in
+            :state: the state object that stores whether there is a user logged in
             :login: the callback to log a user in if detected
         """
 
