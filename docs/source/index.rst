@@ -6,28 +6,11 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-Code:
-
-.. automodule:: src.reception
-    :members:
-
-.. automodule:: src.master
-   :members:
-
-.. automodule:: src.framework
-   :members:
-
-.. automodule:: src.framework.reception
-   :members:
-
-.. automodule:: src.framework.master
-   :members:
-
-.. automodule:: src.flask_app
-   :members:
-
-.. automodule:: src.tests
-   :members:
+intro
+reception
+master
+admin
+framework
 
 
 Indices and tables
