@@ -2,7 +2,6 @@
 borrowing.py
 ============
 """
-from datetime import datetime
 
 
 class Borrowing():
@@ -18,7 +17,7 @@ class Borrowing():
         self.borrowed = True
 
     def return_book(self):
-    """Returns a borrowed book"""
+        """Returns a borrowed book"""
         if self.borrowed is True:
             self.borrowed = False
             print("Thank you " + self.user.firstname + ", " + self.book.title + " has been returned.")
