@@ -1,3 +1,14 @@
+"""
+Reception.py
+============
+
+The reception main program
+
+Handles the user management and login of the users. Supports
+facial recognition for login.
+
+Usage: python3 reception.py master_ip master_port
+"""
 import json
 import threading
 from .framework.console import Console
@@ -19,6 +30,18 @@ from .framework.reception.sqlite_db_interface import SqliteDbInterface
 
 
 class Reception:
+    """
+    Reception
+    =========
+    This is the class that sets up and runs the cli program that
+    handles library login.
+
+    Constructor
+
+    Takes the ip and port to listen on and the ip and port of the master
+    component.
+
+    """
     def __init__(self, ip, port):
         db_interface = SqliteDbInterface()
         socket = UdpSocket(ip, port, True)
@@ -63,6 +86,12 @@ class Reception:
         self.facial_recog_thread.start()
 
     def run(self):
+        """
+        run
+        ===
+        Starts the main loop of the cli program
+
+        """
         self.console.run()
 
     def logout(self, data):
