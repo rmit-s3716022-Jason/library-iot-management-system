@@ -41,7 +41,7 @@ class Reception:
     **port:** the port to listen on
 
     **master_ip:** the master IP address to connect to
-    
+
     **master_port:** the master port to connect to
 
     """

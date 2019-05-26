@@ -1,4 +1,7 @@
 """
+upd_socket.py
+=============
+
 UDP client server class
 """
 import socket
@@ -23,14 +26,14 @@ class UdpSocket:
 
         self.buffer_size = 2048
 
-    def send_message(self, type, data, ip, port):
+    def send_message(self, message_type, data, ip_address, port):
         """
         Sends a message to the external system
         Encodes as json
         """
-        message_dict = {'type': type, 'data': data}
+        message_dict = {'type': message_type, 'data': data}
         message = json.dumps(message_dict)
-        self.socket.sendto(message.encode(), (ip, port))
+        self.socket.sendto(message.encode(), (ip_address, port))
 
     def wait_for_message(self):
         """
@@ -44,7 +47,11 @@ class UdpSocket:
             self.handlers[message['type']](message['data'])
 
     def add_handler(self, message_type, handler):
+        """
+        Adds a handler for a message type
+        """
         self.handlers[message_type] = handler
 
     def close(self):
+        """Closes the connection"""
         self.socket.close()
