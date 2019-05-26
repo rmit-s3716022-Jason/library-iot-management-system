@@ -1,3 +1,13 @@
+"""
+master.py
+=========
+
+The master library pi CLI program.
+
+Allows the user to search for books, borrow books and return them.
+The book and borrowing data is stored in the cloud.
+"""
+
 import json
 from framework.console import Console
 from framework.console_state import ConsoleState
@@ -18,6 +28,19 @@ def logout(context):
 
 
 class Master:
+    """
+    The class that runs the master pi library code
+
+    Constructor
+    -----------
+
+    params
+
+    ip:: IP address to listen on
+    port:: port to listen on
+    reception ip:: reception pi IP address
+    reception port:: the port that the reception pi is listening on
+    """
     def __init__(self, ip, port):
         db_interface = GoogleCloudDb()
         #self.gc?
@@ -47,6 +70,7 @@ class Master:
         self.console.set_current_state('waiting')
 
     def run(self):
+        """Runs the main loop of the CLI program"""
         self.console.run()
 
     def login(self, data):
