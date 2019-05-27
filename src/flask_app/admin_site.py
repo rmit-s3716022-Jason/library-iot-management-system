@@ -6,6 +6,14 @@ from admin_form import BookForm, LoginForm
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 import os, requests, json
+from datetime import datetime
+
+class Book:
+    def __init__(self, id, title, author, publisheddate):
+        self.bookid = id
+        self.author = author
+        self.title = title
+        self.publisheddate = publisheddate
 
 site = Blueprint("site", __name__)
 
@@ -44,26 +52,52 @@ def add_book():
         return render_template("book.html", result=response_data)
     return render_template("form.html", form=form)
 
-@site.route("/BookEdit")
-def edit_book():
-    return render_template("edit.html")
+@site.route("/BookEdit/<int:id>", methods=['GET', 'POST'])
+def edit_book(id):
+    if request.method == 'POST':
+        form = BookForm()
+        if form.validate():
+            title = request.form['title']
+            author = request.form['author']
+            published_date = request.form['publisheddate']
 
-@site.route("/BookDelete", methods=['GET'])
-def delete_book():
+            data = {
+                "title": title,
+                "author": author,
+                "publisheddate": published_date
+            }
 
-    BookID = request.form("BookID")
-    
-    url = "http://127.0.0.1:5000/book/<>"
+            headers = {
+                "Content-type": "application/json"
+            }
 
-    headers = {
-            "Content-type": "application/json"
-    }
+            requests.put(
+                "http://127.0.0.1:5000/book/{}".format(id),
+                data=json.dumps(data),
+                headers=headers)
+            return redirect('/')
 
-    response = requests.delete(url, headers=headers, BookID=BookID)
+    response = requests.get("http://127.0.0.1:5000/book/{}".format(id))
 
-    print(response.text)
+    if not response:
+        return 'Error loading book #{id}'.format(id=id)
 
-    return render_template("delete.html")
+    data = json.loads(response.text)
+
+    book = Book(
+        id, data['Title'],
+        data['Author'], datetime.strptime(data['PublishedDate'], "%Y-%m-%d"))
+
+    form = BookForm(formdata=data, obj=book)
+    return render_template("edit_form.html", form=form, book_id=data['BookID'])
+
+@site.route("/BookDelete/<int:id>", methods=['GET'])
+def delete_book(id):
+
+    url = "http://127.0.0.1:5000/book/{}".format(id)
+
+    response = requests.delete(url)
+    return redirect('/')
 
 @site.route("/AdminGraph")
 def admin_graph():
