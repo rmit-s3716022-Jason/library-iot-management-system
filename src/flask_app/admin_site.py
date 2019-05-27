@@ -97,9 +97,6 @@ def delete_book(id):
     url = "http://127.0.0.1:5000/book/{}".format(id)
 
     response = requests.delete(url)
-
-    print(response.text)
-
     return redirect('/')
 
 @site.route("/AdminGraph")
