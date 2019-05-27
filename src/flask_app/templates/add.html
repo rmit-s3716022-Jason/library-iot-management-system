@@ -1,23 +1,30 @@
-{% extends "layout.html" %}
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+Home Page
+{% endblock %}
+
+{% block styles %}
+{% endblock %}
+
 {% block content %}
-<form method="POST" action="/add"> 
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="{{ url_for('site.index') }}">IOT ADMIN WEBSITE</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="{{ url_for('site.index') }}">Home</a></li>
+            <li><a href="{{ url_for('site.add_form') }}">Start creating a book here</a></li>
+          </ul>
+        
+
+        </div>
+      </div>
+    </nav>
+
     <div class="container">
-        <h1>Add a book to the database</h1>
-        <p> Please enter the relevant fields to create a book</p>
-        <hr>
 
-        <label for="Title"><b>Title</b></label>
-    <input type="text" placeholder="Enter book title" name="Title" required>
-
-    <label for="Author"><b>Author</b></label>
-    <input type="text" placeholder="Enter author's name" name="Author" required>
-
-    <label for="Date_published"><b>Date published</b></label>
-    <input type="date" placeholder="dd/mm/yyyy" name="Date_published" required>
-    <hr>
-
-    <button type="submit" class="addbtn">Submit</button>
-    </div>
-
-</form>
-{% endblock content %}
+    </div><!-- /.container -->
+{% endblock %}
