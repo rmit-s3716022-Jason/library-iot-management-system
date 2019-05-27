@@ -41,8 +41,10 @@ class ReturnConsoleState(ConsoleState):
         if not self.no_borrows:
             event_id = self.borrowed_books.get(input_string)
             # Removes google calendar event and updates status of book in database
-            self.gc.remove_event(event_id)
-            context.db.return_book(input_string, self.utility.user.user_id)
+            if self.gc.remove_event(event_id):
+                context.db.return_book(input_string, self.utility.user.user_id)
+            else:
+                print("Unable to return book")
            
             # Checks with user if they want to return any more books.
             if self.return_again():
