@@ -16,7 +16,7 @@ def index():
     response = requests.get("http://127.0.0.1:5000/book")
     data = json.loads(response.text)
 
-    return render_template("index.html", book = data)
+    return render_template("index.html", books=data)
 
 @site.route("/form", methods=['GET', 'POST'])
 def add_form():
@@ -81,9 +81,9 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         flash('Login requested for user {}, remember_me={}'.format(
-            form.username.data, form.remember.data))
-        if form.username.data == 'jaqen' and form.remember.data == 'hghar':
-            return redirect('/index.html')
+            form.username.data, form.password.data))
+        if form.username.data == 'jaqen' and form.password.data == 'hghar':
+            return redirect('/')
         else:
             return redirect('/login')
     return render_template('login.html', title='Sign In', form=form)
