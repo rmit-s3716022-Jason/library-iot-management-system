@@ -2,9 +2,9 @@
 Library IoT management system
 -   A version Python based cli application and a web admin portal created using the python micro web-framework flask 
 
-![Credit to pixabay](https://cdn.pixabay.com/photo/2015/05/25/05/27/network-782707_960_720.png)
-
 # Getting Started
+
+Use the package manager pip to install the below:
 
 To get started you must have installed or satisfy the various dependencies:
 -   mysqlclient-1.4.2-cp37-cp37m-win32.whl
