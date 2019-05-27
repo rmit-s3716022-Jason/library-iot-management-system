@@ -1,0 +1,17 @@
+<form method="POST" action="{{ url_for('site.add_form') }}">
+        {{ form.csrf_token }}
+        <br>
+        <div>
+            {{ form.title.label }} 
+            {{ form.title }}
+        </div>
+        <div>
+            {{ form.author.label }} 
+            {{ form.author }}
+        </div>
+        <div>
+            {{ form.publisheddate.label }}
+            {{ form.publisheddate }}
+        </div>
+        <input type="submit" value="Submit">
+    </form>
