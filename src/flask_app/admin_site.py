@@ -46,7 +46,7 @@ def add_book():
 
 @site.route("/BookEdit")
 def edit_book():
-    pass
+    return render_template("edit.html")
 
 @site.route("/BookDelete", methods=['GET'])
 def delete_book():
@@ -85,5 +85,5 @@ def login():
 
 @site.route("/AdminLogout")
 def logout_admin():
-    pass
+    return render_template("index.html")
 
