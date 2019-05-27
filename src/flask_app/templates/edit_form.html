@@ -27,8 +27,7 @@ Home Page
 
 {% block content %}
     <div class="container">
-
-<form method="POST" action="{{ url_for('site.add_book') }}">
+<form method="POST" action="{{ url_for('site.edit_book', id=book_id) }}">
     {{ form.csrf_token }}
     <br>
     <div>
