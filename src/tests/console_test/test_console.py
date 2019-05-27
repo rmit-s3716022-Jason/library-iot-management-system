@@ -12,6 +12,9 @@ class TestConsole(unittest.TestCase):
     
     def test_set_current_state(self):
         console = Console(None)
+        mock_state = mock.Mock()
+        console.add_state('mock', mock_state)
+        console.set_current_state('mock')
         console.set_current_state('mock')
 
     def test_run(self):

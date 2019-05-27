@@ -4,7 +4,7 @@ class MockState:
 		return ''
 	
 	def input(self):
-		return ''
+		return 1
 		
 	def handle_input(self,input_string, context):
 		return 'exit'
