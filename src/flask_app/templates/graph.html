@@ -5,22 +5,23 @@ Home Page
 {% endblock %}
 
 {% block styles %}
-{{super()}}
 {% endblock %}
 
 {% block content %}
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <a class="navbar-brand" href="{{ url_for('site.index') }}">IOT ADMIN WEBSITE</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-        <a href="https://datastudio.google.com/embed/reporting/1Cki4tYYAePhD9Tuld6JWXLO82iEftoCd/page/Qfkq">Report</a>
+          <iframe width="950" height="600" src="https://datastudio.google.com/embed/reporting/1Cki4tYYAePhD9Tuld6JWXL082iEftoCd/page/Qfkq" frameborder="0" style="border:0" allowfullscreen></iframe>
         </div>
       </div>
     </nav>
 
+    
     <div class="container">
 
     </div><!-- /.container -->
 {% endblock %}
+
