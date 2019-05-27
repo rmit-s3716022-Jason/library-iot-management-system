@@ -1,69 +1,94 @@
-from flask import Flask, Blueprint, request, jsonify, render_template, flash, redirect
+from flask import Flask, Blueprint, request, jsonify, render_template, redirect
+from flask import flash
+from wtforms import TextField, DateField, validators
+from flask_wtf import FlaskForm
+from admin_form import BookForm, LoginForm
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-from admin_login import LoginForm
 import os, requests, json
 
 site = Blueprint("site", __name__)
 
+# Client webpage.
 @site.route("/")
-@site.route("/index")
 def index():
+    # Use REST API.
+    response = requests.get("http://127.0.0.1:5000/book")
+    data = json.loads(response.text)
 
-    return render_template("index.html")
+    return render_template("index.html", book = data)
+
+@site.route("/form", methods=['GET', 'POST'])
+def add_form():
+
+    form = BookForm()
+    if form.is_submitted():
+        result = request.form
+        title = request.form['title']
+        author = request.form['author']
+        publisheddate = request.form['publisheddate']
+
+        data = {
+            "title": title,
+            "author": author,
+            "publisheddate" : publisheddate
+        }
+
+        headers = {
+            "Content-type": "application/json"
+        }
+
+        response = requests.post("http://127.0.0.1:5000/book", data = json.dumps(data), headers = headers)
+        data1 = json.loads(response.text)
+
+        return render_template("book.html", result=result)
+    return render_template("form.html", form=form)
+
+@site.route("/BookAdd", methods=['GET'])
+def add_book():
+
+    return render_template("add.html")
+
+@site.route("/BookEdit")
+def edit_book():
+    pass
+
+@site.route("/BookDelete", methods=['GET'])
+def delete_book():
+
+    BookID = request.form("BookID")
+    
+    url = "http://127.0.0.1:5000/book/<>"
+
+    headers = {
+            "Content-type": "application/json"
+    }
+
+    response = requests.delete(url, headers=headers, BookID=BookID)
+
+    print(response.text)
+
+    return render_template("delete.html")
+
+@site.route("/AdminGraph")
+def admin_graph():
+    
+    return render_template("graph.html")
+
 
 @site.route("/login", methods=['GET', 'POST'])
-@site.route("/index.html")
 def login():
     form = LoginForm()
     if form.validate_on_submit():
         flash('Login requested for user {}, remember_me={}'.format(
             form.username.data, form.remember.data))
         if form.username.data == 'jaqen' and form.remember.data == 'hghar':
-            return redirect('/dashboard')
+            return redirect('/index.html')
         else:
             return redirect('/login')
     return render_template('login.html', title='Sign In', form=form)
 
-@site.route("/dashboard")
-def dashboard():
-    return render_template('dashboard.html')
-
-
-@site.route("/add", methods=['POST'])
-def add():
-    api = admin_api()
-    title = request.form['Title']
-    author = request.form['Author']
-    date_published = request.form['Date_published']
-
-    data = {
-        "Title": title,
-        "Author": author, 
-        "PublishedDate": date_published
-    }
-
-    headers = {
-        "content-type": "application/json"
-    }
-
-    response = requests.post("http://127.0.0.1:5000/book", data= json.dumps(data), headers=headers)
-    data = json.loads(response.text)
-    
-    return render_template("dashboard.html", data=data, title=title, author=author, date_published=date_published)
-
-@site.route("/edit")
-def edit():
+@site.route("/AdminLogout")
+def logout_admin():
     pass
 
-@site.route("/remove")
-def remove():
-    pass
-
-@site.route("/logout")
-def logout():
-    return render_template("index.html")
-
-@site.route("/report")
-def report():
-    return render_template("report.html")
