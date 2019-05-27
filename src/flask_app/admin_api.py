@@ -67,7 +67,7 @@ def getBook(id):
 
     return bookSchema.jsonify(book)
 
-@api.route("/book", methods = ["POST"])
+@api.route("/book", methods=["POST"])
 def addBook():
     """
     provides an endpoint for the creation of a new book
@@ -78,7 +78,7 @@ def addBook():
     author = request.json["author"]
     publisheddate = request.json["publisheddate"]
 
-    newBook = Book(Title = title, Author = author, publisheddate = publisheddate)
+    newBook = Book(Title=title, Author=author, PublishedDate=publisheddate)
 
     db.session.add(newBook)
     db.session.commit()

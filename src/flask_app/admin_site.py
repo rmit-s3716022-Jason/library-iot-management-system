@@ -18,8 +18,8 @@ def index():
 
     return render_template("index.html", books=data)
 
-@site.route("/form", methods=['GET', 'POST'])
-def add_form():
+@site.route("/BookAdd", methods=['GET', 'POST'])
+def add_book():
 
     form = BookForm()
     if form.is_submitted():
@@ -31,23 +31,18 @@ def add_form():
         data = {
             "title": title,
             "author": author,
-            "publisheddate" : publisheddate
+            "publisheddate": publisheddate
         }
 
         headers = {
             "Content-type": "application/json"
         }
 
-        response = requests.post("http://127.0.0.1:5000/book", data = json.dumps(data), headers = headers)
-        data1 = json.loads(response.text)
+        response = requests.post("http://127.0.0.1:5000/book", data=json.dumps(data), headers=headers)
+        response_data = json.loads(response.text)
 
-        return render_template("book.html", result=result)
+        return render_template("book.html", result=response_data)
     return render_template("form.html", form=form)
-
-@site.route("/BookAdd", methods=['GET'])
-def add_book():
-
-    return render_template("add.html")
 
 @site.route("/BookEdit")
 def edit_book():
