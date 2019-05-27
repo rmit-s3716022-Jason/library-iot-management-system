@@ -68,7 +68,6 @@ class GoogleCloudDb():
         print('Book borrowed, please return by: ' + borrowing.ret_date)
     
     def is_borrowed(self, book_id):
-        self.connection
         query = "SELECT * FROM BookBorrowed WHERE BookID = %s AND Status = %s"
         val = (book_id, 'borrowed')
         self.cursor.execute(query, val)

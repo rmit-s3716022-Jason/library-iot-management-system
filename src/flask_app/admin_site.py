@@ -62,8 +62,5 @@ def remove():
 
 @site.route("/logout")
 def logout():
-    return render_template("index.html")
+    pass
 
-@site.route("/report")
-def report():
-    return render_template("report.html")

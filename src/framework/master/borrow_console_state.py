@@ -27,7 +27,16 @@ class BorrowConsoleState(ConsoleState):
                         if not self.utility.db.is_borrowed(result.book_id):
                             break
                         else:
-                            print("The book is unavailable, please select another book to borrow.")
+                            # If book is unavailable but user has more options to select from
+                            if len(self.utility.cur_results) > 1:
+                                print("The book is unavailable, please select another book to borrow.")
+                            # The book is unavailable, and no other options to choose from
+                            else:
+                                print('The book is unavailable, please search for another book and try again.') 
+                                self.utility.remove_result(result)
+                                self.no_search = True
+                                break;
+                    # Input not an ID from search results
                     else:
                         raise ValueError
                 except ValueError:
@@ -54,13 +63,16 @@ class BorrowConsoleState(ConsoleState):
             context.remove_result(requested_book)
             
             print("Title: " + requested_book.title + " BookID: " + str(requested_book.book_id) + " successfully borrowed.")
-            # If user wants to borrow another book
+            # Checks if user wants to borrow another book
             if not self.borrow_again():
                 return 'main'
+            else:
+                if context.cur_results:
+                    return 'borrow'
         else:
             self.no_search = False
         
-        # returns searching if no_search is True OR borrow_again() returned TRUE
+        # returns searching if no_search is True OR (borrow_again() returned TRUE AND cur_results is now empty)
         return 'searching'
     
     # Displays the results of the search

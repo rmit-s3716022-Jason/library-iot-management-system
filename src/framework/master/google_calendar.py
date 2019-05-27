@@ -3,6 +3,7 @@ from googleapiclient.discovery import build
 from oauth2client import client, file, tools
 from httplib2 import Http
 import datetime
+from googleapiclient.errors import HttpError
 
 class GoogleCalendar():
 
@@ -55,8 +56,10 @@ class GoogleCalendar():
     If successfully delete() returns a empty response body.
     '''
     def remove_event(self, e_id, c_id='primary'):
-        event = self.service.events().delete(calendarId=c_id,eventId=e_id).execute()
-        if not event:
+        try:
+            event = self.service.events().delete(calendarId=c_id,eventId=e_id).execute()
             print("Event deleted.")
-        else:
-            print("No such event.")
+            return True
+        except HttpError:
+            print("Error: event not found")
+            return False
