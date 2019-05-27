@@ -29,12 +29,6 @@ Home Page
 {% endblock %}
 
 {% block content %}
-<<<<<<< HEAD
-<ul class="nav navbar-nav">
-    <li class="active"><a href="#">Home</a></li>
-    <li><a href="{{ url_for('site.login') }}">Login</a></li>
-  </ul>
-=======
     <div class="container">
       <ul class="books">
         {%for book in books%}
@@ -42,5 +36,4 @@ Home Page
         {%endfor%}
       </ul>
     </div><!-- /.container -->
->>>>>>> fdaffa8f90a8329f4c4044b987b81ba40c7927be
 {% endblock %}
