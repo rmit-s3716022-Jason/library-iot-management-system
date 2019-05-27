@@ -16,13 +16,19 @@ Home Page
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="{{ url_for('site.index') }}">Home</a></li>
-            <li><a href="{{ url_for('site.login') }}">Login</a></li>
-            <li><a href="{{ url_for('site.add_book') }}">Create a book</a></li>
-            <li><a href="{{ url_for('site.edit_book') }}">Edit a book</a></li>
-            <li><a href="{{ url_for('site.delete_book') }}">Delete a book</a></li>
-            <li><a href="{{ url_for('site.admin_graph') }}">Report</a></li>
-            <li><a href="{{ url_for('site.logout_admin') }}">Logout from system</a></li>
           </ul>
+          <table border="1">
+              {% for key,value in result.items() %}
+              <tr>
+                  <th>
+                      {{key}}
+                  </th>
+                  <td>
+                      {{value}}
+                  </td>
+              </tr>
+              {% endfor %}
+          </table>
         </div>
       </div>
     </nav>
