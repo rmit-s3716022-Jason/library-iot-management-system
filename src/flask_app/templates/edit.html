@@ -14,14 +14,17 @@ Home Page
           <a class="navbar-brand" href="{{ url_for('site.index') }}">IOT ADMIN WEBSITE</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-          <iframe width="950" height="600" src="https://datastudio.google.com/embed/reporting/1Cki4tYYAePhD9Tuld6JWXL082iEftoCd/page/Qfkq" frameborder="0" style="border:0" allowfullscreen></iframe>
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="{{ url_for('site.index') }}">Home</a></li>
+            <li><a href="{{ url_for('site.edit_book') }}">Edit a book</a></li>
+          </ul>
+        
+
         </div>
       </div>
     </nav>
 
-    
     <div class="container">
 
     </div><!-- /.container -->
 {% endblock %}
-

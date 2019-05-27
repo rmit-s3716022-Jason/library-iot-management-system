@@ -128,5 +128,5 @@ def login():
 
 @site.route("/AdminLogout")
 def logout_admin():
-    pass
+    return render_template("index.html")
 
