@@ -1,6 +1,8 @@
 """
+sqlite_db_interface.py
+======================
 Contains the SQLite implementation of the db interface
-Code also used in IoT assignment 1
+Some code also used in group 65 IoT assignment 1
 """
 import sqlite3
 from .user import User

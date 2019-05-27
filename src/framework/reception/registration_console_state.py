@@ -1,9 +1,16 @@
+"""
+registration_console_state.py
+=============================
+"""
 import re
 from ..console_state import ConsoleState
 from .user import User
 
 
 class RegistrationConsoleState(ConsoleState):
+    """
+    Allows a user to register themselves
+    """
     def __init__(self):
         super().__init__('', '')
 
@@ -49,17 +56,19 @@ class RegistrationConsoleState(ConsoleState):
                          self.attributes[self.current] + ':')
         return ''
 
-    def write_user(self, db):
+    def write_user(self, database):
+        """Writes a new user to the DB"""
         user = User(username=self.values[0],
                     firstname=self.values[1],
                     lastname=self.values[2],
                     email=self.values[3],
                     password=self.values[4])
-        db.write_user(user)
+        database.write_user(user)
 
-    def validate(self, input_string, attribute, db):
+    def validate(self, input_string, attribute, database):
+        """Validates user input"""
         if attribute == 'Username':
-            if db.find_user(input_string) is not None:
+            if database.find_user(input_string) is not None:
                 print('Username already used')
                 return False
         elif attribute == 'Email':

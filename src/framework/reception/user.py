@@ -1,9 +1,19 @@
+"""
+user.py
+=======
+"""
+
 import hashlib
 import random
 import string
 
 
 class User:
+    """
+    The user data class
+
+    If given a non hashed password, hashes the password before storing
+    """
     def __init__(self, **kwargs):
         self.user_id = kwargs.get('user_id', 0)
         self.username = kwargs.get('username', '')
@@ -18,9 +28,11 @@ class User:
             self.password_hash = self.hash_password(kwargs['password'])
 
     def hash_password(self, password):
+        """Hashes a password"""
         return hashlib.sha256(
             (password + self.salt).encode()).hexdigest()
 
     def check_password(self, password):
+        """Checks a password against the stored hash"""
         hashed_password = self.hash_password(password)
         return hashed_password == self.password_hash

@@ -1,4 +1,18 @@
+"""
+master.py
+=========
+
+The master library pi CLI program.
+
+Allows the user to search for books, borrow books and return them.
+The book and borrowing data is stored in the cloud.
+
+Usage python3 master.py <reception_ip> <reception_port>
+
+"""
+
 import json
+import sys
 from framework.console import Console
 from framework.console_state import ConsoleState
 from framework.waiting_console_state import WaitingConsoleState
@@ -18,7 +32,18 @@ def logout(context):
     return 'waiting'
 
 class Master:
-    def __init__(self, ip, port):
+    """
+    The class that runs the master pi library code
+
+    Constructor
+
+    Params
+        :ip: IP address to listen on
+        :port: port to listen on
+        :reception_ip: reception pi IP address
+        :reception_port: the port that the reception pi is listening on
+    """
+    def __init__(self, ip, port, reception_ip, reception_port):
         db_interface = GoogleCloudDb()
         gc = GoogleCalendar()
         socket = UdpSocket(ip, port, True)
@@ -46,9 +71,9 @@ class Master:
         self.console.set_current_state('waiting')
 
     def run(self):
+        """Runs the main loop of the CLI program"""
         print("Master pi now running.")
         self.console.run()
-		
 
     def login(self, data):
         login_data = json.loads(data)
@@ -61,5 +86,9 @@ class Master:
 
 
 if __name__ == '__main__':
-    main = Master('127.0.0.1', 5000)
-    main.run()
+    if len(sys.argv) == 3:
+        main = Master('127.0.0.1', 5000, sys.argv[1], sys.argv[2])
+        main.run()
+
+    else:
+        print('Usage python3 master.py <reception_ip> <reception_port>')

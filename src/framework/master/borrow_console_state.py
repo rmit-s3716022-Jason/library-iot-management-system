@@ -1,14 +1,25 @@
+"""
+borrow_console_state.py
+=======================
+"""
+from datetime import datetime,time, timedelta
 from ..console_state import ConsoleState
 from .borrowing import Borrowing
-from datetime import datetime,time, timedelta
 import pytz
 # remove import later
 from .master_user import MasterUser          
 
 
 class BorrowConsoleState(ConsoleState):
+    """
+    Allows a user to borrow a book from the results of a book search
 
-    def __init__(self, display_text, utility, gc):
+    Constructor
+        :display_text: the text to display
+        :utility: the shared utility class
+        :google_calendar: a google calendar adapter
+    """
+    def __init__(self, display_text, utility, google_calendar):
         super().__init__(display_text, '')
         self.utility = utility
         self.gc = gc
@@ -109,13 +120,11 @@ class BorrowConsoleState(ConsoleState):
     def borrow_again(self): 
         while True:
             try:
-                response = input("Do you want to borrow another booK? (Y/N): ") 
+                response = input("Do you want to borrow another booK? (Y/N): ")
                 if response.lower() == "y":
                     return True
-                elif response.lower() == "n":
+                if response.lower() == "n":
                     return False
-                else:
-                    raise ValueError
+                raise ValueError
             except ValueError:
                 print("That's not a valid option, please try again.")
- 

@@ -1,10 +1,13 @@
 """
+facial_recog.py
+===============
+
 Acknowledgement
-Code was adapted from TutLab 9 01_capture.py, 02_encode.py, and 03_recognise.py
-which in turn was adapted from
-https://www.hackster.io/mjrobot/real-time-face-recognition-an-end-to-end-project-a10826
-and
-https://www.pyimagesearch.com/2018/06/18/face-recognition-with-opencv-python-and-deep-learning/
+    Code was adapted from TutLab 9 01_capture.py, 02_encode.py, and 03_recognise.py
+    which in turn was adapted from
+    https://www.hackster.io/mjrobot/real-time-face-recognition-an-end-to-end-project-a10826
+    and
+    https://www.pyimagesearch.com/2018/06/18/face-recognition-with-opencv-python-and-deep-learning/
 """
 import time
 import os
@@ -17,11 +20,15 @@ import face_recognition
 
 
 class FacialRecog():
+    """
+    Handles taking pictures, encoding them and recognising known people
+    """
     def __init__(self):
         self.face_detector = cv2.CascadeClassifier(
             './framework/reception/haarcascade_frontalface_default.xml')
 
     def capture_photo(self, username):
+        """Captures a photo"""
         folder = './dataset/{}'.format(username)
         if not os.path.exists(folder):
             os.makedirs(folder)
@@ -60,6 +67,7 @@ class FacialRecog():
         cam.release()
 
     def encode(self):
+        """Encodes the dataset into a pickled dataset"""
         image_paths = list(paths.list_images('dataset'))
 
         # initialize the list of known encodings and known names
@@ -101,8 +109,16 @@ class FacialRecog():
             file.write(pickle.dumps(data))
 
     def facial_recog_login(self, state, login):
+        """
+        Constantly searches for a known face
+
+        Params
+            :state: the state object that stores whether there is a user logged in
+            :login: the callback to log a user in if detected
+        """
+
         # load the known faces and embeddings
-        print('[INFO] loading encodings...')
+        # print('[INFO] loading encodings...')
 
         while not os.path.isfile('encodings.pickle'):
             time.sleep(3.0)

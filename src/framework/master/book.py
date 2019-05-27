@@ -1,10 +1,14 @@
+"""
+book.py
+=======
+"""
+
+
 class Book:
     """
     This class will be used to contain the parameters of a book
-    """
 
-    def __init__(self, book_id, title, author, published_date):
-        """
+    Constructor
         Creates the variables associated with this class
 
         :type book_id: int
@@ -18,8 +22,9 @@ class Book:
 
         :type published_date: string
         :param published_date: date book was published
-        """
+    """
 
+    def __init__(self, book_id, title, author, published_date):
         self.book_id = book_id
         self.title = title
         self.author = author
