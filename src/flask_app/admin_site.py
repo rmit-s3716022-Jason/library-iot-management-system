@@ -94,19 +94,13 @@ def edit_book(id):
 @site.route("/BookDelete/<int:id>", methods=['GET'])
 def delete_book(id):
 
-    BookID = request.form("BookID")
-    
-    url = "http://127.0.0.1:5000/book/<>"
+    url = "http://127.0.0.1:5000/book/{}".format(id)
 
-    headers = {
-            "Content-type": "application/json"
-    }
-
-    response = requests.delete(url, headers=headers, BookID=BookID)
+    response = requests.delete(url)
 
     print(response.text)
 
-    return render_template("delete.html")
+    return redirect('/')
 
 @site.route("/AdminGraph")
 def admin_graph():
