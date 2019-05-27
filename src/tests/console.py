@@ -7,7 +7,7 @@ This class provides the engine for the CLI programs
 It runs the display->input loop and switches states when told to by the console
 states that have been added to it
 """
-
+from mock_state import MockState
 
 class Console:
     """
