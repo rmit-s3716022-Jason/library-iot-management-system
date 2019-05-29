@@ -70,4 +70,4 @@ class LoginConsoleState(ConsoleState):
         data['user_id'] = self.user.user_id
         context.state.login()
         context.socket.send_message(
-            'login', json.dumps(data), master_ip, master_port)
+            'login', json.dumps(data), self.master_ip, self.master_port)
