@@ -37,7 +37,7 @@ class LoginConsoleState(ConsoleState):
                 return "main"
             return ""
 
-        if(self.current == 1):
+        if(self.current == 2):
             self.values.append(input_string)
             self.current += 1
 

@@ -119,7 +119,7 @@ class Reception:
 
 if __name__ == '__main__':
     if len(sys.argv) == 3:
-        main = Reception('127.0.0.1', 6000, sys.argv[1], sys.argv[2])
+        main = Reception('127.0.0.1', 6000, '10.132.113.27', 5500)
         main.run()
     else:
         print('Usage python3 reception.py <master_ip> <master_port>')
