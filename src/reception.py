@@ -50,7 +50,7 @@ class Reception:
         self.console = Console(self.utility)
         self.utility.state = State()
         self.master_ip = master_ip
-        self.master_port = master_port
+        self.master_port = int(master_port)
 
         main_menu = ConsoleState("""
             1. Login
