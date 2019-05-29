@@ -19,7 +19,7 @@ class BorrowConsoleState(ConsoleState):
         :utility: the shared utility class
         :google_calendar: a google calendar adapter
     """
-    def __init__(self, display_text, utility, google_calendar):
+    def __init__(self, display_text, utility, gc):
         super().__init__(display_text, '')
         self.utility = utility
         self.gc = gc
