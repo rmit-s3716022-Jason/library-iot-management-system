@@ -44,6 +44,7 @@ class UdpSocket:
         """
         message_dict = {'type': message_type, 'data': data}
         message = json.dumps(message_dict)
+        print ((ip_address, port))
         self.socket.sendto(message.encode(), (ip_address, port))
 
     def wait_for_message(self):
