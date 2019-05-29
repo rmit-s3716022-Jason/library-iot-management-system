@@ -38,14 +38,8 @@ class LoginConsoleState(ConsoleState):
             return ""
 
         if(self.current == 2):
-            self.values.append(input_string)
-            self.current += 1
+            if self.user and self.user.check_password(input_string):
 
-            db = SqliteDbInterface()
-
-            user = db.find_user(self.values[0])
-            if (user.check_password(self.values[1])): 
-                
                 print("You are logged in!")
                 self.login(context)
                 self.reset()
