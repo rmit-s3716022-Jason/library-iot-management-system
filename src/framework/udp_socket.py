@@ -23,8 +23,7 @@ class UdpSocket:
         self.address = (ip, port)
         self.handlers = {}
 
-        self.socket = socket.socket(family=socket.AF_INET,
-                                    type=socket.SOCK_DGRAM)
+        self.socket = socket.socket(family=socket.AF_INET,type=socket.SOCK_DGRAM)
 
         if is_server:
             self.socket.bind(self.address)
@@ -42,10 +41,13 @@ class UdpSocket:
             :ip_address: the ip_address to send to
             :port: the port to send to
         """
+        sending_socket = socket.socket(
+            family=socket.AF_INET, type=socket.SOCK_DGRAM)
         message_dict = {'type': message_type, 'data': data}
         message = json.dumps(message_dict)
-        print ((ip_address, port))
-        self.socket.sendto(message.encode(), (ip_address, port))
+
+        sending_socket.sendto(message.encode(), (ip_address, port))
+        sending_socket.close()
 
     def wait_for_message(self):
         """

@@ -26,11 +26,6 @@ from framework.master.return_console_state import ReturnConsoleState
 from framework.master.master_user import MasterUser
 
 
-def logout(context):
-    # send logout message
-    context.socket.send_message('logout', '{}', '127.0.0.1', 6000)
-    return 'waiting'
-
 class Master:
     """
     The class that runs the master pi library code
@@ -51,6 +46,9 @@ class Master:
         self.utility = Utility(db_interface, socket)
         self.console = Console(self.utility)
 
+        self.reception_ip = reception_ip
+        self.reception_port = reception_port
+
         waiting_state = WaitingConsoleState('Waiting for login')
         searching_state = SearchConsoleState('Searching for book')
         borrowing_state = BorrowConsoleState('Borrowing a book', self.utility, gc)
@@ -61,7 +59,7 @@ class Master:
         main_menu.add_handler("1", lambda x: 'searching')
         main_menu.add_handler("2", lambda x: 'borrow')
         main_menu.add_handler("3", lambda x: 'return')
-        main_menu.add_handler("4", logout)
+        main_menu.add_handler("4", self.logout)
 
         self.console.add_state('waiting', waiting_state)
         self.console.add_state('main', main_menu)
@@ -84,11 +82,17 @@ class Master:
         
         self.console.set_current_state('main')
 
+    def logout(self, context):
+        # send logout message
+        context.socket.send_message(
+            'logout', '{}', self.reception_ip, self.reception_port)
+        return 'waiting'
+
 
 if __name__ == '__main__':
-    if len(sys.argv) == 3:
-        main = Master('127.0.0.1', 5000, sys.argv[1], sys.argv[2])
+    if len(sys.argv) == 5:
+        main = Master(sys.argv[1], int(sys.argv[2]), sys.argv[3], int(sys.argv[4]))
         main.run()
 
     else:
-        print('Usage python3 master.py <reception_ip> <reception_port>')
+        print('Usage python3 master.py <local_ip> <local_port> <reception_ip> <reception_port>')
