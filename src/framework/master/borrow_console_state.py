@@ -22,7 +22,7 @@ class BorrowConsoleState(ConsoleState):
     def __init__(self, display_text, utility, google_calendar):
         super().__init__(display_text, '')
         self.utility = utility
-        self.gc = gc
+        self.gc = google_calendar
         self.no_search = False
 
     def input(self):
